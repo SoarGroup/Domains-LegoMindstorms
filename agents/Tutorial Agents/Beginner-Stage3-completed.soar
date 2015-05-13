@@ -17,19 +17,19 @@ source Stage2-completed.soar
 
 # Copy the left and right motor sensor values from the input-link
 sp {Stage3*elaborate*motor-sensor-values
-	(state <s> ^name line-follower
-						 ^right-motor-port <right-port>
-						 ^left-motor-port <left-port>
-						 ^io.input-link <il>)
-	(<il> ^motor <left>
-				^motor <right>)
-	(<left> ^port <left-port>
-					^amount-rotated <left-val>)
-	(<right> ^port <right-port>
-					 ^amount-rotated <right-val>)
+	(state <s>	^name line-follower
+				^right-motor-port <right-port>
+				^left-motor-port <left-port>
+				^io.input-link <il>)
+	(<il>	^motor <left>
+			^motor <right>)
+	(<left>	^port <left-port>
+			^amount-rotated <left-val>)
+	(<right>	^port <right-port>
+				^amount-rotated <right-val>)
 -->
-	(<s> ^left-motor-sensor-value <left-val>
-			 ^right-motor-sensor-value <right-val>)
+	(<s>	^left-motor-sensor-value <left-val>
+			^right-motor-sensor-value <right-val>)
 }
 
 ###################################################
@@ -42,8 +42,8 @@ sp {Stage3*elaborate*motor-sensor-values
 #   over the follow-line operator
 sp {Stage3*prefer*180*operators*over*follow-line
 	(state <s> ^name line-follower
-						 ^operator <o1> +
-						 ^operator <o2> +)
+			   ^operator <o1> +
+			   ^operator <o2> +)
 	(<o1> ^name << record-red turn-180 record-turn-complete move-forward clear-flags >>)
 	(<o2> ^name follow-line)
 -->
@@ -59,8 +59,8 @@ sp {Stage3*prefer*180*operators*over*follow-line
 
 sp {Stage3*propose*record-red
 	(state <s> ^name line-follower
-						 ^color-sensor-values <values>
-						 -^detected-red)
+			   ^color-sensor-values <values>
+			  -^detected-red)
 	(<values>	^left red
 				^right red)
 -->
@@ -70,8 +70,7 @@ sp {Stage3*propose*record-red
 }
 
 sp {Stage3*apply*record-red
-	(state <s> ^name line-follower
-						 ^operator.name record-red)
+	(state <s> ^operator.name record-red)
 -->
 	(<s> ^detected-red true)
 }
@@ -132,9 +131,9 @@ sp {Stage3*apply*turn-180*record*180-right-motor-sensor-value
 #   Then propose record-turn-complete
 sp {Stage3*propose*record-turn-complete
 	(state <s> ^name line-follower
-						 ^180-right-motor-sensor-value <desired-val>
-						 ^right-motor-sensor-value <= <desired-val>
-						 -^turn-complete)
+				^180-right-motor-sensor-value <desired-val>
+				^right-motor-sensor-value <= <desired-val>
+				-^turn-complete)
 -->
 	(<s> ^operator <o> + >)
 	(<o> ^name record-turn-complete)

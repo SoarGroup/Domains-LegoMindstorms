@@ -30,7 +30,7 @@ sp {Stage1*propose*move-forward
 	#	name
 	#	mode
 	#	color-forward
-	#	color-sensor-value
+	#	color-sensor-values
 -->
 	# Create the operator here
 }
@@ -80,7 +80,7 @@ sp {Stage1*propose*move-left
 	#	name
 	#	mode
 	#	color-turn
-	#	color-sensor-value
+	#	color-sensor-values
 -->
 	# Create the operator here
 }
@@ -118,7 +118,7 @@ sp {Stage1*propose*move-right
 	#	name
 	#	mode
 	#	color-turn
-	#	color-sensor-value
+	#	color-sensor-values
 -->
 	# Create the operator here
 }

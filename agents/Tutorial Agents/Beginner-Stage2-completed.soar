@@ -35,8 +35,8 @@ sp {Stage2*elaboration*copy-substate-structures
 	(state <s>	^name follow-line
 				^superstate <ss>)
 	(<ss>	^name line-follower
-				^io <io>
-				^color-sensor-values <color>
+			^io <io>
+			^color-sensor-values <color>
 			^left-motor-port <lmp>
 			^right-motor-port <rmp>
 			^color-turn <ct>
@@ -59,9 +59,6 @@ sp {Stage2*elaboration*copy-substate-structures
 # 2) The operator proposals no longer test for the
 #    ^mode follow attribute as the entire substate
 #    will only exist if the mode is follow.
-# 3) The apply rules grab the io link from the
-#    superstate as substates do not contain the io
-#    link.
 
 ###################################################
 #	move-forward operator
