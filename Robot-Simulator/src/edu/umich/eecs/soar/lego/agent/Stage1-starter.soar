@@ -1,0 +1,25 @@
+source ../Common-Include/Common-Include_source.soar
+
+source Common-Advanced/Common-Advanced_source.soar
+source Common-Advanced-Stage1.soar
+
+####################################################
+#	select-direction operator
+#
+#	Proposed when we reach a junction and have not
+#	yet selected a direction to go in
+####################################################
+
+####################################################
+#	apply*select-direction
+#
+#	Creates the ^selected-direction flag on the top
+#	state with the direction to go in.
+####################################################
+
+####################################################
+#	prefer*right*color preference
+#
+#	Creates a best preference on the proposed
+#	operator which has the direction for this color.
+####################################################

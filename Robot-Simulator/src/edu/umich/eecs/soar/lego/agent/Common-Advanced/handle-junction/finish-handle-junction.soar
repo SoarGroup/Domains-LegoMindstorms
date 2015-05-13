@@ -1,0 +1,80 @@
+
+sp {propose*clean-up-handle-junction
+	(state <s>	^name line-follower
+				^moved-off-junction)
+-->
+	(<s>	^operator <o> + >)
+	(<o>	^name clean-up-handle-junction
+			^action stop)
+}
+
+sp {apply*clean-up-handle-junction*selected-direction
+	(state <s>	^operator.name clean-up-handle-junction
+				^selected-direction <v>)
+-->
+	(<s>	^selected-direction <v> -)
+}
+
+sp {apply*clean-up-handle-junction*has-centered
+	(state <s>	^operator.name clean-up-handle-junction
+				^has-centered <v>)
+-->
+	(<s>	^has-centered <v> -)
+}
+
+sp {apply*clean-up-handle-junction*mark45
+	(state <s>	^operator.name clean-up-handle-junction
+				^mark45 <v>)
+-->
+	(<s>	^mark45 <v> -)
+}
+
+sp {apply*clean-up-handle-junction*mark90
+	(state <s>	^operator.name clean-up-handle-junction
+				^mark90 <v>)
+-->
+	(<s>	^mark90 <v> -)
+}
+
+sp {apply*clean-up-handle-junction*mark135
+	(state <s>	^operator.name clean-up-handle-junction
+				^mark135 <v>)
+-->
+	(<s>	^mark135 <v> -)
+}
+
+sp {apply*clean-up-handle-junction*turned
+	(state <s>	^operator.name clean-up-handle-junction
+				^turned <v>)
+-->
+	(<s>	^turned <v> -)
+}
+
+sp {apply*clean-up-handle-junction*moved-off-junction-almost
+	(state <s>	^operator.name clean-up-handle-junction
+				^moved-off-junction-almost <v>)
+-->
+	(<s>	^moved-off-junction-almost <v> -)
+}
+
+sp {apply*clean-up-handle-junction*moved-off-junction
+	(state <s>	^operator.name clean-up-handle-junction
+				^moved-off-junction <v>)
+-->
+	(<s>	^moved-off-junction <v> -)
+}
+
+sp {apply*clean-up-handle-junction*previous-junction-color
+	(state <s>	^operator.name clean-up-handle-junction
+				^previous-junction-color <c>
+				^using-epmem true)
+-->
+	(<s>	^previous-junction-color <c> -)
+}
+
+sp {apply*clean-up-handle-junction*failed
+	(state <s>	^operator.name clean-up-handle-junction
+				^failed <f>)
+-->
+	(<s>	^failed <f> -)
+}

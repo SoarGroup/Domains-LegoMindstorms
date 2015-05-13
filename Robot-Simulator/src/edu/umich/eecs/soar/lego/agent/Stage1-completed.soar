@@ -1,0 +1,59 @@
+source Common-Include/Common-Include_source.soar
+
+source Common-Advanced/Common-Advanced_source.soar
+source Common-Advanced-Stage1.soar
+
+####################################################
+#	select-direction operator
+#
+#	Proposed when we reach a junction and have not
+#	yet selected a direction to go in
+####################################################
+
+sp {Stage1*propose*select-direction
+   (state <s> ^name line-follower
+              ^color-type junction
+             -^selected-direction
+              ^direction <dir>)
+-->
+   (<s> ^operator <o> + =)
+   (<o> ^name select-direction
+        ^direction <dir>
+		^action stop)
+}
+
+####################################################
+#	apply*select-direction
+#
+#	Creates the ^selected-direction flag on the top
+#	state with the direction to go in.
+####################################################
+
+sp {Stage1*apply*select-direction
+   (state <s> ^name line-follower
+              ^operator <o>)
+   (<o> ^name select-direction
+        ^direction <dir>)
+-->
+   (<s> ^selected-direction <dir>)
+}
+
+####################################################
+#	prefer*right*color preference
+#
+#	Creates a best preference on the proposed
+#	operator which has the direction for this color.
+####################################################
+
+sp {Stage1*prefer*right*color
+	(state <s> ^name line-follower
+              ^operator <o> +
+              ^color-sensor-values <csv>
+              ^color-map.<color> <dir>)
+	(<csv>	^left <color>
+			^right <color>)
+	(<o> ^name select-direction
+        ^direction <dir>)
+-->
+   (<s> ^operator <o> + >)
+}

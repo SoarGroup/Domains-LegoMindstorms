@@ -1,0 +1,21 @@
+sp {Common-Advanced*apply*Init-Agent*set*current-direction
+   (state <s> ^operator.name init-agent)
+-->
+   (<s> ^current-direction north)
+}
+
+sp {Common-Advanced*apply*Init-Agent*create*color-map
+   (state <s> ^operator.name init-agent)
+-->
+   (<s> ^color-map <map>)
+}
+
+smem --set learning on
+
+smem --add {
+(<s>	^color-map <map>)
+(<map>	^red south
+        ^green east
+        ^blue north
+		^brown west)
+}
