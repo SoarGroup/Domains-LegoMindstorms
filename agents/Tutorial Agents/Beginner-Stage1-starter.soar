@@ -3,7 +3,7 @@
 # These are provided for you.
 ###################################################
 
-source ../Common-Include/Common-Include_source.soar
+source Common-Include/Common-Include_source.soar
 
 ###################################################
 # This file contains the following operators:
@@ -71,7 +71,7 @@ sp {Stage1*apply*move-forward
 # move-forward operator except for three changes.
 # 1) The operator has been renamed to move-left
 # 2) The color-forward test in the proposal has been
-#    changed to color-left
+#    changed to color-turn
 # 3) The direction for the left motor has been changed
 #    to forward instead of backward.
 
@@ -79,7 +79,7 @@ sp {Stage1*propose*move-left
 	# Conditions to test for:
 	#	name
 	#	mode
-	#	color-left
+	#	color-turn
 	#	color-sensor-value
 -->
 	# Create the operator here
@@ -109,7 +109,7 @@ sp {Stage1*apply*move-left
 # move-forward operator except for three changes.
 # 1) The operator has been renamed to move-right
 # 2) The color-forward test in the proposal has been
-#    changed to color-right
+#    changed to color-turn
 # 3) The direction for the right motor has been changed
 #    to forward instead of backward.
 
@@ -117,7 +117,7 @@ sp {Stage1*propose*move-right
 	# Conditions to test for:
 	#	name
 	#	mode
-	#	color-right
+	#	color-turn
 	#	color-sensor-value
 -->
 	# Create the operator here
