@@ -1,6 +1,6 @@
 ## Soar Lego Mindstorms
 
-Welcome to the Soar Lego Mindstorms repository! This repository contains code to run Soar on Lego Mindstorms EV3 robots.  It also includes a simulator for the normal robot we use (treads, two color sensors, and a touch sensor).
+Welcome to the Soar Lego Mindstorms repository! This repository contains code to run Soar on Lego Mindstorms EV3 robots.  It also includes a simulator for the normal robot we use (treads, two color sensors, and a touch sensor).  A copy of the tutorial using this repository can be found [here](https://docs.google.com/document/d/1o9cWNXP0AgLJzQmlCPAdEuyOAd7NEor-ECX9C724lwE/).
 
 # Directory Structure
 
@@ -36,7 +36,6 @@ To use the robot simulator, you need to complete the following steps:
 ## API Reference
 
 Link to API reference including interface
-
 
 ## Contributors
 
