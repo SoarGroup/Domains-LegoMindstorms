@@ -12,7 +12,6 @@ int main(int argc, char** argv){
 		return 0;
 	}
 
-
 	Ev3LcmCommunicator comm(argv[1]);
 	Ev3Manager manager;
 	comm.assignManager(&manager);

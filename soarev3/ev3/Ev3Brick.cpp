@@ -45,6 +45,7 @@ Ev3Brick::~Ev3Brick() {
 
 void Ev3Brick::handleCommand(Ev3Command* command){
 	int commandType = command->params[0];
+  //cout << "Brick Got command: " << commandType << endl;
 	if(commandType == BRICK_COMMAND_SET_LED){
 		char cmd[2] = {0, 0};
 		cmd[0] = '0' + command->params[1];	// LED Pattern, need to add '0' offset for some reason

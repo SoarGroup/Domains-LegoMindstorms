@@ -38,6 +38,11 @@ public:
 
 	void sendSoarMessage();
 	void handleOutput(std::string attName, sml::WMElement* wme);
+
+  bool isAlive(){
+    return alive;
+  }
+
 private:
 	void initAgent(const char* agentSource);
 	void readSensorsStatus(IntBuffer& status);
@@ -55,6 +60,8 @@ private:
 	Brick* brick;
 	Motor* motors[4];
 	SoarDevice* inputs[4];
+
+  bool alive;
 
 	// Soar agent variables
 	sml::Kernel* kernel;

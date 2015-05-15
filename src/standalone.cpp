@@ -1,4 +1,6 @@
 #include <iostream>
+#include <fstream>
+#include <string>
 
 #include "comm/DirectCommunication.h"
 #include "ev3/Ev3Manager.h"
@@ -7,20 +9,35 @@
 using namespace std;
 
 int main(int argc, char** argv){
-	if(argc < 2){
-		cout << "No soar file specified" << endl;
-		return 0;
-	}
+  ofstream fout;
+  fout.open("/media/card/log");
+
+  ifstream fin;
+  fin.open("/media/card/config");
+
+  int channel = 1;
+  string agent_source = "";
+
+  string arg_name;
+  while(fin >> arg_name){
+    if (arg_name == "source"){
+      fin >> agent_source;
+      fout << "Agent Source = " << agent_source << endl;
+    }
+  }
 
 	DirectCommunicator comm;
 	Ev3Manager em;
-SoarManager sm((SoarCommunicator*)&comm, argv[1], false);
+SoarManager sm((SoarCommunicator*)&comm, agent_source, false);
 	comm.assignManagers(&sm, &em);
 	comm.start();
 
-	while(true){
+	while(sm.isAlive()){
 		sm.step();
 	}
+
+  fin.close();
+  fout.close();
 
 	return 0;
 }

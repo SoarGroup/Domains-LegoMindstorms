@@ -1,7 +1,7 @@
 PROGRAM=../lib/arm/liblcmlite.a
 SOURCES=lcmlite.c LcmliteWrapper.cpp
 OBJECTS=lcmlite.o LcmliteWrapper.o
-TOOLPREFIX=arm-none-linux-gnueabi-
+TOOLPREFIX=arm-linux-gnueabi-
 
 CC=$(TOOLPREFIX)g++
 

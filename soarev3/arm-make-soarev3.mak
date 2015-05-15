@@ -2,7 +2,7 @@ PROGRAM=../lib/arm/libsoarev3.a
 SOURCES=$(shell cat soarev3.cxx)
 OBJECTS=$(SOURCES:.cpp=.o)
 
-TOOLPREFIX=arm-none-linux-gnueabi-
+TOOLPREFIX=arm-linux-gnueabi-
 CC=$(TOOLPREFIX)g++
 
 INCLUDEPATH=-I$(EV3)/soarev3 -I$(EV3)/lcmlite -I$(EV3)/include -I$(SOAR_HOME)/include #-I$(ARM_GCC)/arm-none-linux-gnueabi/include 

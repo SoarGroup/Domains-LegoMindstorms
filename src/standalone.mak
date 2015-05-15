@@ -6,7 +6,7 @@ LIBRARYPATH=-L$(ARM_GCC)/arm-none-linux-gnueabi/libc/lib -L$(EV3)/lib/arm
 
 LIBRARIES=-lsoarev3 -lSoar -llcmlite -lrt -ldl -lpthread
 
-TOOLPREFIX=arm-none-linux-gnueabi-
+TOOLPREFIX=arm-linux-gnueabi-
 CC=$(TOOLPREFIX)g++
 
 FLAGS=-Wl,-rpath,/media/card/lib

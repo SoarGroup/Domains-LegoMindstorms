@@ -40,6 +40,8 @@ Ev3LcmCommunicator::Ev3LcmCommunicator(const char* channel)
 	// Channel to listen to
 	snprintf(inChannel, 8, "S2L%s", channel);
 
+  cout << "Listening on " << inChannel << endl;
+
 	wrapper.init();
 	wrapper.subscribe(inChannel, lcmHandler, (void*)this);
 

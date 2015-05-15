@@ -23,7 +23,7 @@ using namespace std;
 using namespace sml;
 
 SoarManager::SoarManager(SoarCommunicator* comm, std::string agentSource, bool debugger)
-:comm(comm), timeStep(1){
+:comm(comm), timeStep(1), alive(true){
 	kernel = Kernel::CreateKernelInNewThread();
 	agent = kernel->CreateAgent("Ev3 Agent");
 
@@ -238,6 +238,11 @@ void SoarManager::handleOutput(string attName, WMElement* wme){
 
 bool SoarManager::readSoarCommand(Identifier* id){
 	Identifier* childId;
+
+  std::string childStr;
+  if(WMUtil::getValue(id, "stop", childStr)){
+    alive = false;
+  }
 
 	if(WMUtil::getValue(id, "create-sensor", childId)){
 		if(!handleCreateSensorCommand(childId)){
