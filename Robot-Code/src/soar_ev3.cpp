@@ -1,4 +1,7 @@
 #include <iostream>
+#include <string>
+
+#include <unistd.h>
 
 #include "comm/SoarCommunication.h"
 #include "soar/SoarManager.h"
@@ -16,7 +19,20 @@ int main(int argc, char** argv){
 	}
 
 	SoarLcmCommunicator comm(argv[1]);
-	SoarManager manager(&comm, argv[2], true);
+	
+	string filepath = argv[2];
+	string parentPath = filepath.substr(0, filepath.find_last_of("/\\"));
+	string filename = filepath.substr(filepath.find_last_of("/\\")+1, -1);
+	
+	if (parentPath.size() == 0)
+	{
+		parentPath = filepath.substr(0, filepath.find_last_of("/"));
+		filename = filepath.substr(filepath.find_last_of("/")+1, -1);
+	}
+	
+	chdir(parentPath.c_str());
+	
+	SoarManager manager(&comm, filename.c_str(), true);
 	comm.assignManager(&manager);
 	comm.start();
 

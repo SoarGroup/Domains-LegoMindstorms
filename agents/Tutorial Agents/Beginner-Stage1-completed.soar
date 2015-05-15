@@ -29,7 +29,7 @@ sp {Stage1*propose*move-forward
 	(state <s>	^name line-follower
 				^mode follow
 				^color-forward <value>
-				^color-sensor-values <values>
+				^color-sensor-values <values>)
 	(<values>	^left <value>
 				^right <value>)
 -->
@@ -81,7 +81,7 @@ sp {Stage1*propose*move-left
 	(state <s>	^name line-follower
 				^mode follow
 				^color-turn <value>
-				^color-sensor-values <values>
+				^color-sensor-values <values>)
 	(<values>	^left <value>
 				^right <color> <> <value>)
 -->
@@ -120,7 +120,7 @@ sp {Stage1*propose*move-right
 	(state <s>	^name line-follower
 				^mode follow
 				^color-turn <value>
-				^color-sensor-values <values>
+				^color-sensor-values <values>)
 	(<values>	^left <color> <> <value>
 				^right <value>)
 -->

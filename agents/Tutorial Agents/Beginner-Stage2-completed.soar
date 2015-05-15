@@ -70,7 +70,7 @@ sp {Stage2*elaboration*copy-substate-structures
 sp {Stage2*propose*move-forward
 	(state <s>	^name follow-line
 				^color-forward <value>
-				^color-sensor-values <values>
+				^color-sensor-values <values>)
 	(<values>	^left <value>
 				^right <value>)
 -->
@@ -113,7 +113,7 @@ sp {Stage2*apply*move-forward
 sp {Stage2*propose*move-left
 	(state <s>	^name follow-line
 				^color-turn <value>
-				^color-sensor-values <values>
+				^color-sensor-values <values>)
 	(<values>	^left <value>
 				^right <color> <> <value>)
 -->
@@ -151,7 +151,7 @@ sp {Stage2*apply*move-left
 sp {Stage2*propose*move-right
 	(state <s>	^name follow-line
 				^color-turn <value>
-				^color-sensor-values <values>
+				^color-sensor-values <values>)
 	(<values>	^left <color> <> <value>
 				^right <value>)
 -->

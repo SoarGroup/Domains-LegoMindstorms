@@ -7,7 +7,7 @@
 #   clear-flags
 ###################################################
 
-source Stage2-completed.soar
+source Beginner-Stage2-completed.soar
 
 ###################################################
 #
@@ -159,7 +159,7 @@ sp {Stage3*apply*record-turn-complete
 sp {Stage3*propose*move-forward
 	(state <s> ^name line-follower
 						 ^turn-complete true
-						 ^color-sensor-values <values>
+						 ^color-sensor-values <values>)
 	(<values>	^left red
 				^right red)
 -->
