@@ -1,0 +1,23 @@
+
+sp {handle-junctions*propose*turn*forward
+	(state <s>	^name handle-junction
+				^superstate <ss>
+				^relative-direction forward)
+	(<ss>	^has-centered
+			-^turned)
+-->
+	(<s>	^operator.name turn)
+}
+
+sp {handle-junction*apply*turn*forward*rentrant-support
+	(state <s>	^name handle-junction
+				^operator.name turn
+				^relative-direction forward
+				^superstate <ss>)
+	(<ss>		^operator.name handle-junction
+				^has-centered
+				-^moving-to-turned)
+-->
+	(<ss>	^moving-to-turned true
+			^moved-off-junction-almost true)
+}

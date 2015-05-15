@@ -1,0 +1,62 @@
+source Stage1-completed.soar
+
+source Common-Advanced-Stage2.soar
+
+sp {Stage2*propose*query-for-direction
+   (state <s> ^name line-follower
+              ^color-type junction
+			 -^smem.command.query <q>
+              ^color-sensor-values <csv>
+			 -^color-map.<color>)
+	(<csv>	^left <color> <> black
+			^right <color>)
+-->
+   (<s> ^operator <o> + >)
+   (<o> ^name query-for-direction
+        ^direction-color <color>
+		^action stop)
+}
+
+sp {Stage2*apply*query-for-direction
+   (state <s> ^name line-follower
+              ^operator <o>
+			  ^smem.command <command>)
+   (<o> ^name query-for-direction
+        ^direction-color <color>)
+-->
+   (<command>	^query <q>)
+   (<q>	^<color> <direction>)
+}
+
+sp {Stage2*propose*add-to-color-map
+	(state <s>	^name line-follower
+				^smem.result <result>)
+	(<result>	^retrieved <r>
+				^success <q>)
+	(<q>	^<color> <unused>)
+	(<r>	^<color> <direction>)
+-->
+	(<s>	^operator <o> + >)
+	(<o>	^name add-to-color-map
+			^color <color>
+			^direction <direction>)
+}
+
+sp {Stage2*apply*add-to-color-map
+	(state <s>	^operator <o>
+				^color-map <map>)
+	(<o>	^name add-to-color-map
+			^color <color>
+			^direction <direction>)
+-->
+	(<map>	^<color> <direction>)
+}
+
+sp {Stage2*apply*add-to-color-map*clean-up-smem
+	(state <s>	^operator <o>
+				^smem.command <command>)
+	(<o>	^name add-to-color-map)
+	(<command>	^query <q>)
+-->
+	(<command>	^query <q> -)
+}

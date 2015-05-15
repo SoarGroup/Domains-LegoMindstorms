@@ -1,0 +1,35 @@
+sp {navigation*elaborate*color-type*path
+	(state <s> ^name line-follower
+				 ^color-sensor-values <vals>)
+	(<vals> ^left << black white >>
+			^right << black white >>)
+-->
+	(<s> ^color-type path)
+}
+
+sp {navigation*elaborate*color-type*junction
+	(state <s> ^name line-follower
+			   ^color-sensor-values <vals>)
+	(<vals> ^left { <color> << red yellow green blue brown black >>}
+			^right <color>)
+-->
+	(<s> ^color-type junction)
+}
+
+sp {navigation*monitor*color*junction
+	(state <s> ^name line-follower
+			   ^color-sensor-values <vals>)
+	(<vals> ^left { <color> << red yellow green blue brown black >>}
+			^right <color>)
+-->
+	(write |Junction Color | <color> (crlf))
+}
+
+sp {navigation*monitor*color*follow
+	(state <s>	^name line-follower
+				^color-sensor-values <vals>)
+	(<vals> ^left { <color1> << black white >> }
+			^right { <color2> << black white >> })
+-->
+	(write |Follow Colors: Left (| <color1> |), Right (| <color2> |)| (crlf))
+}

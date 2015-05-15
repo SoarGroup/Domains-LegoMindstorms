@@ -1,0 +1,23 @@
+
+sp {handle-junctions*propose*turn-180
+	(state <s>	^name handle-junction
+				^superstate <ss>
+				^relative-direction backward)
+	(<ss>	^mark135
+			-^turned)
+-->
+	(<s>	^operator.name turn)
+}
+
+sp {handle-junction*apply*turn-180*rentrant-support
+	(state <s>	^name handle-junction
+				^operator.name turn
+				^relative-direction backward
+				^superstate <ss>)
+	(<ss>		^operator.name handle-junction
+				^mark135
+				-^moving-to-turned
+				-^turned)
+-->
+	(<ss>	^moving-to-turned true)
+}

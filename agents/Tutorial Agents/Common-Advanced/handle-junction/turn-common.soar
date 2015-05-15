@@ -1,0 +1,74 @@
+
+sp {handle-junction*apply*turn*has-turned
+	(state <s>	^operator.name init-handle-junction
+				^superstate <ss>)
+	(<ss>	^operator.name handle-junction
+			^moving-to-turned <mtt>
+			-^turned)
+-->
+	(<ss>	^moving-to-turned <mtt> -
+			^turned true)
+}
+
+sp {handle-junction*apply*turn*has-turned*update-current-direction
+	(state <s>	^operator.name init-handle-junction
+				^superstate <ss>)
+	(<ss>	^operator.name handle-junction
+			^current-direction <current-direction> <> <selected-direction>
+			^selected-direction <selected-direction>
+			^turned)
+-->
+	(<ss>	^current-direction <current-direction> -
+			^current-direction <selected-direction>)
+}
+
+sp {handle-junctions*propose*turn*add-directions*left-backward
+	(state <s>	^name handle-junction
+				^operator <o> +
+				^relative-direction << left backward >>)
+	(<o>	^name turn)
+-->
+	(<o>	^left-motor forward
+			^right-motor backward)
+}
+
+sp {handle-junctions*propose*turn-add-directions*right
+	(state <s>	^name handle-junction
+				^operator <o> +
+				^relative-direction right)
+	(<o>	^name turn)
+-->
+	(<o>	^left-motor backward
+			^right-motor forward)
+}
+
+sp {handle-junctions*propose*turn-add-directions*forward
+	(state <s>	^name handle-junction
+				^operator <o> +
+				^relative-direction forward)
+	(<o>	^name turn)
+-->
+	(<o>	^left-motor backward
+			^right-motor backward)
+}
+
+sp {handle-junctions*apply*turn
+	(state <s>	^name handle-junction
+				^operator <o>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>
+				^io.output-link <out>)
+	(<o>	^name turn
+			^left-motor <left-motor-direction>
+			^right-motor <right-motor-direction>)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>	^port <left-port>
+			^set-direction <left-motor-direction>
+			^set-power 40)
+	(<right>	^port <right-port>
+				^set-direction <right-motor-direction>
+				^set-power 40)
+}
+

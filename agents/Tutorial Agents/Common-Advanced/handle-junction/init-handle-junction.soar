@@ -1,0 +1,16 @@
+
+sp {handle-junction*propose*init-handle-junction
+	(state <s>	-^name
+				^superstate.operator.name handle-junction)
+-->
+	(<s>	^operator.name init-handle-junction)
+}
+
+sp {handle-junction*apply*init-handle-junction
+	(state <s>	^operator.name init-handle-junction
+				^superstate <ss>)
+	(<ss>	^color-sensor-values <vals>)
+-->
+	(<s>	^name handle-junction
+			^color-sensor-values <vals>)
+}

@@ -1,0 +1,32 @@
+###################################################
+#
+# File: Common-Include/Stop-Agent
+# Contains:
+#   code to handle ^action stop on an operator
+#  
+###################################################
+
+# Apply rule
+#   for any operator with an ^action stop elaboration
+# This puts on the output link a command
+# to each motor to have it stop.  Even if
+# we know there isn't a motor connected to
+# that port, we tell it to stop as this
+# is a generic rule and will work no matter
+# how many motors we have plugged in to the
+# motor ports.
+
+sp {Common-Include*Stop-Agent*apply*stop
+	(state <s>	^operator.action stop
+				^io.output-link <out>)
+-->
+  (<out>	^motor <A> <B> <C> <D>)
+  (<A> ^port A 
+        ^set-power 0)
+  (<B> ^port B
+        ^set-power 0)
+  (<C> ^port C
+        ^set-power 0)
+  (<D> ^port D
+        ^set-power 0)
+}

@@ -1,0 +1,14 @@
+
+source elaborations.soar
+source finish-handle-junction.soar
+source init-handle-junction.soar
+source move-forward-common.soar
+source move-off-junction.soar
+source move-to-center-of-junction.soar
+source propose-handle-junction.soar
+source turn-common.soar
+source turn-forward.soar
+source turn45.soar
+source turn90.soar
+source turn135.soar
+source turn180.soar
