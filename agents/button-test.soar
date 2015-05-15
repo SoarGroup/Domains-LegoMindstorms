@@ -1,0 +1,71 @@
+sp {topstate*propose*init-agent
+   (state <s> ^superstate nil
+             -^name)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name init-agent)
+}
+
+sp {topstate*apply*init-agent
+   (state <s> ^operator.name init-agent)
+-->
+   (<s> ^topstate <s>
+        ^name lego-robot
+        ^button-map <map>)
+  (<map> ^up-button off
+          ^right-button solid-green
+          ^down-button flash-red
+          ^left-button pulse-orange)
+}
+
+sp {topstate*propose*wait
+   (state <s> ^name lego-robot
+             -^operator.name wait)
+-->
+   (<s> ^operator <o> + <)
+   (<o> ^name wait)
+}
+
+# When a button is pressed, this catches the event
+sp {lego-robot*propose*handle-button-press
+   (state <s> ^name lego-robot 
+               ^io.input-link.brick.<btn-name> <button>)
+   (<button> ^previous-state released
+             ^current-state pressed)
+-->
+  (<s> ^operator <o> + = >)
+   (<o> ^name handle-button-press
+        ^button <button>
+        ^button-name <btn-name>)
+}
+
+sp {lego-robot*apply*handle-button-press*toggle*mode*wait
+  (state <s> ^name lego-robot
+             ^operator <o>
+             ^button-map.<button> <led>
+             ^io.output-link <out>)
+  (<o> ^name handle-button-press
+        ^button-name <button>)
+-->
+  (<out> ^brick.set-led-pattern <led>)
+}
+
+sp {lego-robot*apply*handle-button-press*back*exit
+  (state <s> ^name lego-robot
+              ^operator <o>
+              ^io.output-link <out>)
+  (<o> ^name handle-button-press
+        ^button-name back-button)
+-->
+  (<out> ^manager.stop true)
+}
+
+sp {lego-robot*remove*success*commands
+  :o-support
+  (state <s> ^name lego-robot
+              ^io.output-link <out>)
+  (<out> ^<cmd-name> <cmd>)
+  (<cmd> ^status success)
+-->
+  (<out> ^<cmd-name> <cmd> -)
+}
