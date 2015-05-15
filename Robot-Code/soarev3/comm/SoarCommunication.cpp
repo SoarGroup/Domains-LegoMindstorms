@@ -38,6 +38,7 @@ SoarLcmCommunicator::SoarLcmCommunicator(const char* channel)
 
 void SoarLcmCommunicator::start(){
 	pthread_create(&lcmliteThread, 0, &lcmliteThreadFunction, this);
+	pthread_create(&sendCommandThread, 0, &sendCommandThreadFunction, this);
 }
 
 void SoarLcmCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id){
