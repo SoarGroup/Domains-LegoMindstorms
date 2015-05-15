@@ -1,7 +1,6 @@
 PROGRAM=../lib/x86/libsoarev3.so
-SOURCES=$(shell cat soarev3.cxx)
-#SOURCES=LcmUtil.cpp WMUtil.cpp comm/CommStructs.cpp comm/SoarCommunication.cpp soar/SoarManager.cpp soar/SoarMotor.cpp soar/SoarBrick.cpp soar/SoarColorSensor.cpp soar/SoarTouchSensor.cpp
-OBJECTS=$(SOURCES:.cpp=.o)
+SOURCES=soarev3.cxx
+OBJECTS=$(SOURCES:.cxx=.o)
 
 LIBRARIES=-llcmlite -lSoar -ldl -lpthread
 
@@ -28,6 +27,6 @@ clean::
 $(PROGRAM): $(OBJECTS)
 	$(CC) $(FLAGS) -o $@ $(OBJECTS) $(INCLUDEPATH) $(LIBRARYPATH) $(LIBRARIES)
 
-%.o: %.cpp
+%.o: %.cxx
 	$(CC) $(FLAGS) -o $@ -c $< $(INCLUDEPATH) $(LIBRARYPATH) $(LIBRARIES)
 
