@@ -15,13 +15,10 @@ CC=$(TOOLPREFIX)++
 
 FLAGS=
 
-all:: realclean $(DOBJECTS) $(PROGRAM)
+all: $(DOBJECTS) $(PROGRAM)
 
-clean::
-	rm -f *.o *.ppu *.rst
-
-realclean:: clean
-	rm -f $(PROGRAM)
+clean:
+	rm -f *.o *.ppu *.rst $(PROGRAM)
 
 # how to link executable
 $(PROGRAM): $(DOBJECTS)
