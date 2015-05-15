@@ -1,6 +1,6 @@
 PROGRAM=../lib/arm/libsoarev3.a
-SOURCES=$(shell cat soarev3.cxx)
-OBJECTS=$(SOURCES:.cpp=.o)
+SOURCES=soarev3.cxx
+OBJECTS=$(SOURCES:.cxx=.o)
 
 TOOLPREFIX=arm-linux-gnueabi-
 CC=$(TOOLPREFIX)g++
@@ -16,6 +16,6 @@ clean::
 $(PROGRAM): $(OBJECTS)
 	ar rcs $@ $(OBJECTS)
 
-%.o: %.cpp
+%.o: %.cxx
 	$(CC) -o $@ -c $< $(INCLUDEPATH) 
 
