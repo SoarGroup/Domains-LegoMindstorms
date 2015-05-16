@@ -10,38 +10,63 @@
 
 #include "Constants.h"
 #include "CommStructs.h"
-#include "LcmUtil.h"
 
 #include "soar/SoarManager.h"
 
-#include "LcmliteWrapper.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <unistd.h>
+#include <string.h>
+#include <sys/types.h>
+#include <sys/socket.h>
+#include <netinet/in.h>
+#include <arpa/inet.h>
+#include <netdb.h>
 
 #include <iostream>
 using namespace std;
 
 using namespace sml;
 
-// SoarLcmCommunicator
-SoarLcmCommunicator::SoarLcmCommunicator(const char* channel)
-: soarManager(0), nextAck(1){
-	// Channel to publish to
-	snprintf(outChannel, 8, "S2L%s", channel);
-
-	// Channel to listen to
-	snprintf(inChannel, 8, "L2S%s", channel);
-
-	wrapper.init();
-	wrapper.subscribe(inChannel, lcmHandler, this);
+// RemoteSoarCommunicator
+RemoteSoarCommunicator::RemoteSoarCommunicator(string server_ip)
+: soarManager(0), nextAck(1), server_ip(server_ip){
+  socket_ready = setup_sockets();
 
 	pthread_mutex_init(&mutex, 0);
 }
 
-void SoarLcmCommunicator::start(){
-	pthread_create(&lcmliteThread, 0, &lcmliteThreadFunction, this);
-	pthread_create(&sendCommandThread, 0, &sendCommandThreadFunction, this);
+bool RemoteSoarCommunicator::setup_sockets(){
+  printf("creating socket\n");
+  socket_fd = socket(AF_INET, SOCK_STREAM, 0);
+  if (socket_fd < 0){
+    perror("ERROR: socket()");
+    return false;
+  }
+
+	struct sockaddr_in server_addr;
+	memset(&server_addr, 0, sizeof(server_addr));
+	server_addr.sin_family = AF_INET;
+	server_addr.sin_addr.s_addr = inet_addr(server_ip.c_str());
+	server_addr.sin_port = htons(7667);
+
+  printf("connecting to server\n");
+  if (connect(socket_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0){
+    perror("ERROR: connect");
+    return false;
+  }
+
+  printf("setup_sockets is success\n");
+
+  return true;
 }
 
-void SoarLcmCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id){
+void RemoteSoarCommunicator::start(){
+	pthread_create(&sendThread, 0, &sendThreadFunction, this);
+	pthread_create(&receiveThread, 0, &receiveThreadFunction, this);
+}
+
+void RemoteSoarCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id){
 	pthread_mutex_lock(&mutex);
 	// Need to send the command over LCM and wait for the ack
 	uint ack = nextAck++;
@@ -49,38 +74,72 @@ void SoarLcmCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id){
 	waitingCommands[ack] = command;
 	waitingIdentifiers[ack] = id;
 	pthread_mutex_unlock(&mutex);
-	sendCommandMessage();
 }
 
-void* SoarLcmCommunicator::lcmliteThreadFunction(void* arg){
-	SoarLcmCommunicator* soarComm = (SoarLcmCommunicator*)arg;
+void* RemoteSoarCommunicator::sendThreadFunction(void* arg){
+	RemoteSoarCommunicator* soarComm = (RemoteSoarCommunicator*)arg;
 	while(true){
-		soarComm->wrapper.checkIncoming();
+    pthread_mutex_lock(&mutex);
+    
+    // Send Message to Ev3 of all queued commands
+    // Add Commands to the message
+    if(waitingCommands.size() > 0){
+      IntBuffer buffer;
+      buffer.push_back(COMMAND_MESSAGE);
+      buffer.push_back(waitingCommands.size());
+
+      for(CommandMapIt i = waitingCommands.begin(); i != waitingCommands.end(); i++){
+        i->second.packCommand(buffer);
+      }
+
+      uchar* outBuffer;
+      uint buf_size;
+      packBuffer(buffer, outBuffer, buf_size);
+      
+      if (write(socket_fd, outBuffer, buf_size) < 0){
+        perror("ERROR: write");
+        delete [] outBuffer;
+        pthread_mutex_lock(&mutex);
+        break;
+      }
+
+      delete [] outBuffer;
+    }
+
+    pthread_mutex_unlock(&mutex);
+		usleep(1000000/SOAR_SEND_COMMAND_FPS);
 	}
+
 	return 0;
 }
 
-void SoarLcmCommunicator::lcmHandler(lcmlite_t* lcm, const char* channel, const void* buf, int buf_len, void* user){
-	SoarLcmCommunicator* comm = (SoarLcmCommunicator*)user;
-	if(strcmp(comm->getInChannel(), channel) != 0){
-		return;
-	}
+void* RemoteSoarCommunicator::receiveThreadFunction(void* arg){
+	RemoteSoarCommunicator* soarComm = (RemoteSoarCommunicator*)arg;
+	while(true){
+    uchar* 
 
-	IntBuffer params;
-	uint offset = 0;
-	unpackBuffer((const uchar*)buf, buf_len, params);
+    IntBuffer params;
+    uint offset = 0;
+    unpackBuffer((const uchar*)buf, buf_len, params);
 
-	int messageType = params[offset++];
-	if(messageType == ACK_MESSAGE){
-		comm->receiveAckMessage(params, offset);
-	} else if(messageType == STATUS_MESSAGE){
-		comm->receiveStatusMessage(params, offset);
+    // Handle 1 message at a time
+	  pthread_mutex_lock(&mutex);
+
+    int messageType = params[offset++];
+    if(messageType == ACK_MESSAGE){
+      comm->receiveAckMessage(params, offset);
+    } else if(messageType == STATUS_MESSAGE){
+      comm->receiveStatusMessage(params, offset);
+    }
+
+	  pthread_mutex_unlock(&mutex);
 	}
+	return 0;
+
 }
 
-void SoarLcmCommunicator::receiveAckMessage(IntBuffer& buffer, uint& offset){
+void RemoteSoarCommunicator::receiveAckMessage(IntBuffer& buffer, uint& offset){
 	//cout << "--> Soar Receive Ack" << endl;
-	pthread_mutex_lock(&mutex);
 
 	uint numAcks = buffer[offset++];
 	for(uint i = 0; i < numAcks; i++){
@@ -97,11 +156,10 @@ void SoarLcmCommunicator::receiveAckMessage(IntBuffer& buffer, uint& offset){
 		}
 	}
 
-	pthread_mutex_unlock(&mutex);
 	//cout << "<-- Soar Receive Ack" << endl;
 }
 
-void SoarLcmCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offset){
+void RemoteSoarCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offset){
 	//cout << "--> Soar Receive Status" << endl;
 	StatusList statuses;
 	uint numStatuses = buffer[offset++];
@@ -112,44 +170,7 @@ void SoarLcmCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offset){
 	//cout << "<-- Soar Receive Status" << endl;
 }
 
-void* SoarLcmCommunicator::sendCommandThreadFunction(void* arg){
-	SoarLcmCommunicator* soarComm = (SoarLcmCommunicator*)arg;
-	while(true){
-		soarComm->sendCommandMessage();
-		usleep(1000000/SOAR_SEND_COMMAND_FPS);
-	}
-	return 0;
-}
-
-void SoarLcmCommunicator::sendCommandMessage(){
-	//cout << "--> Soar Send Command" << endl;
-	// Send Message to Ev3 of all queued commands
-	IntBuffer buffer;
-	buffer.push_back(COMMAND_MESSAGE);
-
-	// Add Commands to the message
-	pthread_mutex_lock(&mutex);
-	if(waitingCommands.size() == 0){
-		//cout << "<-- Soar Send Command" << endl;
-		pthread_mutex_unlock(&mutex);
-		return;
-	}
-	buffer.push_back(waitingCommands.size());
-	for(CommandMapIt i = waitingCommands.begin(); i != waitingCommands.end(); i++){
-		i->second.packCommand(buffer);
-	}
-	pthread_mutex_unlock(&mutex);
-
-	uchar* outBuffer;
-	uint buf_size;
-	packBuffer(buffer, outBuffer, buf_size);
-	wrapper.publish(outChannel, (void*)outBuffer, buf_size);
-
-	delete [] outBuffer;
-	//cout << "<-- Soar Send Command" << endl;
-}
-
-void SoarLcmCommunicator::updateSoar(){
+void RemoteSoarCommunicator::updateSoar(){
 	pthread_mutex_lock(&mutex);
 	for(IdentifierSet::iterator i = finishedIdentifiers.begin(); i != finishedIdentifiers.end(); i++){
 		(*i)->CreateStringWME("status", "success");

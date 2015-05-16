@@ -20,6 +20,10 @@ using std::vector;
 
 #define MAX_SUBSCRIPTIONS 20
 
+#define MC_PORT 7667
+#define MC_ADDR "239.255.76.67"
+#define MC_TTL 0
+
 struct TransmitInfo{
 	sockaddr_in send_addr;
 	int send_fd;
@@ -42,7 +46,7 @@ class LcmliteWrapper{
 
 		lcmlite_t lcm;
 		TransmitInfo sendInfo;
-		int readFD;
+		int read_fd;
 		int numSubscriptions;
 		lcmlite_subscription_t subscriptions[MAX_SUBSCRIPTIONS];
 };

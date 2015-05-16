@@ -29,12 +29,15 @@ public:
 };
 
 
-class SoarLcmCommunicator : public SoarCommunicator{
+class RemoteSoarCommunicator : public SoarCommunicator{
 public:
-	SoarLcmCommunicator(const char* channel);
+	RemoteSoarCommunicator(string server_ip);
 
-	virtual ~SoarLcmCommunicator(){
+	virtual ~SoarCommunicator(){
 		pthread_mutex_destroy(&mutex);
+    if (socket_ready){
+      close(socket_fd);
+    }
 	}
 
 	void assignManager(SoarManager* manager){
@@ -47,29 +50,24 @@ public:
 
 	void updateSoar();
 
-	char* getInChannel(){
-		return inChannel;
-	}
-
 private:
-	static void* lcmliteThreadFunction(void* arg);
+  bool setup_sockets();
 
-	static void lcmHandler(lcmlite_t* lcm, const char* channel, const void* buf, int buf_len, void* user);
+  static void* sendThreadFunction(void* arg);
+
+  static void* receiveThreadFunction(void* arg);
 
 	void receiveAckMessage(IntBuffer& buffer, uint& offset);
 
 	void receiveStatusMessage(IntBuffer& buffer, uint& offset);
 
-	static void* sendCommandThreadFunction(void* arg);
-
-	void sendCommandMessage();
-
 private:
-	// lcmlite variables
-	LcmliteWrapper wrapper;
+  string server_ip;
+  int socket_fd;
+  bool socket_ready;
 
-	pthread_t lcmliteThread;
-	pthread_t sendCommandThread;
+  pthread_t sendThread;
+  pthread_t receiveThread;
 	pthread_mutex_t mutex;
 
 	SoarManager* soarManager;
@@ -78,10 +76,6 @@ private:
 	CommandMap waitingCommands;
 	IdentifierMap waitingIdentifiers;
 	IdentifierSet finishedIdentifiers;
-
-	char inChannel[8];
-	char outChannel[8];
-
 
 };
 
