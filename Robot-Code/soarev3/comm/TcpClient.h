@@ -21,7 +21,7 @@ class TcpClient{
       this->user = user;
     }
 
-    bool isReady(){
+    bool isConnected(){
       return connected;
     }
 

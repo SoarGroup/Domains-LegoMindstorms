@@ -23,10 +23,12 @@ void* Ev3Communicator::sendStatusThreadFunction(void* arg){
   int num_packets = 0;
   long last_time = (long)time(0);
 	while(true){
-    num_packets++;
-	  ev3Comm->sendStatusMessage();
+    if(ev3Comm->isConnected()){
+      num_packets++;
+      ev3Comm->sendStatusMessage();
+    }
     if (((long)time(0)) != last_time){
-      //printf("Packets = %d\n", num_packets);
+      //printf("Packets per second: %d\n", num_packets);
       last_time = (long)time(0);
       num_packets = 0;
     }
@@ -100,7 +102,7 @@ void RemoteEv3Communicator::receiveCommandMessage(IntBuffer& buffer, uint& offse
 
 
 void RemoteEv3Communicator::sendStatusMessage(){
-  if (!this->isReady()){
+  if (!this->isConnected()){
     return;
   }
 	pthread_mutex_lock(&mutex);

@@ -1,5 +1,9 @@
 # Created by https://www.gitignore.io
 
+
+### Vim ###
+*.swp
+
 ### Java ###
 *.class
 

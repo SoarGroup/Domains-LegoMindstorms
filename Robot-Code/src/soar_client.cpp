@@ -35,9 +35,12 @@ int main(int argc, char** argv){
 	comm.start();
 
 	while(true){
-//		manager.step();
-		sleep(1);
-
+    if (!comm.isConnected()){
+      printf("Trying to reconnect to server\n");
+      // Try to restart if there was a bad connection
+      comm.start();
+    }
+		sleep(5);
 	}
 
 	return 0;
