@@ -12,16 +12,19 @@ class Ev3Manager;
 
 #include "CommStructs.h"
 
-#include "sml_Client.h"
 #include <pthread.h>
 
 #include <string>
+
+#include "TcpServer.h"
+
+#include <ctime>
 
 class Ev3Communicator{
 public:
 	virtual ~Ev3Communicator(){}
 
-	virtual void start();
+	virtual bool start();
 
 	static void* sendStatusThreadFunction(void*);
 
@@ -32,52 +35,30 @@ protected:
 };
 
 
-class Ev3LcmCommunicator : public Ev3Communicator{
+class RemoteEv3Communicator : public Ev3Communicator, public TcpServer{
 public:
-	Ev3LcmCommunicator(const char* channel);
+	RemoteEv3Communicator();
 
-
-	virtual ~Ev3LcmCommunicator(){
-		pthread_mutex_destroy(&mutex);
-	}
+	virtual ~RemoteEv3Communicator();
 
 	void assignManager(Ev3Manager* manager){
 		ev3Manager = manager;
 	}
 
-	void start();
-
-	char* getInChannel(){
-		return inChannel;
-	}
+	virtual bool start();
 
 private:
-	static void* lcmliteThreadFunction(void*);
-
-	static void lcmHandler(lcmlite_t* lcm, const char* channel, const void* buf, int buf_len, void* user);
+  static void receiveMessage(const void* buffer, int buf_len, void* user);
 
 	void receiveCommandMessage(IntBuffer& buffer, uint& offset);
 
 	void sendStatusMessage();
 
-	static void* sendAckThreadFunction(void*);
-
-	void sendAckMessage();
-
-
 private:
-	// lcmlite variables
-	LcmliteWrapper wrapper;
-	pthread_t lcmliteThread;
-	pthread_t sendAckThread;
-	pthread_mutex_t mutex;
-
-	AckSet acks;
-
 	Ev3Manager* ev3Manager;
 
-	char inChannel[8];
-	char outChannel[8];
+	AckSet acks;
+	pthread_mutex_t mutex;
 };
 
 #endif /* EV3COMMUNICATION_H_ */

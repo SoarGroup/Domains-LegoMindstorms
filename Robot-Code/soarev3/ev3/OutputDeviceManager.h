@@ -9,7 +9,7 @@
 #define OUTPUTDEVICEMANAGER_H_
 
 #include "comm/CommStructs.h"
-#include "LcmUtil.h"
+#include "util/CommUtil.h"
 
 #include "lms2012.h"
 

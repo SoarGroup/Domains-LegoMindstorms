@@ -7,7 +7,7 @@
 
 #include "CommStructs.h"
 
-#include "LcmUtil.h"
+#include "util/CommUtil.h"
 
 // Ev3Status
 void Ev3Status::packStatus(IntBuffer& buffer){

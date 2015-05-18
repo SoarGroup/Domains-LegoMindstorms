@@ -3,16 +3,12 @@
 #include "comm/Ev3Communication.h"
 #include "ev3/Ev3Manager.h"
 
+#include <unistd.h>
+
 using namespace std;
 
-
-int main(int argc, char** argv){
-	if(argc < 2){
-		cout << "Param 1: Channel (1-999)" << endl;
-		return 0;
-	}
-
-	Ev3LcmCommunicator comm(argv[1]);
+int main(){
+	RemoteEv3Communicator comm;
 	Ev3Manager manager;
 	comm.assignManager(&manager);
 	comm.start();

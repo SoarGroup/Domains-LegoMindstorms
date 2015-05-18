@@ -16,6 +16,10 @@ class SoarManager;
 
 #include "CommStructs.h"
 
+#include "TcpClient.h"
+
+#include <ctime>
+
 typedef std::map<uint, sml::Identifier*> IdentifierMap;
 typedef std::set<sml::Identifier*> IdentifierSet;
 
@@ -29,16 +33,13 @@ public:
 };
 
 
-class RemoteSoarCommunicator : public SoarCommunicator{
+class RemoteSoarCommunicator : public SoarCommunicator, TcpClient{
 public:
 	RemoteSoarCommunicator(string server_ip);
 
-	virtual ~SoarCommunicator(){
-		pthread_mutex_destroy(&mutex);
-    if (socket_ready){
-      close(socket_fd);
-    }
-	}
+	virtual ~RemoteSoarCommunicator();
+
+  virtual bool start();
 
 	void assignManager(SoarManager* manager){
 		soarManager = manager;
@@ -46,31 +47,27 @@ public:
 
 	void sendCommandToEv3(Ev3Command command, sml::Identifier* id);
 
-	void start();
-
 	void updateSoar();
 
 private:
-  bool setup_sockets();
-
   static void* sendThreadFunction(void* arg);
 
-  static void* receiveThreadFunction(void* arg);
+  void sendCommands();
+
+  static void receiveMessage(const void* buffer, int buf_len, void* user);
 
 	void receiveAckMessage(IntBuffer& buffer, uint& offset);
 
 	void receiveStatusMessage(IntBuffer& buffer, uint& offset);
 
 private:
-  string server_ip;
-  int socket_fd;
-  bool socket_ready;
-
   pthread_t sendThread;
-  pthread_t receiveThread;
 	pthread_mutex_t mutex;
 
 	SoarManager* soarManager;
+
+  long last_time;
+  int num_packets;
 
 	uint nextAck;
 	CommandMap waitingCommands;

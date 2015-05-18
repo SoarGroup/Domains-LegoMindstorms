@@ -1,7 +1,9 @@
-#include "LcmUtil.cpp"
-#include "WMUtil.cpp"
+#include "util/CommUtil.cpp"
+#include "util/WMUtil.cpp"
 
 #include "comm/CommStructs.cpp"
+#include "comm/TcpServer.cpp"
+#include "comm/TcpClient.cpp"
 #include "comm/Ev3Communication.cpp"
 #include "comm/SoarCommunication.cpp"
 #include "comm/DirectCommunication.cpp"
@@ -17,3 +19,5 @@
 #include "ev3/InputDeviceManager.cpp"
 #include "ev3/OutputDeviceManager.cpp"
 #include "ev3/Ev3Brick.cpp"
+
+#include "ev3_standalone.cpp"

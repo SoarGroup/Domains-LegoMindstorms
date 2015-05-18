@@ -10,15 +10,15 @@ class TcpClient{
   public:
     TcpClient(std::string server_ip);
     
-    ~TcpClient();
+    virtual ~TcpClient();
 
     bool start();
 
     bool sendPacket(const void* buffer, int buf_len);
 
     void setReceptionCallback(void (*f)(const void* buffer, int buf_len, void* user), void* user){
-      this->user = user;
       this->callback = f;
+      this->user = user;
     }
 
     bool isReady(){
@@ -26,18 +26,21 @@ class TcpClient{
     }
 
   private:
-    pthread_t receiveThread;
     static void* receiveThreadFunction(void* arg);
+
     bool receivePacket();
 
+  private:
     char buffer[MAX_BUFFER_SIZE];
     
     std::string server_ip;
     int socket_fd;
     bool connected;
 
-    void (*callback)(const void *buffer, int buf_len, void *user);
+    void (*callback)(const void *buffer, int buf_len, void* user);
     void* user;
+
+    pthread_t receiveThread;
 };
 
 

@@ -2,8 +2,8 @@
 
 #include "comm/SoarCommunication.h"
 
-#include "WMUtil.h"
-#include "LcmUtil.h"
+#include "util/WMUtil.h"
+#include "util/CommUtil.h"
 #include "Constants.h"
 
 #include "bytecodes.h"

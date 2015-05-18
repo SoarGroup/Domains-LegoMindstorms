@@ -11,7 +11,7 @@
 #include "TouchSensor.h"
 #include "IRRemote.h"
 
-#include "LcmUtil.h"
+#include "util/CommUtil.h"
 
 #include <fcntl.h>
 #include <stdio.h>

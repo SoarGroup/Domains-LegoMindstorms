@@ -12,8 +12,7 @@
 #include "Constants.h"
 
 #include <pthread.h>
-#include "LcmliteWrapper.h"
-#include "LcmUtil.h"
+#include "util/CommUtil.h"
 
 // Vectors
 #include <vector>

@@ -1,12 +1,12 @@
 /*
- * LcmUtil.h
+ * CommUtil.h
  *
  *  Created on: Nov 20, 2013
  *      Author: aaron
  */
 
-#ifndef LCMUTIL_H_
-#define LCMUTIL_H_
+#ifndef COMMUTIL_H_
+#define COMMUTIL_H_
 
 #include <vector>
 #include <iostream>
@@ -44,10 +44,10 @@ inline void printBinary8(uchar i){
 
 // size is size in bytes
 // Fills params with integers extracted from the buffer
-void unpackBuffer(const uchar* buffer, const uint size, IntBuffer& params);
+void unpackBuffer(const char* buffer, const uint size, IntBuffer& params);
 
 // returns a chunk of memory (buffer) and it's size in bytes
-void packBuffer(IntBuffer& params, uchar*& buffer, uint& size);
+void packBuffer(IntBuffer& params, char*& buffer, uint& size);
 
 inline uint packShorts(ushort a, ushort b){
 	return (a << 16) | b;
@@ -79,4 +79,4 @@ inline void unpackBytes(uint i, uchar* a){
 	a[3] = i & 0xff;
 }
 
-#endif /* LCMUTIL_H_ */
+#endif /* COMMUTIL_H_ */

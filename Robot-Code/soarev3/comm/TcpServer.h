@@ -10,15 +10,15 @@ class TcpServer{
   public:
     TcpServer();
     
-    ~TcpServer();
+    virtual ~TcpServer();
 
-    bool start();
+    virtual bool start();
 
     bool sendPacket(const void* buffer, int buf_len);
 
     void setReceptionCallback(void (*f)(const void* buffer, int buf_len, void* user), void* user){
-      this->user = user;
       this->callback = f;
+      this->user = user;
     }
 
     bool isReady(){
@@ -26,11 +26,14 @@ class TcpServer{
     }
 
   private:
-    pthread_t receiveThread;
     static void* receiveThreadFunction(void* arg);
+
     bool receivePacket();
 
-    void (*callback)(const void *buffer, int buf_len, void *user);
+  private:
+    pthread_t receiveThread;
+
+    void (*callback)(const void *buffer, int buf_len, void* user);
     void* user;
 
     int socket_fd;

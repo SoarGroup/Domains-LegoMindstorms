@@ -17,8 +17,6 @@ DirectCommunicator::DirectCommunicator()
 }
 
 void DirectCommunicator::sendStatusMessage(){
-	IntBuffer buffer;
-
 	StatusList statuses;
 	ev3Manager->writeStatus(statuses);
 	soarManager->readStatus(statuses);

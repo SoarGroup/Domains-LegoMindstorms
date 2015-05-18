@@ -17,7 +17,6 @@
 // Timing Constants
 
 #define EV3_SEND_STATUS_FPS 20
-#define EV3_SEND_ACK_FPS 20
 #define SOAR_SEND_COMMAND_FPS 20
 #define SOAR_DC_WAIT 0
 

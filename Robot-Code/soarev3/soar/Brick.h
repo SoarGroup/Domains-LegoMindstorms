@@ -14,7 +14,7 @@ class SoarCommunicator;
 #include "comm/CommStructs.h"
 
 #include "sml_Client.h"
-#include "WMUtil.h"
+#include "util/WMUtil.h"
 using namespace sml;
 
 class BrickButton{

@@ -9,69 +9,61 @@
 
 #include "ev3/Ev3Manager.h"
 
-#include "LcmUtil.h"
+#include "util/CommUtil.h"
+
+#include <sys/time.h>
 
 #include <iostream>
 #include <sstream>
 using namespace std;
 
-
 // Ev3Communicator
 void* Ev3Communicator::sendStatusThreadFunction(void* arg){
 	Ev3Communicator* ev3Comm = (Ev3Communicator*)arg;
+  int num_packets = 0;
+  long last_time = (long)time(0);
 	while(true){
-		ev3Comm->sendStatusMessage();
+    num_packets++;
+	  ev3Comm->sendStatusMessage();
+    if (((long)time(0)) != last_time){
+      //printf("Packets = %d\n", num_packets);
+      last_time = (long)time(0);
+      num_packets = 0;
+    }
 		usleep(1000000/EV3_SEND_STATUS_FPS);
 	}
 	return 0;
 }
 
-void Ev3Communicator::start(){
+bool Ev3Communicator::start(){
 	pthread_create(&sendStatusThread, 0, &sendStatusThreadFunction, this);
+  return true;
 }
 
 
-// Ev3LcmCommunicator
-Ev3LcmCommunicator::Ev3LcmCommunicator(const char* channel)
-: ev3Manager(0){
-	// Channel to publish to
-	snprintf(outChannel, 8, "L2S%s", channel);
-
-	// Channel to listen to
-	snprintf(inChannel, 8, "S2L%s", channel);
-
-  cout << "Listening on " << inChannel << endl;
-
-	wrapper.init();
-	wrapper.subscribe(inChannel, lcmHandler, (void*)this);
+// RemoteEv3Communicator
+RemoteEv3Communicator::RemoteEv3Communicator()
+: TcpServer(), ev3Manager(0){
+  setReceptionCallback(&RemoteEv3Communicator::receiveMessage, this);
 
 	pthread_mutex_init(&mutex, 0);
 }
 
-void Ev3LcmCommunicator::start(){
-	pthread_create(&lcmliteThread, 0, &lcmliteThreadFunction, this);
-	pthread_create(&sendAckThread, 0, &sendAckThreadFunction, this);
+RemoteEv3Communicator::~RemoteEv3Communicator(){
+  pthread_mutex_destroy(&mutex);
+}
+
+bool RemoteEv3Communicator::start(){
 	Ev3Communicator::start();
+  return TcpServer::start();
 }
 
-void* Ev3LcmCommunicator::lcmliteThreadFunction(void* arg){
-	Ev3LcmCommunicator* ev3Comm = (Ev3LcmCommunicator*)arg;
-	while(true){
-		ev3Comm->wrapper.checkIncoming();
-	}
-	return 0;
-}
-
-void Ev3LcmCommunicator::lcmHandler(lcmlite_t* lcm, const char* channel, const void* buf, int buf_len, void* user){
-	Ev3LcmCommunicator* comm = (Ev3LcmCommunicator*)user;
-	if(strcmp(comm->getInChannel(), channel) != 0){
-		return;
-	}
+void RemoteEv3Communicator::receiveMessage(const void* buffer, int buf_len, void* user){
+	RemoteEv3Communicator* comm = (RemoteEv3Communicator*)user;
 
 	IntBuffer params;
 	uint offset = 0;
-	const uchar* charBuff = (const uchar*)buf;
-	unpackBuffer(charBuff, buf_len, params);
+	unpackBuffer((const char*)buffer, buf_len, params);
 
 	uint messageType = params[offset++];
 	if(messageType == COMMAND_MESSAGE){
@@ -79,7 +71,7 @@ void Ev3LcmCommunicator::lcmHandler(lcmlite_t* lcm, const char* channel, const v
 	}
 }
 
-void Ev3LcmCommunicator::receiveCommandMessage(IntBuffer& buffer, uint& offset){
+void RemoteEv3Communicator::receiveCommandMessage(IntBuffer& buffer, uint& offset){
 	pthread_mutex_lock(&mutex);
 	//cout << "--> Ev3 Receive Command" << endl;
 
@@ -104,68 +96,41 @@ void Ev3LcmCommunicator::receiveCommandMessage(IntBuffer& buffer, uint& offset){
 	}
 	//cout << "<-- Ev3 Receive Command" << endl;
 	pthread_mutex_unlock(&mutex);
-	sendAckMessage();
 }
 
 
-void Ev3LcmCommunicator::sendStatusMessage(){
+void RemoteEv3Communicator::sendStatusMessage(){
+  if (!this->isReady()){
+    return;
+  }
 	pthread_mutex_lock(&mutex);
 	//cout << "--> Ev3 Send Status" << endl;
 	IntBuffer buffer;
-	buffer.push_back(STATUS_MESSAGE);
+
+  timeval now;
+  gettimeofday(&now, 0);
+  buffer.push_back(now.tv_usec);
+
+	buffer.push_back(acks.size());
+	for(AckSetIt it = acks.begin(); it != acks.end(); it++){
+		buffer.push_back(*it);
+	}
 
 	StatusList statuses;
 	ev3Manager->writeStatus(statuses);
+
 	buffer.push_back(statuses.size());
 	for(uint i = 0; i < statuses.size(); i++){
 		statuses[i].packStatus(buffer);
 	}
 
 	// Create + send outgoing buffer
-	uchar* outBuffer;
+	char* outBuffer;
 	uint buf_size;
 	packBuffer(buffer, outBuffer, buf_size);
-
-	wrapper.publish(outChannel, (void*)outBuffer, buf_size);
+  sendPacket(outBuffer, buf_size);
 	delete [] outBuffer;
 	//cout << "<-- Ev3 Send Status" << endl;
-	pthread_mutex_unlock(&mutex);
-}
-
-void* Ev3LcmCommunicator::sendAckThreadFunction(void* arg){
-	Ev3LcmCommunicator* ev3Comm = (Ev3LcmCommunicator*)arg;
-	while(true){
-		ev3Comm->sendAckMessage();
-		usleep(1000000/EV3_SEND_ACK_FPS);
-	}
-	return 0;
-}
-
-void Ev3LcmCommunicator::sendAckMessage(){
-	pthread_mutex_lock(&mutex);
-	//cout << "--> Ev3 Send Ack" << endl;
-	if(acks.size() == 0){
-		//cout << "<-- Ev3 Send Ack" << endl;
-		pthread_mutex_unlock(&mutex);
-		return;
-	}
-
-	IntBuffer buffer;
-	buffer.push_back(ACK_MESSAGE);
-	buffer.push_back(acks.size());
-	for(AckSetIt it = acks.begin(); it != acks.end(); it++){
-		buffer.push_back(*it);
-	}
-
-	// Create + send outgoing buffer
-	uchar* outBuffer;
-	uint buf_size;
-	packBuffer(buffer, outBuffer, buf_size);
-
-	wrapper.publish(outChannel, (void*)outBuffer, buf_size);
-	delete [] outBuffer;
-
-	//cout << "<-- Ev3 Send Ack" << endl;
 	pthread_mutex_unlock(&mutex);
 }
 

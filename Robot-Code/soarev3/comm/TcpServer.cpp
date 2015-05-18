@@ -13,7 +13,7 @@
 #include <netdb.h>
 
 TcpServer::TcpServer()
-  :initialized(false), connected(false), user(0), callback(0){
+  :initialized(false), connected(false), callback(0){
 }
 
 TcpServer::~TcpServer(){
@@ -71,6 +71,7 @@ void* TcpServer::receiveThreadFunction(void* arg){
       perror("TcpServer Error: accept");
       return 0;
     }
+    printf("TcpServer: connection accepted\n");
 
     server->connected = true;
     while(server->receivePacket()){
@@ -85,7 +86,7 @@ void* TcpServer::receiveThreadFunction(void* arg){
 }
 
 bool TcpServer::receivePacket(){
-  printf("TcpServer: listening for packet\n");
+  //printf("TcpServer: listening for packet\n");
   ssize_t len = read(client_fd, (void*)buffer, MAX_BUFFER_SIZE-1);
   if (len < 0){
     perror("TcpServer Error: read");
@@ -94,7 +95,7 @@ bool TcpServer::receivePacket(){
   if (len == 0){
     return false;
   }
-  printf("TcpServer: received packet of size %d\n", len);
+  //printf("TcpServer: received packet of size %d\n", (int)len);
   if (callback != 0){
     callback(buffer, len, user);
   }
@@ -102,7 +103,7 @@ bool TcpServer::receivePacket(){
 }
   
 bool TcpServer::sendPacket(const void* buffer, int buf_len){
-  printf("TcpServer: sending packet of length %d\n", buf_len);
+  //printf("TcpServer: sending packet of length %d\n", buf_len);
   if (!initialized || !connected){
     printf("TcpServer Error: Trying to send on bad connection\n");
     return false;
@@ -112,6 +113,6 @@ bool TcpServer::sendPacket(const void* buffer, int buf_len){
     perror("TcpServer Error: write");
     return false;
   }
-  printf("TcpServer: successfully sent packet\n");
+  //printf("TcpServer: successfully sent packet\n");
   return true;
 }

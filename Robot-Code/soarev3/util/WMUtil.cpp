@@ -5,7 +5,7 @@
  *      Author: aaron
  */
 
-#include "WMUtil.h"
+#include "util/WMUtil.h"
 
 // These are the three types that a WME can be, conform to Soar
 static const string INTEGER_VAL = "int";

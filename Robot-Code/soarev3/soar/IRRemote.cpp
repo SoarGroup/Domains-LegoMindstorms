@@ -7,8 +7,8 @@
 
 #include "IRRemote.h"
 
-#include "WMUtil.h"
-#include "LcmUtil.h"
+#include "util/WMUtil.h"
+#include "util/CommUtil.h"
 
 #include "lms2012.h"
 #include "Constants.h"

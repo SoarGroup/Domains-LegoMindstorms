@@ -18,52 +18,26 @@
 #include <unistd.h>
 #include <string.h>
 #include <sys/types.h>
-#include <sys/socket.h>
-#include <netinet/in.h>
-#include <arpa/inet.h>
-#include <netdb.h>
-
 #include <iostream>
 using namespace std;
-
 using namespace sml;
+
+#include <ctime>
 
 // RemoteSoarCommunicator
 RemoteSoarCommunicator::RemoteSoarCommunicator(string server_ip)
-: soarManager(0), nextAck(1), server_ip(server_ip){
-  socket_ready = setup_sockets();
-
+: TcpClient(server_ip), soarManager(0), nextAck(1){
 	pthread_mutex_init(&mutex, 0);
+  this->setReceptionCallback(&RemoteSoarCommunicator::receiveMessage, this);
 }
 
-bool RemoteSoarCommunicator::setup_sockets(){
-  printf("creating socket\n");
-  socket_fd = socket(AF_INET, SOCK_STREAM, 0);
-  if (socket_fd < 0){
-    perror("ERROR: socket()");
-    return false;
-  }
-
-	struct sockaddr_in server_addr;
-	memset(&server_addr, 0, sizeof(server_addr));
-	server_addr.sin_family = AF_INET;
-	server_addr.sin_addr.s_addr = inet_addr(server_ip.c_str());
-	server_addr.sin_port = htons(7667);
-
-  printf("connecting to server\n");
-  if (connect(socket_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0){
-    perror("ERROR: connect");
-    return false;
-  }
-
-  printf("setup_sockets is success\n");
-
-  return true;
+RemoteSoarCommunicator::~RemoteSoarCommunicator(){
+  pthread_mutex_destroy(&mutex);
 }
 
-void RemoteSoarCommunicator::start(){
+bool RemoteSoarCommunicator::start(){
 	pthread_create(&sendThread, 0, &sendThreadFunction, this);
-	pthread_create(&receiveThread, 0, &receiveThreadFunction, this);
+  return TcpClient::start();
 }
 
 void RemoteSoarCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id){
@@ -78,68 +52,74 @@ void RemoteSoarCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id
 
 void* RemoteSoarCommunicator::sendThreadFunction(void* arg){
 	RemoteSoarCommunicator* soarComm = (RemoteSoarCommunicator*)arg;
+
 	while(true){
-    pthread_mutex_lock(&mutex);
-    
-    // Send Message to Ev3 of all queued commands
-    // Add Commands to the message
-    if(waitingCommands.size() > 0){
-      IntBuffer buffer;
-      buffer.push_back(COMMAND_MESSAGE);
-      buffer.push_back(waitingCommands.size());
-
-      for(CommandMapIt i = waitingCommands.begin(); i != waitingCommands.end(); i++){
-        i->second.packCommand(buffer);
-      }
-
-      uchar* outBuffer;
-      uint buf_size;
-      packBuffer(buffer, outBuffer, buf_size);
-      
-      if (write(socket_fd, outBuffer, buf_size) < 0){
-        perror("ERROR: write");
-        delete [] outBuffer;
-        pthread_mutex_lock(&mutex);
-        break;
-      }
-
-      delete [] outBuffer;
+    if (soarComm->isReady()){
+      soarComm->sendCommands();
     }
-
-    pthread_mutex_unlock(&mutex);
-		usleep(1000000/SOAR_SEND_COMMAND_FPS);
-	}
+    usleep(1000000/SOAR_SEND_COMMAND_FPS);
+  }
 
 	return 0;
 }
 
-void* RemoteSoarCommunicator::receiveThreadFunction(void* arg){
-	RemoteSoarCommunicator* soarComm = (RemoteSoarCommunicator*)arg;
-	while(true){
-    uchar* 
+void RemoteSoarCommunicator::sendCommands(){
+  pthread_mutex_lock(&mutex);
+  
+  // Send Message to Ev3 of all queued commands
+  // Add Commands to the message
+  if(waitingCommands.size() > 0){
+    IntBuffer buffer;
+    buffer.push_back(COMMAND_MESSAGE);
+    buffer.push_back(waitingCommands.size());
 
-    IntBuffer params;
-    uint offset = 0;
-    unpackBuffer((const uchar*)buf, buf_len, params);
-
-    // Handle 1 message at a time
-	  pthread_mutex_lock(&mutex);
-
-    int messageType = params[offset++];
-    if(messageType == ACK_MESSAGE){
-      comm->receiveAckMessage(params, offset);
-    } else if(messageType == STATUS_MESSAGE){
-      comm->receiveStatusMessage(params, offset);
+    for(CommandMapIt i = waitingCommands.begin(); i != waitingCommands.end(); i++){
+      i->second.packCommand(buffer);
     }
 
-	  pthread_mutex_unlock(&mutex);
-	}
-	return 0;
+    char* outBuffer;
+    uint buf_size;
+    packBuffer(buffer, outBuffer, buf_size);
+    sendPacket(outBuffer, buf_size);
+    delete [] outBuffer;
+  }
 
+  pthread_mutex_unlock(&mutex);
 }
 
-void RemoteSoarCommunicator::receiveAckMessage(IntBuffer& buffer, uint& offset){
-	//cout << "--> Soar Receive Ack" << endl;
+void RemoteSoarCommunicator::receiveMessage(const void* buffer, int buf_len, void* user){
+  RemoteSoarCommunicator* comm = (RemoteSoarCommunicator*)user;
+
+  IntBuffer params;
+  uint offset = 0;
+  unpackBuffer((const char*)buffer, buf_len, params);
+
+  // Handle 1 message at a time
+  comm->receiveStatusMessage(params, offset);
+
+  long now = (long)time(0);
+  if (now == comm->last_time){
+    comm->num_packets++;
+  } else {
+    //printf("Packets per second: %d\n", (comm->num_packets + 1));
+    comm->num_packets = 1;
+  }
+  comm->last_time = now;
+}
+
+void RemoteSoarCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offset){
+	//cout << "--> Soar Receive Status" << endl;
+  //pthread_mutex_lock(&mutex);
+  //
+
+  int send_time = buffer[offset++];
+  timeval now;
+  gettimeofday(&now, 0);
+  int dt = now.tv_usec - send_time;
+  if(dt < 0){
+    dt += 1000000;
+  }
+  //printf("LATENCY: %d\n", dt);
 
 	uint numAcks = buffer[offset++];
 	for(uint i = 0; i < numAcks; i++){
@@ -156,26 +136,24 @@ void RemoteSoarCommunicator::receiveAckMessage(IntBuffer& buffer, uint& offset){
 		}
 	}
 
-	//cout << "<-- Soar Receive Ack" << endl;
-}
-
-void RemoteSoarCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offset){
-	//cout << "--> Soar Receive Status" << endl;
 	StatusList statuses;
 	uint numStatuses = buffer[offset++];
 	for(uint i = 0; i < numStatuses; i++){
 		statuses.push_back(Ev3Status(buffer, offset));
 	}
 	soarManager->readStatus(statuses);
+
 	//cout << "<-- Soar Receive Status" << endl;
+  //pthread_mutex_unlock(&mutex);
 }
 
 void RemoteSoarCommunicator::updateSoar(){
 	pthread_mutex_lock(&mutex);
+
 	for(IdentifierSet::iterator i = finishedIdentifiers.begin(); i != finishedIdentifiers.end(); i++){
 		(*i)->CreateStringWME("status", "success");
 	}
 	finishedIdentifiers.clear();
+  
 	pthread_mutex_unlock(&mutex);
 }
-
