@@ -69,10 +69,12 @@ sp {Stage2*elaboration*copy-substate-structures
 # and our mode is "follow"
 sp {Stage2*propose*move-forward
 	(state <s>	^name follow-line
-				^color-forward <value>
+				^color-forward <forward>
+				^color-turn <turn>
 				^color-sensor-values <values>)
-	(<values>	^left <value>
-				^right <value>)
+	(<values>	^center <forward>
+				^left <turn>
+				^right <turn>)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-forward)
@@ -92,10 +94,10 @@ sp {Stage2*apply*move-forward
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-					^set-direction backward
+					^set-direction forward
 					^set-power 40)
 	(<right>	^port <right-port>
-					 ^set-direction backward
+					 ^set-direction forward
 					 ^set-power 40)
 }
 
@@ -112,10 +114,12 @@ sp {Stage2*apply*move-forward
 #    to forward instead of backward.
 sp {Stage2*propose*move-left
 	(state <s>	^name follow-line
-				^color-turn <value>
+				^color-forward <forward>
+				^color-turn <turn>
 				^color-sensor-values <values>)
-	(<values>	^left <value>
-				^right <color> <> <value>)
+	(<values>	^center <turn>
+				^left <forward>
+				^right <turn>)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-left)
@@ -130,10 +134,10 @@ sp {Stage2*apply*move-left
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-					^set-direction forward
+					^set-direction backward
 					^set-power 40)
 	(<right>	^port <right-port>
-					 ^set-direction backward
+					 ^set-direction forward
 					 ^set-power 40)
 }
 
@@ -150,10 +154,12 @@ sp {Stage2*apply*move-left
 #    to forward instead of backward.
 sp {Stage2*propose*move-right
 	(state <s>	^name follow-line
-				^color-turn <value>
+				^color-forward <forward>
+				^color-turn <turn>
 				^color-sensor-values <values>)
-	(<values>	^left <color> <> <value>
-				^right <value>)
+	(<values>	^center <turn>
+				^left <turn>
+				^right <forward>)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-right)
@@ -168,10 +174,10 @@ sp {Stage2*apply*move-right
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-					^set-direction backward
+					^set-direction forward
 					^set-power 40)
 	(<right>	^port <right-port>
-					 ^set-direction forward
+					 ^set-direction backward
 					 ^set-power 40)
 }
 
