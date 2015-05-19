@@ -55,12 +55,12 @@ sp {Stage1*apply*move-forward
 	 		# the motors turn backward
 	(<left>	^port <left-port>
 					^set-direction forward
-					^set-power 40)
+					^set-power 30)
 	# Do the same thing for the right motor but with
 	# the right motor's port
 	(<right>	^port <right-port>
 					 ^set-direction forward
-					 ^set-power 40)
+					 ^set-power 30)
 }
 
 ###################################################
