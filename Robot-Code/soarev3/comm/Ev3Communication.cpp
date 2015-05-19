@@ -126,10 +126,13 @@ void RemoteEv3Communicator::sendStatusMessage(){
 		statuses[i].packStatus(buffer);
 	}
 
+  buffer.push_back(10);
+
 	// Create + send outgoing buffer
 	char* outBuffer;
 	uint buf_size;
 	packBuffer(buffer, outBuffer, buf_size);
+  printf("Sending packet of size %d\n", buf_size);
   sendPacket(outBuffer, buf_size);
 	delete [] outBuffer;
 	//cout << "<-- Ev3 Send Status" << endl;
