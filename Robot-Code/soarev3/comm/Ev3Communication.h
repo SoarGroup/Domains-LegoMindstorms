@@ -26,6 +26,10 @@ public:
 
 	virtual bool start();
 
+  virtual bool isConnected(){
+    return true;
+  }
+
 	static void* sendStatusThreadFunction(void*);
 
 	virtual void sendStatusMessage() = 0;
@@ -46,6 +50,10 @@ public:
 	}
 
 	virtual bool start();
+
+  virtual bool isConnected(){
+    return TcpServer::isConnected();
+  }
 
 private:
   static void receiveMessage(const void* buffer, int buf_len, void* user);

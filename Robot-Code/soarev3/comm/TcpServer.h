@@ -21,7 +21,7 @@ class TcpServer{
       this->user = user;
     }
 
-    bool isReady(){
+    bool isConnected(){
       return initialized && connected;
     }
 

@@ -17,12 +17,14 @@
 #include <stdlib.h>
 #include <unistd.h>
 #include <string.h>
-#include <sys/types.h>
 #include <iostream>
 using namespace std;
 using namespace sml;
 
+#ifdef DEBUG_NETWORKING
+#include <sys/types.h>
 #include <ctime>
+#endif
 
 // RemoteSoarCommunicator
 RemoteSoarCommunicator::RemoteSoarCommunicator(string server_ip)
@@ -54,7 +56,7 @@ void* RemoteSoarCommunicator::sendThreadFunction(void* arg){
 	RemoteSoarCommunicator* soarComm = (RemoteSoarCommunicator*)arg;
 
 	while(true){
-    if (soarComm->isReady()){
+    if (soarComm->isConnected()){
       soarComm->sendCommands();
     }
     usleep(1000000/SOAR_SEND_COMMAND_FPS);

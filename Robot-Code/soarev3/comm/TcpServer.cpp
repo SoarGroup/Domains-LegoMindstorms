@@ -9,6 +9,7 @@
 #include <sys/types.h>
 #include <sys/socket.h>
 #include <netinet/in.h>
+#include <netinet/tcp.h>
 #include <arpa/inet.h>
 #include <netdb.h>
 
@@ -45,6 +46,14 @@ bool TcpServer::start(){
     close(socket_fd);
     return false;
   }
+
+  int flag = 1;
+  if (setsockopt(socket_fd, IPPROTO_TCP, TCP_NODELAY, (char*)&flag, sizeof(flag)) < 0){
+    perror("TcpServer Error: setsockopt TCP_NODELAY");
+    close(socket_fd);
+    return false;
+  }
+
 
   initialized = true;
   listen(socket_fd, 5);

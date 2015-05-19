@@ -30,16 +30,24 @@ public:
 	virtual void sendCommandToEv3(Ev3Command command, sml::Identifier* id) = 0;
 
 	virtual void updateSoar() = 0;
+
+  virtual bool isConnected(){
+    return true;
+  }
 };
 
 
-class RemoteSoarCommunicator : public SoarCommunicator, TcpClient{
+class RemoteSoarCommunicator : public SoarCommunicator, public TcpClient{
 public:
 	RemoteSoarCommunicator(string server_ip);
 
 	virtual ~RemoteSoarCommunicator();
 
   virtual bool start();
+
+  virtual bool isConnected(){
+    return TcpClient::isConnected();
+  }
 
 	void assignManager(SoarManager* manager){
 		soarManager = manager;
