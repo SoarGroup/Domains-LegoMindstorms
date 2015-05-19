@@ -20,7 +20,7 @@ public class Robot
 		this.rotation = 0;
 		
 		motors = new Motor[] { new Motor("A", 0), new Motor("B", 0), null, null };
-		sensors = new Sensor[] { new ColorSensor(1, -2, 0), new ColorSensor(2, 2, 0), new TouchSensor(4, 0, 3.5), null };
+		sensors = new Sensor[] { new ColorSensor(1, -2, 0), new ColorSensor(2, 2, 0), new ColorSensor(3, 0, 0), new TouchSensor(4, 0, 3.5) };
 	}
 	
 	public void setLocation(Coordinate location)
@@ -55,7 +55,7 @@ public class Robot
 			double xMovement = 2;
 			double yMovement = 2;
 			
-			TouchSensor touch = ((TouchSensor)sensors[2]);
+			TouchSensor touch = ((TouchSensor)sensors[3]);
 			
 			switch (rotation)
 			{
@@ -124,8 +124,8 @@ public class Robot
 		((ColorSensor)this.sensors[1]).centerOffsetX = offsetX;
 		((ColorSensor)this.sensors[1]).centerOffsetY = offsetY;
 		
-		((TouchSensor)this.sensors[2]).centerOffsetX = offsetY * -4/2.0;
-		((TouchSensor)this.sensors[2]).centerOffsetY = offsetX * 4/2.0;
+		((TouchSensor)this.sensors[3]).centerOffsetX = offsetY * -4/2.0;
+		((TouchSensor)this.sensors[3]).centerOffsetY = offsetX * 4/2.0;
 	}
 	
 	public void draw(Draw d)
@@ -172,14 +172,18 @@ public class Robot
 		d.setPenColor(Color.CYAN);
 		d.filledRectangle(x - ((ColorSensor)sensors[0]).centerOffsetX, y - ((ColorSensor)sensors[0]).centerOffsetY, 0.75, 0.75);
 		d.filledRectangle(x + ((ColorSensor)sensors[1]).centerOffsetX, y + ((ColorSensor)sensors[1]).centerOffsetY, 0.75, 0.75);
-		
+		d.filledRectangle(x, y, 0.75, 0.75);
+
 		d.setPenColor(((ColorSensor)sensors[0]).currentColor.color);
 		d.filledRectangle(x - ((ColorSensor)sensors[0]).centerOffsetX, y - ((ColorSensor)sensors[0]).centerOffsetY, 0.5, 0.5);
-	
+			
 		d.setPenColor(((ColorSensor)sensors[1]).currentColor.color);
 		d.filledRectangle(x + ((ColorSensor)sensors[1]).centerOffsetX, y + ((ColorSensor)sensors[1]).centerOffsetY, 0.5, 0.5);
 	
-		TouchSensor touch = ((TouchSensor)sensors[2]);
+		d.setPenColor(((ColorSensor)sensors[2]).currentColor.color);
+		d.filledRectangle(x, y, 0.5, 0.5);
+		
+		TouchSensor touch = ((TouchSensor)sensors[3]);
 		d.setPenColor(touch.currentState ? Color.RED : Color.GREEN);
 		d.filledRectangle(x + touch.centerOffsetX, y + touch.centerOffsetY, 0.5, 0.5);
 	}
