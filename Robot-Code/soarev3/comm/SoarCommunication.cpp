@@ -111,7 +111,7 @@ void RemoteSoarCommunicator::receiveMessage(const void* buffer, int buf_len, voi
 
 void RemoteSoarCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offset){
 	//cout << "--> Soar Receive Status" << endl;
-  //pthread_mutex_lock(&mutex);
+  pthread_mutex_lock(&mutex);
   //
 
   int send_time = buffer[offset++];
@@ -146,7 +146,7 @@ void RemoteSoarCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offse
 	soarManager->readStatus(statuses);
 
 	//cout << "<-- Soar Receive Status" << endl;
-  //pthread_mutex_unlock(&mutex);
+  pthread_mutex_unlock(&mutex);
 }
 
 void RemoteSoarCommunicator::updateSoar(){
