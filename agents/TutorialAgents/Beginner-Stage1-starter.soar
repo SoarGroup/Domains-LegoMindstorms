@@ -54,12 +54,12 @@ sp {Stage1*apply*move-forward
 			# Remember that to move the robot forward
 	 		# the motors turn backward
 	(<left>	^port <left-port>
-					^set-direction backward
+					^set-direction forward
 					^set-power 40)
 	# Do the same thing for the right motor but with
 	# the right motor's port
 	(<right>	^port <right-port>
-					 ^set-direction backward
+					 ^set-direction forward
 					 ^set-power 40)
 }
 
@@ -94,10 +94,10 @@ sp {Stage1*apply*move-left
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-					^set-direction forward
+					^set-direction backward
 					^set-power 40)
 	(<right>	^port <right-port>
-					 ^set-direction backward
+					 ^set-direction forward
 					 ^set-power 40)
 }
 
@@ -132,9 +132,9 @@ sp {Stage1*apply*move-right
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-					^set-direction backward
+					^set-direction forward
 					^set-power 40)
 	(<right>	^port <right-port>
-					 ^set-direction forward
+					 ^set-direction backward
 					 ^set-power 40)
 }
