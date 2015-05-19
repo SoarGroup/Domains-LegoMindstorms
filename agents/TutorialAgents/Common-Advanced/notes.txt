@@ -1,0 +1,7 @@
+This is the order things should go in:
+
+1. Enter-junction
+2. Align-to-junction
+3. User’s code (ie. operator retrieve-epmem & mark-blocked & select-direction)
+4. Traverse-junction
+5. Exit-junction
