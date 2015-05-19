@@ -61,12 +61,11 @@ sp {Stage3*propose*record-red
 	(state <s> ^name line-follower
 			   ^color-sensor-values <values>
 			  -^detected-red)
-	(<values>	^left red
-				^right red)
+	(<values>	^center red)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name record-red
-			 ^action stop)
+		 ^action stop)
 }
 
 sp {Stage3*apply*record-red
@@ -92,7 +91,7 @@ sp {Stage3*propose*turn-180
 }
 
 # Start the rotation.  Arbitrarily chose to start by
-# rotating left.  However, because we're rotating 180
+# rotating right.  However, because we're rotating 180
 # one could choose to rotate right.
 sp {Stage3*apply*turn-180*motor-commands
 	(state <s>	^name line-follower
@@ -160,8 +159,7 @@ sp {Stage3*propose*move-forward
 	(state <s> ^name line-follower
 						 ^turn-complete true
 						 ^color-sensor-values <values>)
-	(<values>	^left red
-				^right red)
+	(<values>	^center red)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-forward)
@@ -182,8 +180,7 @@ sp {Stage3*propose*clear-flags
 	(state <s> ^name line-follower
 						 ^color-sensor-values <values>
 						 ^turn-completed true)
-	(<values>	^left <> red
-				^right <> red)
+	(<values>	^center <> red)
 -->
 	(<s> ^operator <o> + >)
 	(<o> ^name clear-flags)
