@@ -1,0 +1,15 @@
+sp {Common-Advanced*apply*Init-Agent*set*previous-junction-color
+   (state <s> ^operator.name init-agent)
+-->
+   (<s> ^previous-junction-color yellow)
+}
+
+sp {Common-Advanced*apply*Init-Agent*create*color-map
+   (state <s> ^operator.name init-agent)
+-->
+   (<s> ^color-map <colors>)
+   (<colors>	^red <red>
+				^green <green>
+				^blue <blue>
+				^brown <brown>)
+}
