@@ -16,424 +16,464 @@
 	</natures>
 	<linkedResources>
 		<link>
-			<name>src/Tutorial Agents</name>
+			<name>src/TutorialAgents</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/.DS_Store</name>
+			<name>bin/TutorialAgents/.DS_Store</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/.DS_Store</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/.DS_Store</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced-Stage1.soar</name>
+			<name>bin/TutorialAgents/Advanced-Stage1-completed.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced-Stage1.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Advanced-Stage1-completed.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced-Stage2.soar</name>
+			<name>bin/TutorialAgents/Advanced-Stage1-starter.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced-Stage2.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Advanced-Stage1-starter.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Stage1-completed.soar</name>
+			<name>bin/TutorialAgents/Advanced-Stage2-completed.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Stage1-completed.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Advanced-Stage2-completed.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Stage1-starter.soar</name>
+			<name>bin/TutorialAgents/Advanced-Stage3-completed.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Stage1-starter.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Advanced-Stage3-completed.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Stage2-completed.soar</name>
+			<name>bin/TutorialAgents/Advanced-Stage4-completed.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Stage2-completed.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Advanced-Stage4-completed.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Stage3-completed.soar</name>
+			<name>bin/TutorialAgents/Beginner-Stage1-completed.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Stage3-completed.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Beginner-Stage1-completed.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Stage4-completed.soar</name>
+			<name>bin/TutorialAgents/Beginner-Stage1-starter.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Stage4-completed.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Beginner-Stage1-starter.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/.DS_Store</name>
+			<name>bin/TutorialAgents/Beginner-Stage2-completed.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/.DS_Store</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Beginner-Stage2-completed.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced</name>
+			<name>bin/TutorialAgents/Beginner-Stage3-completed.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Beginner-Stage3-completed.soar</locationURI>
+		</link>
+		<link>
+			<name>bin/TutorialAgents/Common-Advanced-Stage1.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced-Stage1.soar</locationURI>
+		</link>
+		<link>
+			<name>bin/TutorialAgents/Common-Advanced-Stage2.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced-Stage2.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/.DS_Store</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/.DS_Store</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Advanced-Stage1-completed.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Advanced-Stage1-completed.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Advanced-Stage1-starter.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Advanced-Stage1-starter.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Advanced-Stage2-completed.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Advanced-Stage2-completed.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Advanced-Stage3-completed.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Advanced-Stage3-completed.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Advanced-Stage4-completed.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Advanced-Stage4-completed.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Beginner-Stage1-completed.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Beginner-Stage1-completed.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Beginner-Stage1-starter.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Beginner-Stage1-starter.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Beginner-Stage2-completed.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Beginner-Stage2-completed.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Beginner-Stage3-completed.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Beginner-Stage3-completed.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced-Stage1.soar</name>
+			<name>src/TutorialAgents/Common-Advanced-Stage1.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced-Stage1.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced-Stage1.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced-Stage2.soar</name>
+			<name>src/TutorialAgents/Common-Advanced-Stage2.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced-Stage2.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced-Stage2.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Include</name>
+			<name>src/TutorialAgents/Common-Include</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Stage1-completed.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/.DS_Store</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Stage1-completed.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/.DS_Store</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Stage1-starter.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/.Init-Agent.soar.swp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Stage1-starter.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/.Init-Agent.soar.swp</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Stage2-completed.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/Button-Press.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Stage2-completed.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/Button-Press.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Stage3-completed.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/Common-Advanced_source.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Stage3-completed.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/Common-Advanced_source.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Stage4-completed.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/Init-Agent.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Stage4-completed.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/Init-Agent.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/.DS_Store</name>
+			<name>bin/TutorialAgents/Common-Advanced/elaborations.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/.DS_Store</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/elaborations.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/.Init-Agent.soar.swp</name>
+			<name>bin/TutorialAgents/Common-Advanced/follow-line.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/.Init-Agent.soar.swp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/follow-line.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/Button-Press.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/preferences.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/Button-Press.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/preferences.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/Common-Advanced_source.soar</name>
+			<name>bin/TutorialAgents/Common-Include/Button-Press.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/Common-Advanced_source.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Button-Press.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/Init-Agent.soar</name>
+			<name>bin/TutorialAgents/Common-Include/Common-Include_source.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/Init-Agent.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Common-Include_source.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/elaborations.soar</name>
+			<name>bin/TutorialAgents/Common-Include/Init-Agent.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/elaborations.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Init-Agent.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/follow-line.soar</name>
+			<name>bin/TutorialAgents/Common-Include/Output-Link.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/follow-line.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Output-Link.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/preferences.soar</name>
+			<name>bin/TutorialAgents/Common-Include/Sensors.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/preferences.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Sensors.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Include/Button-Press.soar</name>
+			<name>bin/TutorialAgents/Common-Include/State-Elaborations.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Button-Press.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/State-Elaborations.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Include/Common-Include_source.soar</name>
+			<name>bin/TutorialAgents/Common-Include/Stop-Agent.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Common-Include_source.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Stop-Agent.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Include/Init-Agent.soar</name>
+			<name>bin/TutorialAgents/Common-Include/Wait.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Init-Agent.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Wait.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Include/Output-Link.soar</name>
+			<name>bin/TutorialAgents/Common-Include/notes</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Output-Link.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/notes</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Include/Sensors.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/.DS_Store</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Sensors.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/.DS_Store</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Include/State-Elaborations.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/.Init-Agent.soar.swp</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/State-Elaborations.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/.Init-Agent.soar.swp</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Include/Stop-Agent.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/Button-Press.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Stop-Agent.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/Button-Press.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Include/Wait.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/Common-Advanced_source.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Wait.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/Common-Advanced_source.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Include/notes</name>
+			<name>src/TutorialAgents/Common-Advanced/Init-Agent.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/notes</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/Init-Agent.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/.DS_Store</name>
+			<name>src/TutorialAgents/Common-Advanced/elaborations.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/.DS_Store</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/elaborations.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/.Init-Agent.soar.swp</name>
+			<name>src/TutorialAgents/Common-Advanced/follow-line.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/.Init-Agent.soar.swp</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/follow-line.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/Button-Press.soar</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/Button-Press.soar</locationURI>
-		</link>
-		<link>
-			<name>src/Tutorial Agents/Common-Advanced/Common-Advanced_source.soar</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/Common-Advanced_source.soar</locationURI>
-		</link>
-		<link>
-			<name>src/Tutorial Agents/Common-Advanced/Init-Agent.soar</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/Init-Agent.soar</locationURI>
-		</link>
-		<link>
-			<name>src/Tutorial Agents/Common-Advanced/elaborations.soar</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/elaborations.soar</locationURI>
-		</link>
-		<link>
-			<name>src/Tutorial Agents/Common-Advanced/follow-line.soar</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/follow-line.soar</locationURI>
-		</link>
-		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/preferences.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/preferences.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/preferences.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/preferences.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Include/Button-Press.soar</name>
+			<name>src/TutorialAgents/Common-Include/Button-Press.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Button-Press.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Button-Press.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Include/Common-Include_source.soar</name>
+			<name>src/TutorialAgents/Common-Include/Common-Include_source.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Common-Include_source.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Common-Include_source.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Include/Init-Agent.soar</name>
+			<name>src/TutorialAgents/Common-Include/Init-Agent.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Init-Agent.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Init-Agent.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Include/Output-Link.soar</name>
+			<name>src/TutorialAgents/Common-Include/Output-Link.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Output-Link.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Output-Link.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Include/Sensors.soar</name>
+			<name>src/TutorialAgents/Common-Include/Sensors.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Sensors.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Sensors.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Include/State-Elaborations.soar</name>
+			<name>src/TutorialAgents/Common-Include/State-Elaborations.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/State-Elaborations.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/State-Elaborations.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Include/Stop-Agent.soar</name>
+			<name>src/TutorialAgents/Common-Include/Stop-Agent.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Stop-Agent.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Stop-Agent.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Include/Wait.soar</name>
+			<name>src/TutorialAgents/Common-Include/Wait.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/Wait.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/Wait.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Include/notes</name>
+			<name>src/TutorialAgents/Common-Include/notes</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Include/notes</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/notes</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/.DS_Store</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/.DS_Store</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/.DS_Store</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/.DS_Store</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/elaborations.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/elaborations.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/elaborations.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/elaborations.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/finish-handle-junction.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/finish-handle-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/finish-handle-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/finish-handle-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/handle-junction_source.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/handle-junction_source.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/handle-junction_source.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/handle-junction_source.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/init-handle-junction.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/init-handle-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/init-handle-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/init-handle-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/move-forward-common.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/move-forward-common.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/move-forward-common.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/move-forward-common.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/move-off-junction.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/move-off-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/move-off-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/move-off-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/move-to-center-of-junction.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/move-to-center-of-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/move-to-center-of-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/move-to-center-of-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/propose-handle-junction.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/propose-handle-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/propose-handle-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/propose-handle-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/turn-common.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/turn-common.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn-common.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn-common.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/turn-forward.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/turn-forward.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn-forward.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn-forward.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/turn135.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/turn135.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn135.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn135.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/turn180.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/turn180.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn180.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn180.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/turn45.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/turn45.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn45.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn45.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/Tutorial Agents/Common-Advanced/handle-junction/turn90.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/handle-junction/turn90.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn90.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn90.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/.DS_Store</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/.DS_Store</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/.DS_Store</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/.DS_Store</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/elaborations.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/elaborations.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/elaborations.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/elaborations.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/finish-handle-junction.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/finish-handle-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/finish-handle-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/finish-handle-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/handle-junction_source.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/handle-junction_source.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/handle-junction_source.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/handle-junction_source.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/init-handle-junction.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/init-handle-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/init-handle-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/init-handle-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/move-forward-common.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/move-forward-common.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/move-forward-common.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/move-forward-common.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/move-off-junction.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/move-off-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/move-off-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/move-off-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/move-to-center-of-junction.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/move-to-center-of-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/move-to-center-of-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/move-to-center-of-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/propose-handle-junction.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/propose-handle-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/propose-handle-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/propose-handle-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/turn-common.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/turn-common.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn-common.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn-common.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/turn-forward.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/turn-forward.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn-forward.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn-forward.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/turn135.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/turn135.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn135.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn135.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/turn180.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/turn180.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn180.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn180.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/turn45.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/turn45.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn45.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn45.soar</locationURI>
 		</link>
 		<link>
-			<name>src/Tutorial Agents/Common-Advanced/handle-junction/turn90.soar</name>
+			<name>src/TutorialAgents/Common-Advanced/handle-junction/turn90.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/Tutorial%20Agents/Common-Advanced/handle-junction/turn90.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/handle-junction/turn90.soar</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>
