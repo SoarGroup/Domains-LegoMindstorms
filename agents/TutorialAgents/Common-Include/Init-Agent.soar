@@ -37,9 +37,10 @@ sp {Common-Include*Init-Agent*apply*init-agent
 		^touch-sensor-port 4
 		^left-color-sensor-port 1
 		^right-color-sensor-port 2
+		^center-color-sensor-port 3
 		^left-motor-port A
 		^right-motor-port B
-		^color-forward white
-		^color-turn black
+		^color-forward black
+		^color-turn white
 		^color-sensor-values <csv>)
 }

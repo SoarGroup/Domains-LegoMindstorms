@@ -28,7 +28,7 @@ sp {Stage3*propose*enter-junction
 	(state <s>	^name line-follower
 				^color-type junction
 				^color-sensor-values <csv>
-				^current-direction <dir>
+				^current-direction <dir>w
 				-^selected-direction)
 	(<csv>	^left <color>
 			^right <color>)
@@ -52,13 +52,13 @@ sp {Stage3*propose*enter-junction
 #   enter-direction
 #   junction-color
 sp {Stage3*enter-junction*elaborate*copy*super-operator
-	(state <s> ^name enter-junction
-						 ^superstate.operator <o>)
-	(<o> ^enter-direction <dir>
-			 ^junction-color <color>)
+	(state <s>	^name enter-junction
+				^superstate.operator <o>)
+	(<o>	^enter-direction <dir>
+			^junction-color <color>)
 -->
-	(<s> ^enter-direction <dir>
-			 ^junction-color <color>)
+	(<s>	^enter-direction <dir>
+			^junction-color <color>)
 }
 
 # Copy information from the superstate

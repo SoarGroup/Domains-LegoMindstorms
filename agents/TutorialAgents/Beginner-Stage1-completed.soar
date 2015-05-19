@@ -28,10 +28,12 @@ source Common-Include/Common-Include_source.soar
 sp {Stage1*propose*move-forward
 	(state <s>	^name line-follower
 				^mode follow
-				^color-forward <value>
+				^color-forward <forward>
+				^color-turn <turn>
 				^color-sensor-values <values>)
-	(<values>	^left <value>
-				^right <value>)
+	(<values>	^center <forward>
+				^left <turn>
+				^right <turn>)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-forward)
@@ -56,13 +58,13 @@ sp {Stage1*apply*move-forward
 			# Remember that to move the robot forward
 	 		# the motors turn backward
 	(<left>	^port <left-port>
-					^set-direction backward
-					^set-power 40)
+					^set-direction forward
+					^set-power 30)
 	# Do the same thing for the right motor but with
 	# the right motor's port
 	(<right>	^port <right-port>
-					 ^set-direction backward
-					 ^set-power 40)
+					 ^set-direction forward
+					 ^set-power 30)
 }
 
 
@@ -80,10 +82,12 @@ sp {Stage1*apply*move-forward
 sp {Stage1*propose*move-left
 	(state <s>	^name line-follower
 				^mode follow
-				^color-turn <value>
+				^color-forward <forward>
+				^color-turn <turn>
 				^color-sensor-values <values>)
-	(<values>	^left <value>
-				^right <color> <> <value>)
+	(<values>	^center <turn>
+				^left <forward>
+				^right <turn>)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-left)
@@ -98,10 +102,10 @@ sp {Stage1*apply*move-left
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-					^set-direction forward
+					^set-direction backward
 					^set-power 40)
 	(<right>	^port <right-port>
-					 ^set-direction backward
+					 ^set-direction forward
 					 ^set-power 40)
 }
 
@@ -119,10 +123,12 @@ sp {Stage1*apply*move-left
 sp {Stage1*propose*move-right
 	(state <s>	^name line-follower
 				^mode follow
-				^color-turn <value>
+				^color-forward <forward>
+				^color-turn <turn>
 				^color-sensor-values <values>)
-	(<values>	^left <color> <> <value>
-				^right <value>)
+	(<values>	^center <turn>
+				^left <turn>
+				^right <forward>)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-right)
@@ -137,9 +143,9 @@ sp {Stage1*apply*move-right
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-					^set-direction backward
+					^set-direction forward
 					^set-power 40)
 	(<right>	^port <right-port>
-					 ^set-direction forward
+					 ^set-direction backward
 					 ^set-power 40)
 }

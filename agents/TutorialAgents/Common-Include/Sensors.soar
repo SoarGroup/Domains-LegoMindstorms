@@ -22,6 +22,19 @@ sp {Common-Include*Sensors*elaborate*color-sensor*left
 	(write |Left Color Sensor = | <color-value> (crlf))
 }
 
+sp {Common-Include*Sensors*elaborate*color-sensor*center
+   (state <s>	^name line-follower
+				^color-sensor-values <csv>
+				^center-color-sensor-port <ccsp>
+				^io.input-link.sensor <color>)
+   (<color>	^type color
+			^value <color-value>
+			^port <ccsp>)
+-->
+	(<csv>	^center <color-value>)
+	(write |Center Color Sensor = | <color-value> (crlf))
+}
+
 sp {Common-Include*Sensors*elaborate*color-sensor*right
 	(state <s>	^name line-follower
 				^color-sensor-values <csv>
@@ -91,19 +104,19 @@ sp {Common-Include*Sensors*apply*change-color-mode
 ###################################################
 
 # Proposal Rule
-sp {Common-Include*Sensors*propose*create-touch-sensor
-   (state <s>	^name line-follower
-               ^io.input-link <il>
-               ^touch-sensor-port <port>)
-  (<il> -^sensor.type touch)
--->
-   (<s>	^operator <o> + > =)	# We should always do this
-							# as this is a critical
-							# operator to the program
-							# working as we intend.
-   (<o> ^name create-touch-sensor
-         ^port <port>)
-}
+#sp {Common-Include*Sensors*propose*create-touch-sensor
+#   (state <s>	^name line-follower
+#               ^io.input-link <il>
+#               ^touch-sensor-port <port>)
+#  (<il> -^sensor.type touch)
+#-->
+#   (<s>	^operator <o> + > =)	# We should always do this
+#							# as this is a critical
+#							# operator to the program
+#							# working as we intend.
+#   (<o> ^name create-touch-sensor
+#         ^port <port>)
+#}
 
 # Apply rule
 # Create the command on the output link
