@@ -10,15 +10,13 @@
 #include "util/WMUtil.h"
 #include "util/CommUtil.h"
 
-#include "lms2012.h"
-#include "Constants.h"
-
-#include <sys/ioctl.h>
+#include "comm/CommStructs.h"
+#include "SoarManager.h"
 
 using namespace std;
 
-ColorSensor::ColorSensor(uint port, SoarCommunicator* comm)
-: comm(comm), port(port), mode(""), value(0), rootId(0), soarMode("")
+ColorSensor::ColorSensor(uint port, SoarManager* manager)
+	: manager(manager), port(port), mode(""), value(0), rootId(0), soarMode("")
 {
 	colorMap[0] = "none";
 	colorMap[1] = "black";
@@ -101,7 +99,7 @@ bool ColorSensor::readSoarCommand(sml::Identifier* commandId){
 		command.dev = INPUT_MAN_DEV;
 		command.params.push_back(CHANGE_MODE_COMMAND);
 		command.params.push_back(packBytes(port-1, modeId, EV3_COLOR_SENSOR_TYPE, 0));
-		comm->sendCommandToEv3(command, commandId);
+		manager->sendCommandToEv3(command, commandId);
 		return true;
 	}
 

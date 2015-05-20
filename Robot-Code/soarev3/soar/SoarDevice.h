@@ -8,10 +8,7 @@
 #ifndef SOARDEVICE_H_
 #define SOARDEVICE_H_
 
-class SoarDevice;
-
-#include "comm/CommStructs.h"
-
+#include "util/CommUtil.h"
 #include "sml_Client.h"
 
 class SoarDevice{

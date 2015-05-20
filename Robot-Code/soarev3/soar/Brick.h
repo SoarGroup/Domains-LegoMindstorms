@@ -8,10 +8,9 @@
 #ifndef SOARBRICK_H_
 #define SOARBRICK_H_
 
-class SoarCommunicator;
-
 #include "SoarDevice.h"
-#include "comm/CommStructs.h"
+
+class SoarManager;
 
 #include "sml_Client.h"
 #include "util/WMUtil.h"
@@ -69,7 +68,7 @@ typedef LedMap::iterator LedMapIt;
 
 class Brick : public SoarDevice{
 public:
-	Brick(SoarCommunicator* comm);
+	Brick(SoarManager* manager);
 	~Brick();
 
 	void updateInputLink(Identifier* inputLink);
@@ -80,7 +79,7 @@ public:
 	}
 
 private:
-	SoarCommunicator* comm;
+	SoarManager* manager;
 
 	Identifier* brickId;
 

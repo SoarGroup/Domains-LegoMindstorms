@@ -9,17 +9,16 @@
 #define SOARTOUCHSENSOR_H_
 
 #include "SoarDevice.h"
-#include "comm/SoarCommunication.h"
 
-#include "lms2012.h"
-
-#include "sml_Client.h"
+#include "Constants.h"
 
 #include <string>
 
+class SoarManager;
+
 class TouchSensor : public SoarDevice{
 public:
-	TouchSensor(uint port, SoarCommunicator* comm);
+	TouchSensor(uint port, SoarManager* manager);
 	~TouchSensor();
 
 	void updateInputLink(sml::Identifier* inputLink);
@@ -30,7 +29,7 @@ public:
 	}
 
 private:
-	SoarCommunicator* comm;
+	SoarManager* manager;
 
 	uint port;
 

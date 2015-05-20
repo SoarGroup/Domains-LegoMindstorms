@@ -11,13 +11,12 @@
 
 #include "Constants.h"
 
-#include <pthread.h>
 #include "util/CommUtil.h"
 
 // Vectors
 #include <vector>
 
-class Ev3Status;
+struct Ev3Status;
 typedef std::vector<Ev3Status> StatusList;
 
 // Sets
@@ -29,7 +28,7 @@ typedef AckSet::iterator AckSetIt;
 // Maps
 #include <map>
 
-class Ev3Command;
+struct Ev3Command;
 typedef std::map<uint, Ev3Command> CommandMap;
 typedef CommandMap::iterator CommandMapIt;
 

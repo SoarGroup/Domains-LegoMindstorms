@@ -6,10 +6,12 @@
  */
 
 #include "Brick.h"
-#include "comm/SoarCommunication.h"
 
-#include "bytecodes.h"
-#include "lms2012.h"
+#include "SoarManager.h"
+
+
+//#include "bytecodes.h"
+//#include "lms2012.h"
 
 /****************************************************
  *
@@ -36,7 +38,7 @@ void BrickButton::updateInputLink(Identifier* parentId){
  *
  ****************************************************/
 
-Brick::Brick(SoarCommunicator* comm):comm(comm){
+Brick::Brick(SoarManager* manager) :manager(manager){
 	brickId = 0;
 
 	buttons.push_back(new BrickButton("up-button", BUTTON_ID_UP));
@@ -95,7 +97,7 @@ bool Brick::readSoarCommand(Identifier* commandId){
 			command.dev = BRICK_DEV;
 			command.params.push_back(BRICK_COMMAND_SET_LED);
 			command.params.push_back(ledState->second);
-			comm->sendCommandToEv3(command, commandId);
+			manager->sendCommandToEv3(command, commandId);
 			return true;
 		} else {
 			cout << "UNKNOWN BRICK LED PATTERN: " << ledPattern << endl;

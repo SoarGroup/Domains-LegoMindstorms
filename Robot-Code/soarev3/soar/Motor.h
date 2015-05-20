@@ -1,16 +1,15 @@
 #ifndef __SOAR_MOTOR_H__
 #define __SOAR_MOTOR_H__
 
-class SoarCommunicator;
-
 #include "SoarDevice.h"
 
-#include "sml_Client.h"
+#include "Constants.h"
 
+class SoarManager;
 
 class Motor : public SoarDevice {
 public:
-	Motor(uchar port, SoarCommunicator* comm);
+	Motor(uchar port, SoarManager* manager);
 
 	void readStatus(IntBuffer& buffer, uint& offset);
 
@@ -26,7 +25,7 @@ private:
 	uchar port;
 	string portStr;
 
-	SoarCommunicator* comm;
+	SoarManager* manager;
 
 	int speed;
 	int tachoCount;

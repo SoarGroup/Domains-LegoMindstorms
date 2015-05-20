@@ -7,13 +7,13 @@
 
 #include "IRRemote.h"
 
+#include "Constants.h"
+
 #include "util/WMUtil.h"
 #include "util/CommUtil.h"
 
-#include "lms2012.h"
-#include "Constants.h"
-
-#include <sys/ioctl.h>
+#include "comm/CommStructs.h"
+#include "SoarManager.h"
 
 using namespace std;
 
@@ -72,8 +72,8 @@ void RemoteButton::setState(int stateCode){
  *
  ****************************************************/
 
-IRRemote::IRRemote(uint port, SoarCommunicator* comm)
-: comm(comm), port(port), mode(0), rootId(0) {
+IRRemote::IRRemote(uint port, SoarManager* manager)
+	: manager(manager), port(port), mode(0), rootId(0) {
 	channel = 0;
 	distance = 0;
 	direction = 0;
@@ -196,7 +196,7 @@ bool IRRemote::readSoarCommand(sml::Identifier* commandId){
 		command.dev = INPUT_MAN_DEV;
 		command.params.push_back(CHANGE_MODE_COMMAND);
 		command.params.push_back(packBytes(port-1, mode, EV3_IR_REMOTE_SENSOR_TYPE, 0));
-		comm->sendCommandToEv3(command, commandId);
+		manager->sendCommandToEv3(command, commandId);
 	} else if(validCommand){
 		commandId->CreateStringWME("status", "complete");
 	}
