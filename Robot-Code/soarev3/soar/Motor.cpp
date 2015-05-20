@@ -1,17 +1,15 @@
 #include "Motor.h"
 
-#include "comm/SoarCommunication.h"
-
 #include "util/WMUtil.h"
 #include "util/CommUtil.h"
-#include "Constants.h"
 
-#include "bytecodes.h"
+#include "comm/CommStructs.h"
+#include "SoarManager.h"
 
 using namespace sml;
 
-Motor::Motor(uchar port, SoarCommunicator* comm)
-:port(port), comm(comm), speed(0), tachoCount(0), tachoSensor(0), motorId(0){
+Motor::Motor(uchar port, SoarManager* manager)
+	:port(port), manager(manager), speed(0), tachoCount(0), tachoSensor(0), motorId(0){
 	portStr = "A";
 	portStr[0] += port;
 }
@@ -76,7 +74,7 @@ bool Motor::readSoarCommand(Identifier* commandId){
 	}
 
 	if(setPower || setDir){
-		comm->sendCommandToEv3(command, commandId);
+		manager->sendCommandToEv3(command, commandId);
 		return true;
 	} else {
 		cout << "MOTOR " << portStr << " INVALID COMMAND" << endl;

@@ -55,9 +55,9 @@ sp {lego-robot*apply*handle-button-press*back*exit
               ^operator <o>
               ^io.output-link <out>)
   (<o> ^name handle-button-press
-        ^button-name back-button)
+        ^button-name escape-button)
 -->
-  (<out> ^manager.stop true)
+  (<out> ^manager.exit true)
 }
 
 sp {lego-robot*remove*success*commands

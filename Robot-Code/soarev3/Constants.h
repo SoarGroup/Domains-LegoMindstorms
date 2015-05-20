@@ -8,7 +8,7 @@
 #ifndef CONSTANTS_H_
 #define CONSTANTS_H_
 
-#include "ev3_constants.h"
+//#include "ev3_constants.h"
 
 // Debug Constants
 
@@ -49,17 +49,40 @@
 // Constants for Brick
 #define BRICK_COMMAND_SET_LED 1
 
+#define NUM_INPUTS 4
+#define NUM_OUTPUTS 4
+
+#define BUTTON_ID_UP     0x01 //!< The up button.
+#define BUTTON_ID_ENTER  0x02 //!< The enter button.
+#define BUTTON_ID_DOWN   0x04 //!< The down button.
+#define BUTTON_ID_RIGHT  0x08 //!< The right button.
+#define BUTTON_ID_LEFT   0x10 //!< The left button.
+#define BUTTON_ID_ESCAPE 0x20 //!< The exit (escape) button.
+
+#define LED_BLACK        0  //!< LED black pattern
+#define LED_GREEN        1  //!< LED green pattern
+#define LED_RED          2  //!< LED red pattern
+#define LED_ORANGE       3  //!< LED orange pattern
+#define LED_GREEN_FLASH  4  //!< LED green flash pattern
+#define LED_RED_FLASH    5  //!< LED red flash pattern
+#define LED_ORANGE_FLASH 6  //!< LED orange flash pattern
+#define LED_GREEN_PULSE  7  //!< LED green pulse pattern
+#define LED_RED_PULSE    8  //!< LED red pulse pattern
+#define LED_ORANGE_PULSE 9  //!< LED orange pulse pattern
+#define NUM_LED_PATTERNS 10 //!< The number of LED patterns
+
 // Constants for Motors
 #define MOTOR_DIR_FORWARD 1
 #define MOTOR_DIR_BACKWARD 2
 
 #define MAX_MOTOR_SPEED 100
 
-#define MOTOR_COMMAND_START opOUTPUT_START
-#define MOTOR_COMMAND_STOP opOUTPUT_STOP
-#define MOTOR_COMMAND_SET_POWER opOUTPUT_POWER
-#define MOTOR_COMMAND_SET_SPEED opOUTPUT_SPEED
-#define MOTOR_COMMAND_SET_DIRECTION opOUTPUT_POLARITY
+#define MOTOR_COMMAND_START 0xA6 /*!< opOutputStart */
+#define MOTOR_COMMAND_STOP  0xA3 /*!< opOutputStop */
+#define MOTOR_COMMAND_SET_POWER 0xA4 /*!< opOutputPower */
+#define MOTOR_COMMAND_SET_SPEED 0xA5 /*!< opOutputSpeed */
+#define MOTOR_COMMAND_SET_DIRECTION 0xA7 /*!< opOutputPolarity */
+
 
 #define LARGE_MOTOR_TYPE 7
 #define MEDIUM_MOTOR_TYPE 8

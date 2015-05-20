@@ -8,10 +8,13 @@
 #ifndef SOARMANAGER_H_
 #define SOARMANAGER_H_
 
-#include "comm/CommStructs.h"
 #include "SoarDevice.h"
-#include "Brick.h"
-#include "Motor.h"
+
+class SoarCommunicator;
+#include "comm/CommStructs.h"
+
+class Brick;
+class Motor;
 
 #include "sml_Client.h"
 
@@ -22,13 +25,20 @@ typedef std::map<uint, SoarDevice*> InputDevices;
 
 class SoarManager {
 public:
-	SoarManager(SoarCommunicator* comm, std::string agentSource, bool debugger);
+	SoarManager(std::string agentSource, bool debugger);
 	virtual ~SoarManager();
-	static SoarManager* singleton;
+
+	void setCommunicator(SoarCommunicator* comm){
+		this->comm = comm;
+	}
 
 	void readStatus(StatusList& statuses);
 
 	void step();
+
+	bool isRunning(){
+		return running;
+	}
 
 	// input phase callback
 	static void runEventHandler(sml::smlRunEventId eventID, void* data, sml::Agent* agent, sml::smlPhase phase);
@@ -39,9 +49,7 @@ public:
 	void sendSoarMessage();
 	void handleOutput(std::string attName, sml::WMElement* wme);
 
-  bool isAlive(){
-    return alive;
-  }
+	void sendCommandToEv3(Ev3Command command, sml::Identifier* id);
 
 private:
 	void initAgent(const char* agentSource);
@@ -61,12 +69,12 @@ private:
 	Motor* motors[4];
 	SoarDevice* inputs[4];
 
-  bool alive;
-
 	// Soar agent variables
 	sml::Kernel* kernel;
 	sml::Agent* agent;
 	int timeStep;
+
+	bool running;
 };
 
 #endif /* SOARMANAGER_H_ */

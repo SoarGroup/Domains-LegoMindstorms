@@ -12,14 +12,13 @@ source Common-Advanced-Stage1.soar
 
 sp {Stage1*propose*select-direction
    (state <s> ^name line-follower
-              ^color-type junction
+              ^junction-color <color>
              -^selected-direction
               ^direction <dir>)
 -->
    (<s> ^operator <o> + =)
    (<o> ^name select-direction
-        ^direction <dir>
-		^action stop)
+        ^direction <dir>)
 }
 
 ####################################################
@@ -46,14 +45,12 @@ sp {Stage1*apply*select-direction
 ####################################################
 
 sp {Stage1*prefer*right*color
-	(state <s> ^name line-follower
-              ^operator <o> +
-              ^color-sensor-values <csv>
-              ^color-map.<color> <dir>)
-	(<csv>	^left <color>
-			^right <color>)
-	(<o> ^name select-direction
-        ^direction <dir>)
+	(state <s>	^name line-follower
+				^operator <o> +
+				^junction-color <color>
+				^color-map.<color> <dir>)
+	(<o>	^name select-direction
+			^direction <dir>)
 -->
    (<s> ^operator <o> + >)
 }

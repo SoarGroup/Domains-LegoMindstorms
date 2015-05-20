@@ -5,8 +5,16 @@
  *      Author: aaron
  */
 
+#ifdef _WIN32
+#include "windows/SoarCommunication.h"
+#else
+#include "comm/SoarCommunication.h"
+#endif
+
 #include "SoarManager.h"
 
+#include "Brick.h"
+#include "Motor.h"
 #include "ColorSensor.h"
 #include "TouchSensor.h"
 #include "IRRemote.h"
@@ -15,15 +23,13 @@
 
 #include <fcntl.h>
 #include <stdio.h>
-#include  <sys/mman.h>
-#include "lms2012.h"
-
+//#include "lms2012.h"
 
 using namespace std;
 using namespace sml;
 
-SoarManager::SoarManager(SoarCommunicator* comm, std::string agentSource, bool debugger)
-:comm(comm), timeStep(1), alive(true){
+SoarManager::SoarManager(std::string agentSource, bool debugger)
+:comm(0), timeStep(1), running(true){
 	kernel = Kernel::CreateKernelInNewThread();
 	agent = kernel->CreateAgent("Ev3 Agent");
 
@@ -39,12 +45,12 @@ SoarManager::SoarManager(SoarCommunicator* comm, std::string agentSource, bool d
 	agent->AddOutputHandler("manager", SoarManager::outputEventHandler, (void*)this);
 
 	// Brick
-	brick = new Brick(comm);
+	brick = new Brick(this);
 	agent->AddOutputHandler("brick", SoarManager::outputEventHandler, (void*)this);
 
 	// Motors
 	for(int i = 0; i < NUM_OUTPUTS; i++){
-		motors[i] = new Motor(i, comm);
+		motors[i] = new Motor(i, this);
 	}
 	agent->AddOutputHandler("motor", SoarManager::outputEventHandler, (void*)this);
 
@@ -69,10 +75,13 @@ SoarManager::~SoarManager(){
 		}
 	}
 
-	if(agent != 0){
+	if (agent != 0){
 		agent->KillDebugger();
 		kernel->Shutdown();
 		delete kernel;
+	}
+	if (comm != 0){
+		delete comm;
 	}
 }
 
@@ -80,16 +89,28 @@ void SoarManager::step(){
 	agent->RunSelf(1);
 }
 
+void SoarManager::sendCommandToEv3(Ev3Command command, sml::Identifier* id){
+	if (running && comm != 0){
+		comm->sendCommandToEv3(command, id);
+	}
+}
+
 // input phase callback
 void SoarManager::runEventHandler(sml::smlRunEventId eventID, void* data, Agent* agent, sml::smlPhase phase){
-	((SoarManager*)data)->updateInputLink(agent->GetInputLink());
-	((SoarManager*)data)->comm->updateSoar();
-	usleep(SOAR_DC_WAIT);
+	SoarManager* manager = (SoarManager*)data;
+	if (manager->isRunning()){
+		manager->updateInputLink(agent->GetInputLink());
+		if (manager->comm != 0){
+			manager->comm->updateSoar();
+		}
+	}
+	//Sleep(SOAR_DC_WAIT);
 }
 
 // output link event callback
-void SoarManager::outputEventHandler(void* data, Agent* agent, const char* attName,  WMElement* wme){
-	((SoarManager*)data)->handleOutput(attName, wme);
+void SoarManager::outputEventHandler(void* data, Agent* agent, const char* attName, WMElement* wme){
+	SoarManager* manager = (SoarManager*)data;
+	manager->handleOutput(attName, wme);
 }
 
 void SoarManager::readStatus(StatusList& statuses){
@@ -117,6 +138,7 @@ void SoarManager::readMotorsStatus(IntBuffer& status){
 		motors[port]->readStatus(status, offset);
 	}
 }
+
 void SoarManager::readSensorsStatus(IntBuffer& status){
 	uint offset = 0;
 	uint numSensors = status[offset++];
@@ -168,13 +190,13 @@ void SoarManager::readSensorsStatus(IntBuffer& status){
 void SoarManager::createSensor(uint port, uint type){
 	switch(type){
 	case EV3_COLOR_SENSOR_TYPE:
-		inputs[port] = new ColorSensor(port+1, comm);
+		inputs[port] = new ColorSensor(port+1, this);
 		break;
 	case EV3_IR_REMOTE_SENSOR_TYPE:
-		inputs[port] = new IRRemote(port+1, comm);
+		inputs[port] = new IRRemote(port + 1, this);
 		break;
 	case EV3_TOUCH_SENSOR_TYPE:
-		inputs[port] = new TouchSensor(port+1, comm);
+		inputs[port] = new TouchSensor(port + 1, this);
 		break;
 	}
 }
@@ -240,8 +262,12 @@ bool SoarManager::readSoarCommand(Identifier* id){
 	Identifier* childId;
 
   std::string childStr;
-  if(WMUtil::getValue(id, "stop", childStr)){
-    alive = false;
+  if (WMUtil::getValue(id, "exit", childStr)){
+	  agent->StopSelf();
+	  if (comm != 0){
+		  comm->closeConnection();
+	  }
+	  running = false;
   }
 
 	if(WMUtil::getValue(id, "create-sensor", childId)){
@@ -255,6 +281,7 @@ bool SoarManager::readSoarCommand(Identifier* id){
 			return false;
 		}
 	}
+	return true;
 }
 
 bool SoarManager::handleCreateSensorCommand(Identifier* id){
@@ -276,7 +303,7 @@ bool SoarManager::handleCreateSensorCommand(Identifier* id){
 		command.params.push_back(packBytes(port-1, EV3_TOUCH_SENSOR_TYPE, 0, 0));
 	}
 
-	comm->sendCommandToEv3(command, id);
+	this->sendCommandToEv3(command, id);
 	return true;
 }
 
@@ -292,7 +319,7 @@ bool SoarManager::handleDeleteSensorCommand(Identifier* id){
 	command.params.push_back(DELETE_ANALOG_SENSOR_COMMAND);
 	command.params.push_back(packBytes(port-1, 0, 0, 0));
 
-	comm->sendCommandToEv3(command, id);
+	this->sendCommandToEv3(command, id);
 	return true;
 }
 

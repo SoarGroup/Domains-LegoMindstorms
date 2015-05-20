@@ -9,13 +9,12 @@
 #define IRREMOTE_SENSOR_H_
 
 #include "SoarDevice.h"
-#include "comm/SoarCommunication.h"
 
-#include "lms2012.h"
-
-#include "sml_Client.h"
+#include "Constants.h"
 
 #include <string>
+
+class SoarManager;
 
 /*******************************************
  *
@@ -54,7 +53,7 @@ private:
 
 class IRRemote : public SoarDevice{
 public:
-	IRRemote(uint port, SoarCommunicator* comm);
+	IRRemote(uint port, SoarManager* manager);
 	~IRRemote();
 
 	void updateInputLink(sml::Identifier* inputLink);
@@ -69,7 +68,7 @@ public:
 	}
 
 private:
-	SoarCommunicator* comm;
+	SoarManager* manager;
 
 	uint port;
 	uchar mode;

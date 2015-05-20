@@ -57,7 +57,7 @@ public class Motor implements Sensor
 	{
 		output.put("speed", speed);
 		output.put("amount-rotated", new Double(rotations));
-		output.put("direction", speed == -1 ? "backward" : speed == 1 ? "forward" : "stopped");
+		output.put("direction", speed == -1 ? "forward" : speed == 1 ? "backward" : "stopped");
 		
 		return output;
 	}

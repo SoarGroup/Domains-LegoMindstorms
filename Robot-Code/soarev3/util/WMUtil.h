@@ -77,6 +77,12 @@ public:
 	static bool getValue(Identifier* id, const string& att, int& value);
 
 	/**
+	* Given id and attribute, returns long integer value for WME (id ^attribute value)
+	* Returns true if successful
+	*/
+	static bool getValue(Identifier* id, const string& att, long& value);
+
+	/**
 	 * Given id and attribute, returns double value for WME (id ^attribute value)
 	 * Returns true if successful
 	 */

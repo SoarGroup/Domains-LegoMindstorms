@@ -5,11 +5,6 @@ source elaborations.soar
 #      Whether the seen color is categorized as a path (black, brown, white)
 #        or junction (red, green, yellow, blue)
 
-source preferences.soar
-# Contains:
-#   preference rules for the topstate
-#   These make sure toggle-robot-mode is preferred over turn-to-direction
-
 source Init-Agent.soar
 # Contains:
 #   Additional initialization code for the topstate
@@ -25,8 +20,11 @@ source Button-Press.soar
 # Will handle a button press of the 4 direction buttons (up, down, left, right)
 #   and change the current-direction of the robot
 
-pushd handle-junction
-source handle-junction_source.soar
-popd
+source preferences.soar
+
+source enter-junction.soar
+source align-to-junction.soar
+source traverse-junction.soar
+source exit-junction.soar
 # code used to turn the robot to a given cardinal direction (NSEW) at a junction
 

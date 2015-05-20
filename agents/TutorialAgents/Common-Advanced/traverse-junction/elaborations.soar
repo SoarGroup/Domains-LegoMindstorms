@@ -1,6 +1,6 @@
 
-sp {handle-junction*elaboration*elaborate-relative-direction
-	(state <s>	^name handle-junction
+sp {traverse-junction*elaboration*elaborate-relative-direction
+	(state <s>	^name traverse-junction
 				^superstate <ss>)
 	(<ss>	^direction-map.direction <d>
 			^selected-direction <selected-direction>
@@ -12,16 +12,16 @@ sp {handle-junction*elaboration*elaborate-relative-direction
 	(<s>	^relative-direction <relative>)
 }
 
-sp {handle-junction*elaboration*elaborate-color-sensor-values
-	(state <s>	^name handle-junction
+sp {traverse-junction*elaboration*elaborate-color-sensor-values
+	(state <s>	^name traverse-junction
 				^superstate <ss>)
 	(<ss>	^color-sensor-values <vals>)
 -->
 	(<s>	^color-sensor-values <vals>)
 }
 
-sp {handle-junction*elaboration*elaborate-motor-ports
-	(state <s>	^name handle-junction
+sp {traverse-junction*elaboration*elaborate-motor-ports
+	(state <s>	^name traverse-junction
 				^superstate <ss>)
 	(<ss>	^left-motor-port <left-port>
 			^right-motor-port <right-port>

@@ -1,9 +1,13 @@
-sp {Common-Advanced*prefer*toggle-robot-mode*over*turn-to-direction
-	(state <s> ^name line-follower
-						 ^operator <o1> +
-						 ^operator <o2> +)
-	(<o1> ^name toggle-robot-mode)
-	(<o2> ^name turn-to-direction)
+
+sp {Common-Advanced*prefer*backwards-for-select-direction-if-yellow
+	(state <s>	^junction-color yellow
+				^current-direction <direction>
+				^direction-map.direction <dir>
+				^operator <o> +)
+	(<dir>	^name <direction>
+			^backward.name <backward>)
+	(<o>	^name select-direction
+			^direction <> <backward>)
 -->
-	(<s> ^operator <o1> > <o2>)
+	(<s>	^operator <o> -)
 }

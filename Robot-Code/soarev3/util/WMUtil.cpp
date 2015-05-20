@@ -153,6 +153,19 @@ bool WMUtil::getValue(Identifier* id, const string& att, string& value){
 }
 
 /**
+* Given id and attribute, returns integer value for WME (id ^attribute value)
+* Returns true if successful
+*/
+bool WMUtil::getValue(Identifier* id, const string& att, long& value){
+	WMElement* valueWME = id->FindByAttribute(att.c_str(), 0);
+	if (valueWME == 0 || valueWME->GetValueType() != INTEGER_VAL){
+		return false;
+	}
+	value = (long)valueWME->ConvertToIntElement()->GetValue();
+	return true;
+}
+
+/**
  * Given id and attribute, returns integer value for WME (id ^attribute value)
  * Returns true if successful
  */
@@ -161,7 +174,7 @@ bool WMUtil::getValue(Identifier* id, const string& att, int& value){
 	if(valueWME == 0 || valueWME->GetValueType() != INTEGER_VAL){
 		return false;
 	}
-	value = valueWME->ConvertToIntElement()->GetValue();
+	value = (int)valueWME->ConvertToIntElement()->GetValue();
 	return true;
 }
 
@@ -212,7 +225,7 @@ void WMUtil::getAllValuesOfAttribute(Identifier* id, const string& att, vector<i
 	for(int index = 0; index < id->GetNumberChildren(); index++){
 		WMElement* wme = id->GetChild(index);
 		if(wme->GetAttribute() == att && wme->GetValueType() == INTEGER_VAL){
-			values.push_back(wme->ConvertToIntElement()->GetValue());
+			values.push_back((int)wme->ConvertToIntElement()->GetValue());
 		}
 	}
 }

@@ -14,10 +14,11 @@
 
 sp {Common-Advanced*top-state*propose*follow-line
 	(state <s>	^name line-follower
-            ^color-type path
-			^color-sensor-values <vals>
-			^mode follow)
-	(<vals>	^left <color> <> black
+				^color-type path
+				^color-sensor-values <vals>
+				^mode follow
+				-^junction-color)
+	(<vals>	^left <color> << black white >>
 			^right <color>)
 -->
 	(<s> ^operator <o> +)

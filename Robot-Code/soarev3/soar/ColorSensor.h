@@ -9,18 +9,17 @@
 #define SOARCOLORSENSOR_H_
 
 #include "SoarDevice.h"
-#include "comm/SoarCommunication.h"
 
-#include "lms2012.h"
-
-#include "sml_Client.h"
+#include "Constants.h"
 
 #include <string>
 #include <map>
 
+class SoarManager;
+
 class ColorSensor : public SoarDevice{
 public:
-	ColorSensor(uint port, SoarCommunicator* comm);
+	ColorSensor(uint port, SoarManager* manager);
 	~ColorSensor();
 
 	void updateInputLink(sml::Identifier* inputLink);
@@ -34,7 +33,7 @@ public:
 private:
 	void changeSoarMode(std::string newMode);
 
-	SoarCommunicator* comm;
+	SoarManager* manager;
 
 	uint port;
 	std::string mode;

@@ -109,7 +109,7 @@ public class LegoMap
 						t.blocked = TileBlocked.blocked;
 						break;
 					case 6: // Start
-						t.tileColor = TileColor.start;
+						t.tileColor = TileColor.black;
 						robotStartLocation = new Coordinate (t.coord.getX(), t.coord.getY());
 						break;
 					case 8: // Finish

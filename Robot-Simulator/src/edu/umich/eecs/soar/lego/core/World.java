@@ -223,9 +223,9 @@ public class World implements RunEventInterface, OutputEventInterface
 					if (direction.equals("stop"))
 						power = 0;
 					else if (direction.equals("backward"))
-						power *= 1;
-					else if (direction.equals("forward"))
 						power *= -1;
+					else if (direction.equals("forward"))
+						power *= 1;
 					else
 					{
 						power = -101;

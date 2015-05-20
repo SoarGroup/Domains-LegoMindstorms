@@ -10,15 +10,13 @@
 #include "util/WMUtil.h"
 #include "util/CommUtil.h"
 
-#include "lms2012.h"
-#include "Constants.h"
-
-#include <sys/ioctl.h>
+#include "comm/CommStructs.h"
+#include "SoarManager.h"
 
 using namespace std;
 
-TouchSensor::TouchSensor(uint port, SoarCommunicator* comm)
-: comm(comm), port(port), pressed(false), prev(false), rootId(0) {
+TouchSensor::TouchSensor(uint port, SoarManager* manager)
+	: manager(manager), port(port), pressed(false), prev(false), rootId(0) {
 
 }
 
