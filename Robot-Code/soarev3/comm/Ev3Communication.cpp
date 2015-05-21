@@ -18,15 +18,18 @@
 using namespace std;
 
 // Ev3Communicator
+Ev3Communicator::Ev3Communicator(Ev3Manager* manager)
+  :ev3Manager(manager){
+
+}
+
 void* Ev3Communicator::sendStatusThreadFunction(void* arg){
 	Ev3Communicator* ev3Comm = (Ev3Communicator*)arg;
   int num_packets = 0;
   long last_time = (long)time(0);
-	while(true){
-    if(ev3Comm->isConnected()){
-      num_packets++;
-      ev3Comm->sendStatusMessage();
-    }
+	while(ev3Comm->isConnected()){
+    ev3Comm->sendStatusMessage();
+    num_packets++;
     if (((long)time(0)) != last_time){
       //printf("Packets per second: %d\n", num_packets);
       last_time = (long)time(0);
@@ -42,10 +45,14 @@ bool Ev3Communicator::start(){
   return true;
 }
 
+void Ev3Communicator::stop(){
+  pthread_join(sendStatusThread, NULL);
+}
+
 
 // RemoteEv3Communicator
-RemoteEv3Communicator::RemoteEv3Communicator()
-: TcpServer(), ev3Manager(0){
+RemoteEv3Communicator::RemoteEv3Communicator(Ev3Manager* manager)
+: Ev3Communicator(manager), TcpServer(){
   setReceptionCallback(&RemoteEv3Communicator::receiveMessage, this);
 
 	pthread_mutex_init(&mutex, 0);
@@ -58,6 +65,11 @@ RemoteEv3Communicator::~RemoteEv3Communicator(){
 bool RemoteEv3Communicator::start(){
 	Ev3Communicator::start();
   return TcpServer::start();
+}
+
+void RemoteEv3Communicator::stop(){
+  Ev3Communicator::stop();
+  TcpServer::stop();
 }
 
 void RemoteEv3Communicator::receiveMessage(const void* buffer, int buf_len, void* user){

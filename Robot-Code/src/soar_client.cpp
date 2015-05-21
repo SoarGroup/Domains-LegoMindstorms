@@ -16,7 +16,6 @@ int main(int argc, char** argv){
 		return 0;
 	}
 
-	RemoteSoarCommunicator comm(argv[1]);
 	
 	string filepath = argv[2];
 	string parentPath = filepath.substr(0, filepath.find_last_of("/\\"));
@@ -30,17 +29,21 @@ int main(int argc, char** argv){
 	
 	chdir(parentPath.c_str());
 	
-	SoarManager manager(&comm, filename.c_str(), true);
-	comm.assignManager(&manager);
-	comm.start();
+  SoarManager manager(filename.c_str(), true);
+  RemoteSoarCommunicator comm(&manager, argv[1]);
+  manager.setCommunicator(&comm);
+  comm.openConnection();
 
-	while(true){
+	while(manager.isRunning()){
     if (!comm.isConnected()){
-      printf("Trying to reconnect to server\n");
-      // Try to restart if there was a bad connection
-      comm.start();
+      comm.openConnection();
+      if(!comm.isConnected()){
+        printf("Trying to reconnect to server\n");
+        // Try to restart if there was a bad connection
+      }
+		  sleep(5);
     }
-		sleep(5);
+    sleep(1);
 	}
 
 	return 0;

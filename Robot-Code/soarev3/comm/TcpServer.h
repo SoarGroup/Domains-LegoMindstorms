@@ -14,15 +14,21 @@ class TcpServer{
 
     virtual bool start();
 
+    virtual void stop();
+
+    bool isActive(){
+      return initialized;
+    }
+
+    bool isConnected(){
+      return initialized && connected;
+    }
+
     bool sendPacket(const void* buffer, int buf_len);
 
     void setReceptionCallback(void (*f)(const void* buffer, int buf_len, void* user), void* user){
       this->callback = f;
       this->user = user;
-    }
-
-    bool isConnected(){
-      return initialized && connected;
     }
 
   private:

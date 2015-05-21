@@ -80,9 +80,6 @@ SoarManager::~SoarManager(){
 		kernel->Shutdown();
 		delete kernel;
 	}
-	if (comm != 0){
-		delete comm;
-	}
 }
 
 void SoarManager::step(){

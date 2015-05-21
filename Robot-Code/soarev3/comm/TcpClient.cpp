@@ -24,7 +24,12 @@ TcpClient::~TcpClient(){
   }
 }
 
-bool TcpClient::start(){
+bool TcpClient::openConnection(){
+  if (connected){
+    printf("TcpClient Error: Trying to connect when its already connected\n");
+    return false;
+  }
+
   printf("TcpClient: creating socket\n");
   socket_fd = socket(AF_INET, SOCK_STREAM, 0);
   if (socket_fd < 0){
@@ -57,32 +62,37 @@ bool TcpClient::start(){
   return true;
 }
 
+void TcpClient::closeConnection(){
+  if(connected){
+    close(socket_fd);
+    connected = false;
+  }
+  pthread_join(receiveThread, NULL);
+}
+
 #include <ctime>
 
 #include <sys/time.h>
 
 void* TcpClient::receiveThreadFunction(void* arg){
   TcpClient* server = (TcpClient*)arg;
-  if (!server->connected){
-    return 0;
-  }
 
   int num_packets = 0;
   long last_time = (long)time(0);
 
-  while(server->receivePacket()){
+  while(server->isConnected()){
+    if(!server->receivePacket()){
+      return 0;
+    }
+    num_packets++;
     long now = (long)time(0);
     if (now != last_time){
       //printf("FPS: %d\n", num_packets);
       num_packets = 0;
     }
     last_time = now;
-    num_packets++;
-
-    // Do nothing
   }
 
-  server->connected = false;
   return 0;
 }
 
@@ -91,10 +101,12 @@ bool TcpClient::receivePacket(){
   ssize_t len = read(socket_fd, (void*)buffer, MAX_BUFFER_SIZE-1);
   if (len < 0){
     perror("TcpClient Error: read");
+    connected = false;
     return false;
   }
   if (len == 0){
     printf("TcpClient: connection closed\n");
+    connected = false;
     return false;
   }
   //printf("TcpClient: received packet of size %d\n", (int)len);
@@ -113,6 +125,7 @@ bool TcpClient::sendPacket(const void* buffer, int buf_len){
 
   if (write(socket_fd, buffer, buf_len) < 0){
     perror("TcpClient Error: write");
+    connected = false;
     return false;
   }
   //printf("TcpClient: successfully sent packet\n");

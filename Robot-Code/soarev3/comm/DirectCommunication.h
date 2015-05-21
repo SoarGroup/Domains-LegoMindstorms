@@ -15,23 +15,17 @@
 
 class DirectCommunicator : public Ev3Communicator, SoarCommunicator {
 public:
-	DirectCommunicator();
-
-	void assignManagers(SoarManager* sm, Ev3Manager* em){
-		soarManager = sm; 	ev3Manager = em;
-	}
+	DirectCommunicator(SoarManager* sm, Ev3Manager* em);
 
 	virtual ~DirectCommunicator(){}
+
+  virtual void start();
 
 	void sendCommandToEv3(Ev3Command command, sml::Identifier* id);
 
 	void sendStatusMessage();
 
 	void updateSoar(){}
-
-private:
-	SoarManager* soarManager;
-	Ev3Manager* ev3Manager;
 };
 
 

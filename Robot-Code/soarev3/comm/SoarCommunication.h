@@ -8,6 +8,8 @@
 #ifndef SOARCOMMUNICATION_H_
 #define SOARCOMMUNICATION_H_
 
+#include "comm/TcpClient.h"
+
 #include <string>
 
 class SoarManager;
@@ -16,8 +18,6 @@ class SoarManager;
 
 #include "CommStructs.h"
 
-#include "TcpClient.h"
-
 #include <ctime>
 
 typedef std::map<uint, sml::Identifier*> IdentifierMap;
@@ -25,25 +25,35 @@ typedef std::set<sml::Identifier*> IdentifierSet;
 
 class SoarCommunicator {
 public:
+  SoarCommunicator(SoarManager* manager);
+
 	virtual ~SoarCommunicator(){}
 
 	virtual void sendCommandToEv3(Ev3Command command, sml::Identifier* id) = 0;
 
 	virtual void updateSoar() = 0;
 
+  virtual bool start(){}
+
+  virtual void stop(){};
+
   virtual bool isConnected(){
     return true;
   }
+protected:
+  SoarManager* soarManager;
 };
 
 
 class RemoteSoarCommunicator : public SoarCommunicator, public TcpClient{
 public:
-	RemoteSoarCommunicator(string server_ip);
+	RemoteSoarCommunicator(SoarManager* manager, string server_ip);
 
 	virtual ~RemoteSoarCommunicator();
 
-  virtual bool start();
+  bool openConnection();
+
+  void closeConnection();
 
   virtual bool isConnected(){
     return TcpClient::isConnected();

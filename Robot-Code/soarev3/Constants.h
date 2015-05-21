@@ -96,6 +96,8 @@
 #define SENSOR_CAT_SERIAL 2
 #define SENSOR_CAT_ANALOG 3
 
+#define CONN_INPUT_UART 122
+
 // Constants for Color Sensor
 #define EV3_COLOR_SENSOR_TYPE 29
 

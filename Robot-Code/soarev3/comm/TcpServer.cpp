@@ -18,12 +18,7 @@ TcpServer::TcpServer()
 }
 
 TcpServer::~TcpServer(){
-  if(connected){
-    close(client_fd);
-  }
-  if(initialized){
-    close(socket_fd);
-  }
+  stop();
 }
 
 bool TcpServer::start(){
@@ -54,7 +49,6 @@ bool TcpServer::start(){
     return false;
   }
 
-
   initialized = true;
   listen(socket_fd, 5);
 
@@ -64,13 +58,22 @@ bool TcpServer::start(){
   return true;
 }
 
+void TcpServer::stop(){
+  if(initialized){
+    close(socket_fd);
+    initialized = false;
+  }
+  if(connected){
+    close(client_fd);
+    connected = false;
+  }
+  pthread_join(receiveThread, NULL);
+}
+
 void* TcpServer::receiveThreadFunction(void* arg){
   TcpServer* server = (TcpServer*)arg;
-  if (!server->initialized){
-    return 0;
-  }
-  
-  while(true){
+
+  while(server->isActive()){
     printf("TcpServer: listening for new connection\n");
 
     struct sockaddr_in client_addr;
@@ -83,11 +86,10 @@ void* TcpServer::receiveThreadFunction(void* arg){
     printf("TcpServer: connection accepted\n");
 
     server->connected = true;
-    while(server->receivePacket()){
-      // Nothing
+    while(server->isConnected()){
+      server->receivePacket();
     }
 
-    server->connected = false;
     printf("TcpServer: connection closed\n");
   }
 
@@ -99,9 +101,11 @@ bool TcpServer::receivePacket(){
   ssize_t len = read(client_fd, (void*)buffer, MAX_BUFFER_SIZE-1);
   if (len < 0){
     perror("TcpServer Error: read");
+    connected = false;
     return false;
   }
   if (len == 0){
+    connected = false;
     return false;
   }
   //printf("TcpServer: received packet of size %d\n", (int)len);
@@ -120,6 +124,7 @@ bool TcpServer::sendPacket(const void* buffer, int buf_len){
 
   if (write(client_fd, buffer, buf_len) < 0){
     perror("TcpServer Error: write");
+    connected = false;
     return false;
   }
   //printf("TcpServer: successfully sent packet\n");

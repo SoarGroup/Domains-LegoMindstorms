@@ -8,14 +8,13 @@
 using namespace std;
 
 int main(){
-	RemoteEv3Communicator comm;
-	Ev3Manager manager;
-	comm.assignManager(&manager);
-	comm.start();
+  Ev3Manager manager;
+	RemoteEv3Communicator comm(&manager);
+  comm.start();
 
-	while(true){
-		sleep(10);
-	}
+  while(comm.isActive()){
+    sleep(10);
+  }
 
 	return 0;
 }

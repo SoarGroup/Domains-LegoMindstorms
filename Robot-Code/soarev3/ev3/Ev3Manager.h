@@ -22,6 +22,7 @@ typedef CommandHandlers::iterator CommandHandlersIt;
 class Ev3Manager : public CommandHandler {
 public:
 	Ev3Manager();
+
 	virtual ~Ev3Manager();
 
 	void writeStatus(StatusList& statuses);

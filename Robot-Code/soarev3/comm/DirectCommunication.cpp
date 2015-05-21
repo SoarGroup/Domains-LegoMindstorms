@@ -12,8 +12,12 @@
 
 using namespace sml;
 
-DirectCommunicator::DirectCommunicator()
-: soarManager(0), ev3Manager(0){
+DirectCommunicator::DirectCommunicator(SoarManager* sm, Ev3Manager* em)
+: SoarManager(sm), Ev3Manager(em){
+}
+
+void DirectCommunicator::start(){
+  Ev3Communication::start();
 }
 
 void DirectCommunicator::sendStatusMessage(){

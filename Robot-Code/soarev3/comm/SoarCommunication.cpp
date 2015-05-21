@@ -26,20 +26,34 @@ using namespace sml;
 #include <ctime>
 #endif
 
+
+// SoarCommunicator
+
+SoarCommunicator::SoarCommunicator(SoarManager* manager)
+  :soarManager(manager){
+
+}
+
 // RemoteSoarCommunicator
-RemoteSoarCommunicator::RemoteSoarCommunicator(string server_ip)
-: TcpClient(server_ip), soarManager(0), nextAck(1){
+RemoteSoarCommunicator::RemoteSoarCommunicator(SoarManager* manager, string server_ip)
+: SoarCommunicator(manager), TcpClient(server_ip), nextAck(1){
 	pthread_mutex_init(&mutex, 0);
   this->setReceptionCallback(&RemoteSoarCommunicator::receiveMessage, this);
 }
 
 RemoteSoarCommunicator::~RemoteSoarCommunicator(){
   pthread_mutex_destroy(&mutex);
+  closeConnection();
 }
 
 bool RemoteSoarCommunicator::start(){
 	pthread_create(&sendThread, 0, &sendThreadFunction, this);
-  return TcpClient::start();
+  return TcpClient::openConnection();
+}
+
+void RemoteSoarCommunicator::closeConnection(){
+  TcpClient::closeConnection();
+  pthread_join(sendThread, NULL);
 }
 
 void RemoteSoarCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id){
@@ -55,10 +69,8 @@ void RemoteSoarCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id
 void* RemoteSoarCommunicator::sendThreadFunction(void* arg){
 	RemoteSoarCommunicator* soarComm = (RemoteSoarCommunicator*)arg;
 
-	while(true){
-    if (soarComm->isConnected()){
-      soarComm->sendCommands();
-    }
+	while(soarComm->isConnected()){
+    soarComm->sendCommands();
     usleep(1000000/SOAR_SEND_COMMAND_FPS);
   }
 

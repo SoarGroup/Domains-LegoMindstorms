@@ -22,9 +22,13 @@ class Ev3Manager;
 
 class Ev3Communicator{
 public:
+  Ev3Communicator(Ev3Manager* manager);
+
 	virtual ~Ev3Communicator(){}
 
 	virtual bool start();
+
+  virtual void stop();
 
   virtual bool isConnected(){
     return true;
@@ -35,21 +39,21 @@ public:
 	virtual void sendStatusMessage() = 0;
 
 protected:
+  Ev3Manager* ev3Manager;
+
 	pthread_t sendStatusThread;
 };
 
 
 class RemoteEv3Communicator : public Ev3Communicator, public TcpServer{
 public:
-	RemoteEv3Communicator();
+	RemoteEv3Communicator(Ev3Manager* manager);
 
 	virtual ~RemoteEv3Communicator();
 
-	void assignManager(Ev3Manager* manager){
-		ev3Manager = manager;
-	}
-
 	virtual bool start();
+
+  virtual void stop();
 
   virtual bool isConnected(){
     return TcpServer::isConnected();
@@ -63,8 +67,6 @@ private:
 	void sendStatusMessage();
 
 private:
-	Ev3Manager* ev3Manager;
-
 	AckSet acks;
 	pthread_mutex_t mutex;
 };

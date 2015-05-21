@@ -26,13 +26,12 @@ int main(int argc, char** argv){
     }
   }
 
-	DirectCommunicator comm;
 	Ev3Manager em;
-SoarManager sm((SoarCommunicator*)&comm, agent_source, false);
-	comm.assignManagers(&sm, &em);
+  SoarManager sm(agent_source, false);
+	DirectCommunicator comm(&sm, &em);
 	comm.start();
 
-	while(sm.isAlive()){
+	while(sm.isRunning()){
 		sm.step();
 	}
 

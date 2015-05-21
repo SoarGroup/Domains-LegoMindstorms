@@ -12,7 +12,9 @@ class TcpClient{
     
     virtual ~TcpClient();
 
-    bool start();
+    virtual bool openConnection();
+
+    virtual void closeConnection();
 
     bool sendPacket(const void* buffer, int buf_len);
 
