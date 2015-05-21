@@ -1,11 +1,11 @@
 /*
- * SoarCommunication.cpp
+ * SoarCommunicator.cpp
  *
  *  Created on: Nov 27, 2013
  *      Author: aaron
  */
 
-#include "SoarCommunication.h"
+#include "SoarCommunicator.h"
 
 
 #include "Constants.h"
@@ -21,12 +21,6 @@
 using namespace std;
 using namespace sml;
 
-#ifdef DEBUG_NETWORKING
-#include <sys/types.h>
-#include <ctime>
-#endif
-
-
 // SoarCommunicator
 
 SoarCommunicator::SoarCommunicator(SoarManager* manager)
@@ -39,21 +33,13 @@ RemoteSoarCommunicator::RemoteSoarCommunicator(SoarManager* manager, string serv
 : SoarCommunicator(manager), TcpClient(server_ip), nextAck(1){
 	pthread_mutex_init(&mutex, 0);
   this->setReceptionCallback(&RemoteSoarCommunicator::receiveMessage, this);
+
+	pthread_create(&sendThread, 0, &sendThreadFunction, this);
 }
 
 RemoteSoarCommunicator::~RemoteSoarCommunicator(){
   pthread_mutex_destroy(&mutex);
   closeConnection();
-}
-
-bool RemoteSoarCommunicator::start(){
-	pthread_create(&sendThread, 0, &sendThreadFunction, this);
-  return TcpClient::openConnection();
-}
-
-void RemoteSoarCommunicator::closeConnection(){
-  TcpClient::closeConnection();
-  pthread_join(sendThread, NULL);
 }
 
 void RemoteSoarCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id){
@@ -69,7 +55,7 @@ void RemoteSoarCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id
 void* RemoteSoarCommunicator::sendThreadFunction(void* arg){
 	RemoteSoarCommunicator* soarComm = (RemoteSoarCommunicator*)arg;
 
-	while(soarComm->isConnected()){
+  while(soarComm->soarManager->isRunning()){
     soarComm->sendCommands();
     usleep(1000000/SOAR_SEND_COMMAND_FPS);
   }
@@ -78,6 +64,10 @@ void* RemoteSoarCommunicator::sendThreadFunction(void* arg){
 }
 
 void RemoteSoarCommunicator::sendCommands(){
+  if(!isConnected()){
+    return;
+  }
+
   pthread_mutex_lock(&mutex);
   
   // Send Message to Ev3 of all queued commands
@@ -110,30 +100,11 @@ void RemoteSoarCommunicator::receiveMessage(const void* buffer, int buf_len, voi
 
   // Handle 1 message at a time
   comm->receiveStatusMessage(params, offset);
-
-  long now = (long)time(0);
-  if (now == comm->last_time){
-    comm->num_packets++;
-  } else {
-    //printf("Packets per second: %d\n", (comm->num_packets + 1));
-    comm->num_packets = 1;
-  }
-  comm->last_time = now;
 }
 
 void RemoteSoarCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offset){
 	//cout << "--> Soar Receive Status" << endl;
   pthread_mutex_lock(&mutex);
-  //
-
-  int send_time = buffer[offset++];
-  timeval now;
-  gettimeofday(&now, 0);
-  int dt = now.tv_usec - send_time;
-  if(dt < 0){
-    dt += 1000000;
-  }
-  //printf("LATENCY: %d\n", dt);
 
 	uint numAcks = buffer[offset++];
 	for(uint i = 0; i < numAcks; i++){
@@ -161,7 +132,7 @@ void RemoteSoarCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offse
   pthread_mutex_unlock(&mutex);
 }
 
-void RemoteSoarCommunicator::updateSoar(){
+void RemoteSoarCommunicator::inputPhaseCallback(){
 	pthread_mutex_lock(&mutex);
 
 	for(IdentifierSet::iterator i = finishedIdentifiers.begin(); i != finishedIdentifiers.end(); i++){

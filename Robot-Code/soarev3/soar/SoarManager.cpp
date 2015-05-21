@@ -97,9 +97,7 @@ void SoarManager::runEventHandler(sml::smlRunEventId eventID, void* data, Agent*
 	SoarManager* manager = (SoarManager*)data;
 	if (manager->isRunning()){
 		manager->updateInputLink(agent->GetInputLink());
-		if (manager->comm != 0){
-			manager->comm->updateSoar();
-		}
+    manager->comm->inputPhaseCallback();
 	}
 	//Sleep(SOAR_DC_WAIT);
 }
@@ -261,9 +259,6 @@ bool SoarManager::readSoarCommand(Identifier* id){
   std::string childStr;
   if (WMUtil::getValue(id, "exit", childStr)){
 	  agent->StopSelf();
-	  if (comm != 0){
-		  comm->closeConnection();
-	  }
 	  running = false;
   }
 

@@ -1,5 +1,5 @@
 /*
- * SoarCommunication.h
+ * SoarCommunicator.h
  *
  *  Created on: Nov 27, 2013
  *      Author: aaron
@@ -31,15 +31,8 @@ public:
 
 	virtual void sendCommandToEv3(Ev3Command command, sml::Identifier* id) = 0;
 
-	virtual void updateSoar() = 0;
+	virtual void inputPhaseCallback() = 0;
 
-  virtual bool start(){}
-
-  virtual void stop(){};
-
-  virtual bool isConnected(){
-    return true;
-  }
 protected:
   SoarManager* soarManager;
 };
@@ -51,21 +44,9 @@ public:
 
 	virtual ~RemoteSoarCommunicator();
 
-  bool openConnection();
-
-  void closeConnection();
-
-  virtual bool isConnected(){
-    return TcpClient::isConnected();
-  }
-
-	void assignManager(SoarManager* manager){
-		soarManager = manager;
-	}
-
 	void sendCommandToEv3(Ev3Command command, sml::Identifier* id);
 
-	void updateSoar();
+	void inputPhaseCallback();
 
 private:
   static void* sendThreadFunction(void* arg);
@@ -83,9 +64,6 @@ private:
 	pthread_mutex_t mutex;
 
 	SoarManager* soarManager;
-
-  long last_time;
-  int num_packets;
 
 	uint nextAck;
 	CommandMap waitingCommands;

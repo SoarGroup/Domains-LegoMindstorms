@@ -1,11 +1,11 @@
 /*
- * Ev3Communication.cpp
+ * Ev3Communicator.cpp
  *
  *  Created on: Nov 27, 2013
  *      Author: aaron
  */
 
-#include "Ev3Communication.h"
+#include "RemoteEv3Communicator.h"
 
 #include "ev3/Ev3Manager.h"
 
@@ -16,38 +16,6 @@
 #include <iostream>
 #include <sstream>
 using namespace std;
-
-// Ev3Communicator
-Ev3Communicator::Ev3Communicator(Ev3Manager* manager)
-  :ev3Manager(manager){
-
-}
-
-void* Ev3Communicator::sendStatusThreadFunction(void* arg){
-	Ev3Communicator* ev3Comm = (Ev3Communicator*)arg;
-  int num_packets = 0;
-  long last_time = (long)time(0);
-	while(ev3Comm->isConnected()){
-    ev3Comm->sendStatusMessage();
-    num_packets++;
-    if (((long)time(0)) != last_time){
-      //printf("Packets per second: %d\n", num_packets);
-      last_time = (long)time(0);
-      num_packets = 0;
-    }
-		usleep(1000000/EV3_SEND_STATUS_FPS);
-	}
-	return 0;
-}
-
-bool Ev3Communicator::start(){
-	pthread_create(&sendStatusThread, 0, &sendStatusThreadFunction, this);
-  return true;
-}
-
-void Ev3Communicator::stop(){
-  pthread_join(sendStatusThread, NULL);
-}
 
 
 // RemoteEv3Communicator
@@ -60,16 +28,6 @@ RemoteEv3Communicator::RemoteEv3Communicator(Ev3Manager* manager)
 
 RemoteEv3Communicator::~RemoteEv3Communicator(){
   pthread_mutex_destroy(&mutex);
-}
-
-bool RemoteEv3Communicator::start(){
-	Ev3Communicator::start();
-  return TcpServer::start();
-}
-
-void RemoteEv3Communicator::stop(){
-  Ev3Communicator::stop();
-  TcpServer::stop();
 }
 
 void RemoteEv3Communicator::receiveMessage(const void* buffer, int buf_len, void* user){

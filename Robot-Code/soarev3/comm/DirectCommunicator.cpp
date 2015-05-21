@@ -1,11 +1,11 @@
 /*
- * DirectCommunication.cpp
+ * DirectCommunicator.cpp
  *
  *  Created on: Nov 27, 2013
  *      Author: aaron
  */
 
-#include "DirectCommunication.h"
+#include "DirectCommunicator.h"
 
 #include "soar/SoarManager.h"
 #include "ev3/Ev3Manager.h"
@@ -17,7 +17,7 @@ DirectCommunicator::DirectCommunicator(SoarManager* sm, Ev3Manager* em)
 }
 
 void DirectCommunicator::start(){
-  Ev3Communication::start();
+  Ev3Communicator::start();
 }
 
 void DirectCommunicator::sendStatusMessage(){

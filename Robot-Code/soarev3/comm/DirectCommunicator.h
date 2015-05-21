@@ -1,5 +1,5 @@
 /*
- * DirectCommunication.h
+ * DirectCommunicator.h
  *
  *  Created on: Nov 27, 2013
  *      Author: aaron
@@ -8,8 +8,8 @@
 #ifndef DIRECTCOMMUNICATION_H_
 #define DIRECTCOMMUNICATION_H_
 
-#include "Ev3Communication.h"
-#include "SoarCommunication.h"
+#include "Ev3Communicator.h"
+#include "SoarCommunicator.h"
 
 #include "sml_Client.h"
 
