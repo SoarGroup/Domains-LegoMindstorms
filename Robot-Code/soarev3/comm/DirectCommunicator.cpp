@@ -5,7 +5,7 @@
  *      Author: aaron
  */
 
-#include "DirectCommunicator.h"
+#include "comm/DirectCommunicator.h"
 
 #include "soar/SoarManager.h"
 #include "ev3/Ev3Manager.h"
@@ -13,17 +13,15 @@
 using namespace sml;
 
 DirectCommunicator::DirectCommunicator(SoarManager* sm, Ev3Manager* em)
-: SoarManager(sm), Ev3Manager(em){
-}
-
-void DirectCommunicator::start(){
-  Ev3Communicator::start();
+: SoarCommunicator(sm), Ev3Communicator(em){
 }
 
 void DirectCommunicator::sendStatusMessage(){
 	StatusList statuses;
 	ev3Manager->writeStatus(statuses);
-	soarManager->readStatus(statuses);
+  if(soarManager->isRunning()){
+	  soarManager->readStatus(statuses);
+  }
 }
 
 void DirectCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id){

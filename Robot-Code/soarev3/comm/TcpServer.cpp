@@ -73,7 +73,7 @@ void TcpServer::stop(){
 void* TcpServer::receiveThreadFunction(void* arg){
   TcpServer* server = (TcpServer*)arg;
 
-  while(server->isActive()){
+  while(server->initialized){
     printf("TcpServer: listening for new connection\n");
 
     struct sockaddr_in client_addr;
@@ -81,6 +81,7 @@ void* TcpServer::receiveThreadFunction(void* arg){
     server->client_fd = accept(server->socket_fd, (struct sockaddr*)&client_addr, &client_addr_len);
     if (server->client_fd < 0){
       perror("TcpServer Error: accept");
+      server->initialized = false;
       return 0;
     }
     printf("TcpServer: connection accepted\n");

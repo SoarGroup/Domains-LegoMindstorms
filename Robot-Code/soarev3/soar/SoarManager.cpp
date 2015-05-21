@@ -8,16 +8,16 @@
 #ifdef _WIN32
 #include "windows/SoarCommunication.h"
 #else
-#include "comm/SoarCommunication.h"
+#include "comm/SoarCommunicator.h"
 #endif
 
-#include "SoarManager.h"
+#include "soar/SoarManager.h"
 
-#include "Brick.h"
-#include "Motor.h"
-#include "ColorSensor.h"
-#include "TouchSensor.h"
-#include "IRRemote.h"
+#include "soar/Brick.h"
+#include "soar/Motor.h"
+#include "soar/ColorSensor.h"
+#include "soar/TouchSensor.h"
+#include "soar/IRRemote.h"
 
 #include "util/CommUtil.h"
 
@@ -39,26 +39,26 @@ SoarManager::SoarManager(std::string agentSource, bool debugger)
 
 	agent->LoadProductions(agentSource.c_str(), true);
 
-	agent->RegisterForRunEvent(smlEVENT_AFTER_OUTPUT_PHASE, &runEventHandler, (void*)this, true);
+	inputPhaseCallbackId = agent->RegisterForRunEvent(smlEVENT_AFTER_OUTPUT_PHASE, &runEventHandler, (void*)this, true);
 
 	// Manager
-	agent->AddOutputHandler("manager", SoarManager::outputEventHandler, (void*)this);
+	outputCallbackIds.push_back(agent->AddOutputHandler("manager", SoarManager::outputEventHandler, (void*)this));
 
 	// Brick
 	brick = new Brick(this);
-	agent->AddOutputHandler("brick", SoarManager::outputEventHandler, (void*)this);
+	outputCallbackIds.push_back(agent->AddOutputHandler("brick", SoarManager::outputEventHandler, (void*)this));
 
 	// Motors
 	for(int i = 0; i < NUM_OUTPUTS; i++){
 		motors[i] = new Motor(i, this);
 	}
-	agent->AddOutputHandler("motor", SoarManager::outputEventHandler, (void*)this);
+	outputCallbackIds.push_back(agent->AddOutputHandler("motor", SoarManager::outputEventHandler, (void*)this));
 
 	// Sensors
 	for(int i = 0; i < NUM_INPUTS; i++){
 		inputs[i] = 0;
 	}
-	agent->AddOutputHandler("sensor", SoarManager::outputEventHandler, (void*)this);
+	outputCallbackIds.push_back(agent->AddOutputHandler("sensor", SoarManager::outputEventHandler, (void*)this));
 }
 
 
@@ -86,6 +86,19 @@ void SoarManager::step(){
 	agent->RunSelf(1);
 }
 
+void SoarManager::shutdown(){
+  if(!running){
+    return;
+  }
+  running = false;
+  agent->StopSelf();
+  agent->UnregisterForRunEvent(inputPhaseCallbackId);
+  for(vector<int>::iterator i = outputCallbackIds.begin(); i != outputCallbackIds.end(); i++){
+    agent->RemoveOutputHandler(*i);
+  }
+  outputCallbackIds.clear();
+}
+
 void SoarManager::sendCommandToEv3(Ev3Command command, sml::Identifier* id){
 	if (running && comm != 0){
 		comm->sendCommandToEv3(command, id);
@@ -94,21 +107,28 @@ void SoarManager::sendCommandToEv3(Ev3Command command, sml::Identifier* id){
 
 // input phase callback
 void SoarManager::runEventHandler(sml::smlRunEventId eventID, void* data, Agent* agent, sml::smlPhase phase){
+  //printf("SoarManager::runEVentHandler enter\n");
 	SoarManager* manager = (SoarManager*)data;
 	if (manager->isRunning()){
 		manager->updateInputLink(agent->GetInputLink());
     manager->comm->inputPhaseCallback();
 	}
+  //printf("SoarManager::runEventHandler exit\n");
 	//Sleep(SOAR_DC_WAIT);
 }
 
 // output link event callback
 void SoarManager::outputEventHandler(void* data, Agent* agent, const char* attName, WMElement* wme){
+  //printf("SoarManager::outputEventHandler enter\n");
 	SoarManager* manager = (SoarManager*)data;
-	manager->handleOutput(attName, wme);
+  if(manager->isRunning()){
+	  manager->handleOutput(attName, wme);
+  }
+  //printf("SoarManager::outputEventHandler exit\n");
 }
 
 void SoarManager::readStatus(StatusList& statuses){
+  //printf("SoarManager::readStatus enter\n");
 	for(unsigned int i = 0; i < statuses.size(); i++){
 		Ev3Status& status = statuses[i];
 		uint offset = 0;
@@ -125,6 +145,7 @@ void SoarManager::readStatus(StatusList& statuses){
 			cout << "UNKNOWN DEVICE " << status.dev << endl;
 		}
 	}
+  //printf("SoarManager::readStatus exit\n");
 }
 
 void SoarManager::readMotorsStatus(IntBuffer& status){
@@ -258,8 +279,7 @@ bool SoarManager::readSoarCommand(Identifier* id){
 
   std::string childStr;
   if (WMUtil::getValue(id, "exit", childStr)){
-	  agent->StopSelf();
-	  running = false;
+    shutdown();
   }
 
 	if(WMUtil::getValue(id, "create-sensor", childId)){

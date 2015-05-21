@@ -5,12 +5,10 @@
  *      Author: aaron
  */
 
-#ifndef EV3COMMUNICATION_H_
-#define EV3COMMUNICATION_H_
+#ifndef REMOTE_EV3_COMMUNICATOR_H_
+#define REMOTE_EV3_COMMUNICATOR_H_
 
 #include "comm/Ev3Communicator.h"
-
-#include <string>
 
 #include "comm/TcpServer.h"
 
@@ -33,4 +31,4 @@ private:
 	pthread_mutex_t mutex;
 };
 
-#endif /* EV3COMMUNICATION_H_ */
+#endif /* REMOTE_EV3_COMMUNICATOR_H_ */

@@ -5,11 +5,10 @@
  *      Author: aaron
  */
 
-#include "SoarCommunicator.h"
-
+#include "comm/RemoteSoarCommunicator.h"
 
 #include "Constants.h"
-#include "CommStructs.h"
+#include "comm/CommStructs.h"
 
 #include "soar/SoarManager.h"
 
@@ -18,15 +17,9 @@
 #include <unistd.h>
 #include <string.h>
 #include <iostream>
+
 using namespace std;
 using namespace sml;
-
-// SoarCommunicator
-
-SoarCommunicator::SoarCommunicator(SoarManager* manager)
-  :soarManager(manager){
-
-}
 
 // RemoteSoarCommunicator
 RemoteSoarCommunicator::RemoteSoarCommunicator(SoarManager* manager, string server_ip)
@@ -44,11 +37,13 @@ RemoteSoarCommunicator::~RemoteSoarCommunicator(){
 
 void RemoteSoarCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id){
 	pthread_mutex_lock(&mutex);
+
 	// Need to send the command over LCM and wait for the ack
 	uint ack = nextAck++;
 	command.ack = ack;
 	waitingCommands[ack] = command;
 	waitingIdentifiers[ack] = id;
+
 	pthread_mutex_unlock(&mutex);
 }
 

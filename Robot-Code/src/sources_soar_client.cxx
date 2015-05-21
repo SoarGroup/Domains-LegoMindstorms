@@ -3,7 +3,7 @@
 
 #include "comm/CommStructs.cpp"
 #include "comm/TcpClient.cpp"
-#include "comm/SoarCommunication.cpp"
+#include "comm/RemoteSoarCommunicator.cpp"
 
 #include "soar/SoarManager.cpp"
 #include "soar/Brick.cpp"

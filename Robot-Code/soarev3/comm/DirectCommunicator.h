@@ -8,8 +8,8 @@
 #ifndef DIRECTCOMMUNICATION_H_
 #define DIRECTCOMMUNICATION_H_
 
-#include "Ev3Communicator.h"
-#include "SoarCommunicator.h"
+#include "comm/Ev3Communicator.h"
+#include "comm/SoarCommunicator.h"
 
 #include "sml_Client.h"
 
@@ -19,13 +19,11 @@ public:
 
 	virtual ~DirectCommunicator(){}
 
-  virtual void start();
-
 	void sendCommandToEv3(Ev3Command command, sml::Identifier* id);
 
 	void sendStatusMessage();
 
-	void updateSoar(){}
+	void inputPhaseCallback(){}
 };
 
 

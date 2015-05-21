@@ -6,7 +6,6 @@
  */
 
 #include "Ev3Brick.h"
-#include "comm/Ev3Communication.h"
 
 #include "lms2012.h"
 #include "bytecodes.h"

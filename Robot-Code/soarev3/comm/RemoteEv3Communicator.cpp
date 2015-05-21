@@ -5,13 +5,12 @@
  *      Author: aaron
  */
 
-#include "RemoteEv3Communicator.h"
+
+#include "comm/RemoteEv3Communicator.h"
 
 #include "ev3/Ev3Manager.h"
 
 #include "util/CommUtil.h"
-
-#include <sys/time.h>
 
 #include <iostream>
 #include <sstream>
@@ -79,9 +78,7 @@ void RemoteEv3Communicator::sendStatusMessage(){
 	//cout << "--> Ev3 Send Status" << endl;
 	IntBuffer buffer;
 
-  timeval now;
-  gettimeofday(&now, 0);
-  buffer.push_back(now.tv_usec);
+  printf("Sending %d acks\n", acks.size());
 
 	buffer.push_back(acks.size());
 	for(AckSetIt it = acks.begin(); it != acks.end(); it++){
@@ -90,6 +87,8 @@ void RemoteEv3Communicator::sendStatusMessage(){
 
 	StatusList statuses;
 	ev3Manager->writeStatus(statuses);
+
+  printf("Sending %d statuses\n", statuses.size());
 
 	buffer.push_back(statuses.size());
 	for(uint i = 0; i < statuses.size(); i++){

@@ -3,7 +3,7 @@
 
 #include <unistd.h>
 
-#include "comm/SoarCommunication.h"
+#include "comm/RemoteSoarCommunicator.h"
 #include "soar/SoarManager.h"
 
 using namespace std;
@@ -32,19 +32,22 @@ int main(int argc, char** argv){
   SoarManager manager(filename.c_str(), true);
   RemoteSoarCommunicator comm(&manager, argv[1]);
   manager.setCommunicator(&comm);
+
   comm.openConnection();
 
 	while(manager.isRunning()){
-    if (!comm.isConnected()){
+    if(!comm.isConnected()){
+      printf("Trying to reconnect\n");
       comm.openConnection();
       if(!comm.isConnected()){
-        printf("Trying to reconnect to server\n");
-        // Try to restart if there was a bad connection
+        // Failed to open, sleep for 5 seconds before trying
+        sleep(5);
       }
-		  sleep(5);
     }
     sleep(1);
 	}
+
+  comm.closeConnection();
 
 	return 0;
 }

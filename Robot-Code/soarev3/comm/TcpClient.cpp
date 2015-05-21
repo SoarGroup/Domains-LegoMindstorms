@@ -64,33 +64,17 @@ bool TcpClient::openConnection(){
 
 void TcpClient::closeConnection(){
   if(connected){
-    close(socket_fd);
     connected = false;
+    close(socket_fd);
   }
   pthread_join(receiveThread, NULL);
 }
 
-#include <ctime>
-
-#include <sys/time.h>
-
 void* TcpClient::receiveThreadFunction(void* arg){
   TcpClient* server = (TcpClient*)arg;
 
-  int num_packets = 0;
-  long last_time = (long)time(0);
-
   while(server->isConnected()){
-    if(!server->receivePacket()){
-      return 0;
-    }
-    num_packets++;
-    long now = (long)time(0);
-    if (now != last_time){
-      //printf("FPS: %d\n", num_packets);
-      num_packets = 0;
-    }
-    last_time = now;
+    server->receivePacket();
   }
 
   return 0;

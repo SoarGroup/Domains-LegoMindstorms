@@ -8,11 +8,10 @@
 #ifndef SOARMANAGER_H_
 #define SOARMANAGER_H_
 
-#include "SoarDevice.h"
-
-class SoarCommunicator;
 #include "comm/CommStructs.h"
 
+class SoarCommunicator;
+class SoarDevice;
 class Brick;
 class Motor;
 
@@ -39,6 +38,8 @@ public:
 	bool isRunning(){
 		return running;
 	}
+
+  void shutdown();
 
 	// input phase callback
 	static void runEventHandler(sml::smlRunEventId eventID, void* data, sml::Agent* agent, sml::smlPhase phase);
@@ -75,6 +76,9 @@ private:
 	int timeStep;
 
 	bool running;
+
+  int inputPhaseCallbackId;
+  std::vector<int> outputCallbackIds;
 };
 
 #endif /* SOARMANAGER_H_ */

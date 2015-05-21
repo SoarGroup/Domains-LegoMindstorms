@@ -2,7 +2,7 @@
 #include <fstream>
 #include <string>
 
-#include "comm/DirectCommunication.h"
+#include "comm/DirectCommunicator.h"
 #include "ev3/Ev3Manager.h"
 #include "soar/SoarManager.h"
 
@@ -29,11 +29,12 @@ int main(int argc, char** argv){
 	Ev3Manager em;
   SoarManager sm(agent_source, false);
 	DirectCommunicator comm(&sm, &em);
-	comm.start();
 
 	while(sm.isRunning()){
 		sm.step();
 	}
+
+  comm.shutdown();
 
   fin.close();
   fout.close();

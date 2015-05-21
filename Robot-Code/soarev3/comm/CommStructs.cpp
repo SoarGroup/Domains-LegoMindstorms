@@ -5,7 +5,7 @@
  *      Author: aaron
  */
 
-#include "CommStructs.h"
+#include "comm/CommStructs.h"
 
 #include "util/CommUtil.h"
 

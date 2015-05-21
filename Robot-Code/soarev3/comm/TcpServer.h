@@ -16,10 +16,6 @@ class TcpServer{
 
     virtual void stop();
 
-    bool isActive(){
-      return initialized;
-    }
-
     bool isConnected(){
       return initialized && connected;
     }
