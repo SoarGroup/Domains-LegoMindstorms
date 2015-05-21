@@ -45,8 +45,6 @@ private:
   pthread_t sendThread;
 	pthread_mutex_t mutex;
 
-	SoarManager* soarManager;
-
 	uint nextAck;
 	CommandMap waitingCommands;
 	IdentifierMap waitingIdentifiers;

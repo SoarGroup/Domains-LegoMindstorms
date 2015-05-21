@@ -23,7 +23,8 @@ using namespace sml;
 
 // RemoteSoarCommunicator
 RemoteSoarCommunicator::RemoteSoarCommunicator(SoarManager* manager, string server_ip)
-: SoarCommunicator(manager), TcpClient(server_ip), nextAck(1){
+: SoarCommunicator(manager), TcpClient(server_ip), nextAck(1)
+{
 	pthread_mutex_init(&mutex, 0);
   this->setReceptionCallback(&RemoteSoarCommunicator::receiveMessage, this);
 

@@ -18,8 +18,6 @@ sp {Common-Advanced*top-state*propose*follow-line
 				^color-sensor-values <vals>
 				^mode follow
 				-^junction-color)
-	(<vals>	^left <color> << black white >>
-			^right <color>)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name follow-line)
@@ -88,10 +86,10 @@ sp {Common-Advanced*follow-line*apply*move-forward
 			^motor <right>)
 	(<left>		^port <left-port>
 				^set-direction forward
-				^set-power 40)
+				^set-power 10)
 	(<right>	^port <right-port>
 				^set-direction forward
-				^set-power 40)
+				^set-power 10)
 }
 
 ###################################################
@@ -122,10 +120,10 @@ sp {Common-Advanced*follow-line*apply*move-left
 			^motor <right>)
 	(<left>	^port <left-port>
 					^set-direction backward
-					^set-power 40)
+					^set-power 10)
 	(<right>	^port <right-port>
 					 ^set-direction forward
-					 ^set-power 40)
+					 ^set-power 10)
 }
 
 ###################################################
@@ -156,9 +154,9 @@ sp {Common-Advanced*follow-line*apply*move-right
 			^motor <right>)
 	(<left>	^port <left-port>
 			^set-direction forward
-			^set-power 40)
+			^set-power 10)
 	(<right> ^port <right-port>
 			 ^set-direction backward
-			 ^set-power 40)
+			 ^set-power 10)
 }
 

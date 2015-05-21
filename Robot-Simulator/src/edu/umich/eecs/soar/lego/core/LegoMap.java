@@ -7,9 +7,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.itextpdf.text.Document;
-import com.itextpdf.text.Rectangle;
-
 import edu.princeton.cs.introcs.Draw;
 import edu.umich.eecs.soar.lego.core.Tile.TileBlocked;
 import edu.umich.eecs.soar.lego.core.Tile.TileColor;
@@ -23,6 +20,8 @@ public class LegoMap
 	
 	public Coordinate robotStartLocation = new Coordinate(1,1);
 	public Coordinate robotFinishLocation = new Coordinate(9,9);
+	
+	public String mapFile;
 	
 	// 1 unit = 1 cm
 	public LegoMap(int xSize, int ySize)
@@ -132,6 +131,8 @@ public class LegoMap
 	
 	public LegoMap(String filename)
 	{
+		mapFile = filename;
+		
 		// 1 char = 2cm
 		char map[][] = create2DCharMatrixFromFile(filename);
 		ArrayList<Tile> tiles = parseCharToMap(map);
@@ -185,7 +186,7 @@ public class LegoMap
 	}
 	
 	public void draw(Draw d)
-	{
+	{	
 		d.setPenRadius(0.006);
 		
 		for (Tile t : allTiles)
@@ -195,12 +196,5 @@ public class LegoMap
 		
 		// Draw the border
 		d.rectangle(xSize / 2.0, ySize / 2.0, xSize / 2.0, ySize / 2.0);
-		
-		int width = d.onscreenImage.getWidth();
-		int height = d.onscreenImage.getHeight();
-		
-		Document doc = new Document(new Rectangle(d.onscreenImage.getWidth(), d.onscreenImage.getHeight()));
-		
-        com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(d.onscreenImage.getScaledInstance(width, height, 0));
 	}
 }

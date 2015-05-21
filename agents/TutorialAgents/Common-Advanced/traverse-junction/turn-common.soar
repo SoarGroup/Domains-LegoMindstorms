@@ -33,9 +33,9 @@ sp {traverse-junctions*apply*turn
 			^motor <right>)
 	(<left>	^port <left-port>
 			^set-direction <left-motor-direction>
-			^set-power 40)
+			^set-power 30)
 	(<right>	^port <right-port>
 				^set-direction <right-motor-direction>
-				^set-power 40)
+				^set-power 30)
 }
 

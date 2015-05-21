@@ -10,7 +10,7 @@ public class LegoWorld
 	private static final String Agents = System.getenv("PROJECT_LOC") + "/../agents/TutorialAgents/";
 	private static final String SoarDebuggerJarPath = System.getenv("SOAR_HOME") + "/SoarJavaDebugger.jar";
 	private static final String AgentFile = "Advanced-Stage4-completed";
-	private static final String Map = "Map1";
+	private static final String Map = "AdvancedTutorialTestMap";
 	private static final Integer seed = new Integer((int)(Math.random() * 10000.0));
 	private static final int TimeDelayMiliseconds = 0;
 	

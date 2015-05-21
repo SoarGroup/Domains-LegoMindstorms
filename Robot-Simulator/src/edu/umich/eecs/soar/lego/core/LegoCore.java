@@ -160,7 +160,7 @@ public class LegoCore implements ActionListener, RunEventInterface
 	
 	private void startWorld()
 	{
-		map = new LegoMap(discreteLegoWorldPathTextField.getText() + "maps/" + mapNameTextField.getText());
+		map = new LegoMap(agentsFolderTextField.getText() + "/../../maps/" + mapNameTextField.getText());
 		
 		world = new World(map, new Integer(timeDelayTextField.getText()));
 		

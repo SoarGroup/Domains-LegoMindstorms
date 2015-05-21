@@ -10,10 +10,15 @@ sp {traverse-junction*propose*move-to-center-of-junction
 
 sp {traverse-junction*apply*move-to-center*has-centered
 	(state <s>	^operator <o>
-				^superstate <ss>)
+				^superstate <ss>
+				^color-sensor-values <values>
+				^io.output-link <out>)
 	(<o>	^name move-forward
 			^centering true)
 	(<ss>	^operator.name traverse-junction)
+	(<values>	^left black
+				^right black
+				^center black)
 -->
 	(<ss>	^has-centered true)
 }

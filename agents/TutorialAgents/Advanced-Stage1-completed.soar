@@ -29,6 +29,7 @@ sp {Stage1*propose*select-direction
 ####################################################
 
 sp {Stage1*apply*select-direction
+:interrupt
    (state <s> ^name line-follower
               ^operator <o>)
    (<o> ^name select-direction

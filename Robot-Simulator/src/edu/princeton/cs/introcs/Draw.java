@@ -91,8 +91,8 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 	private Color					penColor;
 	
 	// canvas size
-	private int						width				= DEFAULT_SIZE;
-	private int						height				= DEFAULT_SIZE;
+	public int						width				= DEFAULT_SIZE;
+	public int						height				= DEFAULT_SIZE;
 	
 	// current pen radius
 	private double					penRadius;
@@ -100,7 +100,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 	// show we draw immediately or wait until next show?
 	private boolean					defer				= false;
 	
-	private double					xmin, ymin, xmax, ymax;
+	public double					xmin, ymin, xmax, ymax;
 	
 	// name of window
 	private String					name				= "Draw";

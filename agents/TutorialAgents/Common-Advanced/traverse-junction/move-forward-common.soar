@@ -12,8 +12,8 @@ sp {traverse-junction*apply*move-forward*send-commands
 			^motor <right>)
 	(<left>		^port <left-port>
 				^set-direction forward
-				^set-power 40)
+				^set-power 10)
 	(<right>	^port <right-port>
 				^set-direction forward
-				^set-power 40)
+				^set-power 10)
 }

@@ -1,11 +1,20 @@
 package edu.umich.eecs.soar.lego.core;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 import java.util.Map.Entry;
 
 import javax.swing.JOptionPane;
+
+import com.itextpdf.text.BadElementException;
+import com.itextpdf.text.Document;
+import com.itextpdf.text.DocumentException;
+import com.itextpdf.text.Rectangle;
+import com.itextpdf.text.pdf.PdfWriter;
 
 import sml.Agent;
 import sml.Agent.OutputEventInterface;
@@ -34,12 +43,15 @@ public class World implements RunEventInterface, OutputEventInterface
 	// Drawing Variables
 	public Draw									d							= new Draw("Lego World");
 	
+	public double scaleFactor = 2.83*1.30;
+	public boolean renderPDF = true;
+	
 	public World(LegoMap map, int sleepMsecs)
 	{
 		robot.setLocation(map.robotStartLocation);
 		this.map = map;
 		
-		d.setCanvasSize(map.getXSize() * 10, map.getYSize() * 10);
+		d.setCanvasSize((int)(map.getXSize() * 10 * scaleFactor), (int)(map.getYSize() * 10 * scaleFactor));
 		d.setXscale(-1, map.getXSize() + 1);
 		d.setYscale(-1, map.getYSize() + 1);
 		
@@ -145,6 +157,56 @@ public class World implements RunEventInterface, OutputEventInterface
 		d.clear();
 		
 		map.draw(d);
+		
+		if (renderPDF)
+		{
+			int width = d.onscreenImage.getWidth();
+			int height = d.onscreenImage.getHeight();
+			
+			Document doc = new Document(new Rectangle((int)(d.onscreenImage.getWidth()), (int)(d.onscreenImage.getHeight())));
+			
+			try
+			{
+				PdfWriter.getInstance(doc, new FileOutputStream(map.mapFile + ".pdf"));
+			}
+			catch (FileNotFoundException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			catch (DocumentException e1)
+			{
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+			
+			doc.open();
+			
+	        try
+			{
+				com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(d.onscreenImage.getScaledInstance(width, height, 0), null);
+				image.setAbsolutePosition(0, 0);
+				doc.add(image);
+			}
+			catch (BadElementException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (IOException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			catch (DocumentException e)
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+	        
+			doc.close();
+		}
+		
 		robot.draw(d);
 		
 		d.show();
