@@ -113,7 +113,7 @@ public final class Draw implements ActionListener, MouseListener, MouseMotionLis
 	private Font					font;
 	
 	// double buffered graphics
-	private BufferedImage			offscreenImage, onscreenImage;
+	public BufferedImage			offscreenImage, onscreenImage;
 	private Graphics2D				onscreen;
 	public Graphics2D				offscreen;
 	

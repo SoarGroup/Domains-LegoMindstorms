@@ -7,6 +7,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.itextpdf.text.Document;
+import com.itextpdf.text.Rectangle;
+
 import edu.princeton.cs.introcs.Draw;
 import edu.umich.eecs.soar.lego.core.Tile.TileBlocked;
 import edu.umich.eecs.soar.lego.core.Tile.TileColor;
@@ -192,5 +195,12 @@ public class LegoMap
 		
 		// Draw the border
 		d.rectangle(xSize / 2.0, ySize / 2.0, xSize / 2.0, ySize / 2.0);
+		
+		int width = d.onscreenImage.getWidth();
+		int height = d.onscreenImage.getHeight();
+		
+		Document doc = new Document(new Rectangle(d.onscreenImage.getWidth(), d.onscreenImage.getHeight()));
+		
+        com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(d.onscreenImage.getScaledInstance(width, height, 0));
 	}
 }

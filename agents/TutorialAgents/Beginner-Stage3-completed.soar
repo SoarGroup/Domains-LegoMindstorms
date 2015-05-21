@@ -120,29 +120,13 @@ sp {Stage3*apply*turn-180*record*180-right-motor-sensor-value
 	(<s> ^180-right-motor-sensor-value (- <right-val> 1000))
 }
 
-##################################################
-#
-# operator record-turn-complete
-#
-##################################################
-
-# If the right motor sensor value is greater than the 180 value
-#   Then propose record-turn-complete
-sp {Stage3*propose*record-turn-complete
-	(state <s> ^name line-follower
-				^180-right-motor-sensor-value <desired-val>
-				^right-motor-sensor-value <= <desired-val>
-				-^turn-complete)
--->
-	(<s> ^operator <o> + >)
-	(<o> ^name record-turn-complete)
-}
-
-# If the record-turn-complete operator is selected
+# If the turn-180 operator is selected and we have turned 180 degrees
 #   Then add the turn-complete true flag to the topstate
 sp {Stage3*apply*record-turn-complete
-	(state <s> ^name line-follower
-						 ^operator.name record-turn-complete)
+	(state <s>	^name line-follower
+				^operator.name turn-180
+				^180-right-motor-sensor-value <desired-value>
+				^right-motor-sensor-value <= <desired-value>)
 -->
 	(<s> ^turn-complete true)
 }
@@ -182,7 +166,7 @@ sp {Stage3*propose*clear-flags
 						 ^turn-completed true)
 	(<values>	^center <> red)
 -->
-	(<s> ^operator <o> + >)
+	(<s> ^operator <o> +)
 	(<o> ^name clear-flags)
 }
 
