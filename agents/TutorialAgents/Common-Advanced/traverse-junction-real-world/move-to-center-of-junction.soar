@@ -1,6 +1,6 @@
 
-sp {traverse-junction*propose*move-to-center-of-junction
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulator*propose*move-to-center-of-junction
+	(state <s>	^name traverse-junction-simulator
 				-^superstate.has-centered)
 -->
 	(<s>	^operator <o> +)
@@ -8,12 +8,12 @@ sp {traverse-junction*propose*move-to-center-of-junction
 			^centering true)
 }
 
-sp {traverse-junction*apply*move-to-center*has-centered
+sp {traverse-junction-simulator*apply*move-to-center*has-centered
 	(state <s>	^operator <o>
 				^superstate <ss>)
 	(<o>	^name move-forward
 			^centering true)
-	(<ss>	^operator.name traverse-junction)
+	(<ss>	^operator.name traverse-junction-simulator)
 -->
 	(<ss>	^has-centered true)
 }

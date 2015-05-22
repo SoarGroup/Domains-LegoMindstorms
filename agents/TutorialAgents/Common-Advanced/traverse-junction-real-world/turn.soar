@@ -1,6 +1,6 @@
 
-sp {traverse-junctions*propose*turn
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulators*propose*turn
+	(state <s>	^name traverse-junction-simulator
 				^superstate <ss>
 				^relative-direction <> forward)
 	(<ss>	^has-centered
@@ -10,8 +10,8 @@ sp {traverse-junctions*propose*turn
 	(<o>	^name turn)
 }
 
-sp {traverse-junctions*apply*turn*finish*left-right
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulators*apply*turn*finish*left-right
+	(state <s>	^name traverse-junction-simulator
 				^superstate <ss>
 				^relative-direction << left right >>
 				^io.output-link <out>)
@@ -30,8 +30,8 @@ sp {traverse-junctions*apply*turn*finish*left-right
 			^set-power 0)
 }
 
-sp {traverse-junctions*apply*turn*finish*backward
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulators*apply*turn*finish*backward
+	(state <s>	^name traverse-junction-simulator
 				^superstate <ss>
 				^relative-direction backward
 				^io.output-link <out>)
@@ -50,13 +50,13 @@ sp {traverse-junctions*apply*turn*finish*backward
 			^set-power 0)
 }
 
-sp {traverse-junction*apply*turn*mark-1
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulator*apply*turn*mark-1
+	(state <s>	^name traverse-junction-simulator
 				^operator.name turn
 				^relative-direction <> forward
 				^superstate <ss>
 				^color-sensor-values <csv>)
-	(<ss>		^operator.name traverse-junction
+	(<ss>		^operator.name traverse-junction-simulator
 				^has-centered
 				^junction-color <color>)
 	(<csv>	^left <color>
@@ -65,13 +65,13 @@ sp {traverse-junction*apply*turn*mark-1
 	(<ss>	^mark 1)
 }
 
-sp {traverse-junction*apply*turn*mark-2
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulator*apply*turn*mark-2
+	(state <s>	^name traverse-junction-simulator
 				^operator.name turn
 				^relative-direction <> forward
 				^superstate <ss>
 				^color-sensor-values <csv>)
-	(<ss>		^operator.name traverse-junction
+	(<ss>		^operator.name traverse-junction-simulator
 				^has-centered
 				^junction-color <color>
 				^mark 1)
@@ -81,13 +81,13 @@ sp {traverse-junction*apply*turn*mark-2
 	(<ss>	^mark 2)
 }
 
-sp {traverse-junction*apply*turn*mark-3
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulator*apply*turn*mark-3
+	(state <s>	^name traverse-junction-simulator
 				^operator.name turn
 				^relative-direction <> forward
 				^superstate <ss>
 				^color-sensor-values <csv>)
-	(<ss>		^operator.name traverse-junction
+	(<ss>		^operator.name traverse-junction-simulator
 				^has-centered
 				^junction-color <color>
 				^mark 2)
@@ -97,13 +97,13 @@ sp {traverse-junction*apply*turn*mark-3
 	(<ss>	^mark 3)
 }
 
-sp {traverse-junction*apply*turn*mark-4
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulator*apply*turn*mark-4
+	(state <s>	^name traverse-junction-simulator
 				^operator.name turn
 				^relative-direction <> forward
 				^superstate <ss>
 				^color-sensor-values <csv>)
-	(<ss>		^operator.name traverse-junction
+	(<ss>		^operator.name traverse-junction-simulator
 				^has-centered
 				^junction-color <color>
 				^mark 3)

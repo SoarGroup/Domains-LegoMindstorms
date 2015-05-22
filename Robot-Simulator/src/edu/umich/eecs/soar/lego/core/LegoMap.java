@@ -19,7 +19,7 @@ public class LegoMap
 	private ArrayList<Tile>				allTiles;
 	
 	public Coordinate robotStartLocation = new Coordinate(1,1);
-	public Coordinate robotFinishLocation = new Coordinate(9,9);
+	public Coordinate robotFinishLocation = new Coordinate(-1,-1);
 	
 	public String mapFile;
 	
@@ -180,7 +180,8 @@ public class LegoMap
 	
 	public List<Tile> getTilesAt(Coordinate coord)
 	{
-		assert (coord.getX() >= 0 && coord.getX() < xSize && coord.getY() >= 0 && coord.getY() < ySize);
+		if (coord.getX() < 0 || coord.getX() >= xSize || coord.getY() < 0 || coord.getY() >= ySize)
+			return new ArrayList<Tile>();
 		
 		return tiles.get((int)coord.getY()).get((int)coord.getX());
 	}

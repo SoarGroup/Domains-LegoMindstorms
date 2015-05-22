@@ -1,6 +1,6 @@
 
-sp {traverse-junctions*propose*turn*add-directions*left-backward
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulators*propose*turn*add-directions*left-backward
+	(state <s>	^name traverse-junction-simulator
 				^operator <o> +
 				^relative-direction << left backward >>)
 	(<o>	^name turn)
@@ -9,8 +9,8 @@ sp {traverse-junctions*propose*turn*add-directions*left-backward
 			^right-motor forward)
 }
 
-sp {traverse-junctions*propose*turn-add-directions*right
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulators*propose*turn-add-directions*right
+	(state <s>	^name traverse-junction-simulator
 				^operator <o> +
 				^relative-direction right)
 	(<o>	^name turn)
@@ -19,8 +19,8 @@ sp {traverse-junctions*propose*turn-add-directions*right
 			^right-motor backward)
 }
 
-sp {traverse-junctions*apply*turn
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulators*apply*turn
+	(state <s>	^name traverse-junction-simulator
 				^operator <o>
 				^left-motor-port <left-port>
 				^right-motor-port <right-port>

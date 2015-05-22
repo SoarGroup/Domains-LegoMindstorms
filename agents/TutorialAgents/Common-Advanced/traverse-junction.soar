@@ -1,16 +1,32 @@
 
-pushd traverse-junction
+pushd traverse-junction-simulator
 source traverse-junction_source.soar
 popd
 
-sp {propose*traverse-junction
+pushd traverse-junction-real-world
+source traverse-junction_source.soar
+popd
+
+sp {propose*traverse-junction*simulator
 	(state <s>	^name line-follower
 				^selected-direction <direction>
 				^direction-map <map>
-				^junction-color <color>)
+				^junction-color <color>
+				^io.input-link.simulator)
 -->
 	(<s>	^operator <o> +)
-	(<o>	^name traverse-junction)
+	(<o>	^name traverse-junction-simulator)
+}
+
+sp {propose*traverse-junction*real-world
+	(state <s>	^name line-follower
+				^selected-direction <direction>
+				^direction-map <map>
+				^junction-color <color>
+				-^io.input-link.simulator)
+-->
+	(<s>	^operator <o> +)
+	(<o>	^name traverse-junction-real-world)
 }
 
 sp {Common-Advanced*traverse-junction*copy-sensor-values

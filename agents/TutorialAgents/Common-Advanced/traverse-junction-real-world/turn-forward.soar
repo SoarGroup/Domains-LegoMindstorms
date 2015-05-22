@@ -1,6 +1,6 @@
 
-sp {traverse-junctions*propose*turn*forward
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulators*propose*turn*forward
+	(state <s>	^name traverse-junction-simulator
 				^superstate <ss>
 				^relative-direction forward)
 	(<ss>	^has-centered
@@ -11,12 +11,12 @@ sp {traverse-junctions*propose*turn*forward
 			^action stop)
 }
 
-sp {traverse-junction*apply*turn*forward*rentrant-support
-	(state <s>	^name traverse-junction
+sp {traverse-junction-simulator*apply*turn*forward*rentrant-support
+	(state <s>	^name traverse-junction-simulator
 				^operator.name turn
 				^relative-direction forward
 				^superstate <ss>)
-	(<ss>		^operator.name traverse-junction
+	(<ss>		^operator.name traverse-junction-simulator
 				^has-centered)
 -->
 	(<ss>	^turned true)

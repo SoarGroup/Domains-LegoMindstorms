@@ -30,6 +30,7 @@ public class World implements RunEventInterface, OutputEventInterface
 	// Soar Variables
 	private Map<Sensor, Identifier>				robotSensorToSoarIdentifier	= new HashMap<Sensor, Identifier>();
 	private Map<Sensor, Map<String, WMElement>>	sensorOutputs				= new HashMap<Sensor, Map<String, WMElement>>();
+	private Identifier simulatorIdentifier = null;
 	
 	public long									runEventIdentifier;
 	public long									outputEventIdentifier;
@@ -90,7 +91,10 @@ public class World implements RunEventInterface, OutputEventInterface
 	}
 	
 	private void _updateSensors(Identifier inputLink)
-	{
+	{	
+		if (simulatorIdentifier == null)
+			simulatorIdentifier = inputLink.CreateIdWME("simulator");
+		
 		for (Entry<Sensor, Identifier> eS : robotSensorToSoarIdentifier.entrySet())
 		{
 			final Sensor sensor = eS.getKey();
