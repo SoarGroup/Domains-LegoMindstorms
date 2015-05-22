@@ -1,7 +1,12 @@
 
 sp {propose*exit-junction
 	(state <s>	^name line-follower
-				^moved-off-junction)
+				^junction-color <color>
+				^moved-off-junction-almost
+				^color-sensor-values <values>)
+	(<values>	^left <> <color> <> black
+				^center black
+				^right <> <color> <> black)
 -->
 	(<s>	^operator <o> + >)
 	(<o>	^name exit-junction

@@ -1,48 +1,39 @@
 
-sp {traverse-junction*propose*move-off-junction
+sp {traverse-junction*propose*move-off-junction*non-junction-color
 	(state <s>	^name traverse-junction
-				^superstate <ss>)
-	(<ss>	^turned
-			-^moved-off-junction-almost)
+				^superstate <ss>
+				^color-sensor-values <values>)
+	(<ss>	^turned)
+	(<values>	^left black
+				^center black
+				^right black)
 -->
-	(<s>	^operator.name move-forward)
-}
-
-sp {traverse-junction*propose*move-off-junction*second
-	(state <s>	^name traverse-junction
-				^superstate.moved-off-junction-almost)
--->
-	(<s>	^operator <o> +)
+	(<s>	^operator <o>)
 	(<o>	^name move-forward
-			^second-time true)
+			^non-junction-color true)
 }
 
-sp {traverse-junction*apply*move-off-junction*one
-	(state <s>	^operator.name move-forward
+sp {traverse-junction*propose*move-off-junction*junction-color
+	(state <s>	^name traverse-junction
 				^superstate <ss>
 				^color-sensor-values <values>)
 	(<ss>	^turned
-			^operator.name traverse-junction
-			-^moved-off-junction-almost)
-	(<values>	^left << red green blue brown yellow >>
-				^center black
-				^right << red green blue brown yellow >>)
+			^junction-color <color>
+			-^moved-off-junction)
+	(<values>	^left <color>
+				^right <color>
+				^center black)
+-->
+	(<s>	^operator <o>)
+	(<o>	^name move-forward)
+}
+
+sp {traverse-junction*apply*move-off-junction*juntion-color
+	(state <s>	^operator <o>
+				^superstate <ss>)
+	(<o>	^name move-forward
+			^<< junction-color non-junction-color >> true)
+	(<ss>	^operator.name traverse-junction)
 -->
 	(<ss>	^moved-off-junction-almost true)
-}
-
-sp {traverse-junction*apply*move-off-junction*two
-	(state <s>	^operator <o>
-				^superstate <ss>
-				^color-sensor-values <values>)
-	(<o>	^name move-forward
-			^second-time)
-	(<ss>	^moved-off-junction-almost
-			^operator.name traverse-junction
-			-^moved-off-junction)
-	(<values>	^left << black white >>
-				^center << black white >>
-				^right << black white >>)
--->
-	(<ss>	^moved-off-junction true)
 }
