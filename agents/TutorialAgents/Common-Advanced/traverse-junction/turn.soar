@@ -50,7 +50,7 @@ sp {traverse-junctions*apply*turn*finish*backward
 			^set-power 0)
 }
 
-sp {traverse-junction*apply*turn*mark-1*left
+sp {traverse-junction*apply*turn*mark-1
 	(state <s>	^name traverse-junction
 				^operator.name turn
 				^relative-direction <> forward
@@ -59,23 +59,8 @@ sp {traverse-junction*apply*turn*mark-1*left
 	(<ss>		^operator.name traverse-junction
 				^has-centered
 				^junction-color <color>)
-	-{(<ss> ^mark 1)}
-	(<csv>	^left <color>)
--->
-	(<ss>	^mark 1)
-}
-
-sp {traverse-junction*apply*turn*mark-1*right
-	(state <s>	^name traverse-junction
-				^operator.name turn
-				^relative-direction <> forward
-				^superstate <ss>
-				^color-sensor-values <csv>)
-	(<ss>		^operator.name traverse-junction
-				^has-centered
-				^junction-color <color>)
-	-{(<ss> ^mark 1)}
-	(<csv>	^right <color>)
+	(<csv>	^left <color>
+			^right <color>)
 -->
 	(<ss>	^mark 1)
 }
@@ -90,14 +75,13 @@ sp {traverse-junction*apply*turn*mark-2
 				^has-centered
 				^junction-color <color>
 				^mark 1)
-	-{(<ss> ^mark 2)}
 	(<csv>	^left black
 			^right black)
 -->
 	(<ss>	^mark 2)
 }
 
-sp {traverse-junction*apply*turn*mark-3*left
+sp {traverse-junction*apply*turn*mark-3
 	(state <s>	^name traverse-junction
 				^operator.name turn
 				^relative-direction <> forward
@@ -107,24 +91,8 @@ sp {traverse-junction*apply*turn*mark-3*left
 				^has-centered
 				^junction-color <color>
 				^mark 2)
-	-{(<ss> ^mark 3)}
-	(<csv>	^left <color>)
--->
-	(<ss>	^mark 3)
-}
-
-sp {traverse-junction*apply*turn*mark-3*right
-	(state <s>	^name traverse-junction
-				^operator.name turn
-				^relative-direction <> forward
-				^superstate <ss>
-				^color-sensor-values <csv>)
-	(<ss>		^operator.name traverse-junction
-				^has-centered
-				^junction-color <color>
-				^mark 2)
-	-{(<ss> ^mark 3)}
-	(<csv>	^right <color>)
+	(<csv>	^left <color>
+			^right <color>)
 -->
 	(<ss>	^mark 3)
 }
@@ -139,7 +107,6 @@ sp {traverse-junction*apply*turn*mark-4
 				^has-centered
 				^junction-color <color>
 				^mark 3)
-	-{(<ss> ^mark 4)}
 	(<csv>	^left black
 			^right black)
 -->

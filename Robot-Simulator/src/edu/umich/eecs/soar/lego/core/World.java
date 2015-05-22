@@ -43,8 +43,8 @@ public class World implements RunEventInterface, OutputEventInterface
 	// Drawing Variables
 	public Draw									d							= new Draw("Lego World");
 	
-	public double scaleFactor = 2.83*1.30;
-	public boolean renderPDF = true;
+	public double scaleFactor = 1.0;//2.83*1.30;
+	public boolean renderPDF = false;
 	
 	public World(LegoMap map, int sleepMsecs)
 	{
