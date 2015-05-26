@@ -1,10 +1,10 @@
 
-sp {Common-Advanced*propose*align-to-junction
-	(state <s>	^junction-color <color>
-				-^aligned-to-junction)
--->
-	(<s>	^operator.name align-to-junction)
-}
+#sp {Common-Advanced*propose*align-to-junction
+#(state <s>	^junction-color <color>
+#				-^aligned-to-junction)
+#-->
+#	(<s>	^operator.name align-to-junction)
+#}
 
 sp {Common-Advanced*apply*align-to-junction*align-left
 	(state <s>	^operator.name align-to-junction
