@@ -42,6 +42,10 @@ RemoteButton::~RemoteButton(){
 	}
 }
 
+void RemoteButton::reinit(){
+  id = 0;
+}
+
 void RemoteButton::updateInputLink(Identifier* parentId){
 	if(id == 0){
 		// Initialize
@@ -95,6 +99,15 @@ IRRemote::~IRRemote(){
 		rootId->DestroyWME();
 		rootId = 0;
 	}
+}
+
+void IRRemote::reinit(){
+  rootId = 0;
+	for(int b = 0; b < NUM_IR_REMOTE_BUTTONS; b++){
+    if(buttons[b]){
+      buttons[b]->reinit();
+    }
+  }
 }
 
 void IRRemote::updateInputLink(sml::Identifier* inputLink){

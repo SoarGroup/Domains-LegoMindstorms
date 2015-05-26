@@ -13,7 +13,9 @@
 
 #include "sml_Client.h"
 
-class DirectCommunicator : public Ev3Communicator, SoarCommunicator {
+#include <ostream>
+
+class DirectCommunicator : public Ev3Communicator, public SoarCommunicator {
 public:
 	DirectCommunicator(SoarManager* sm, Ev3Manager* em);
 

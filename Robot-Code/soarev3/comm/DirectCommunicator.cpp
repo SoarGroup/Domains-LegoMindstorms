@@ -10,9 +10,12 @@
 #include "soar/SoarManager.h"
 #include "ev3/Ev3Manager.h"
 
+#include <ostream>
+using namespace std;
+
 using namespace sml;
 
-DirectCommunicator::DirectCommunicator(SoarManager* sm, Ev3Manager* em)
+DirectCommunicator::DirectCommunicator(SoarManager* sm, Ev3Manager* em, ostream& out)
 : SoarCommunicator(sm), Ev3Communicator(em){
 }
 

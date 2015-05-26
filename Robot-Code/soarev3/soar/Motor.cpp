@@ -20,6 +20,10 @@ void Motor::readStatus(IntBuffer& buffer, uint& offset){
 	tachoSensor = buffer[offset++];
 }
 
+void Motor::reinit(){
+  motorId = 0;
+}
+
 void Motor::updateInputLink(Identifier* parentId){
 	if(!motorId){
 		motorId = parentId->CreateIdWME("motor");

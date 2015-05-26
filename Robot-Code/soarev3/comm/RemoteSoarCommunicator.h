@@ -26,6 +26,8 @@ public:
 
 	virtual ~RemoteSoarCommunicator();
 
+  void reinit();
+
 	void sendCommandToEv3(Ev3Command command, sml::Identifier* id);
 
 	void inputPhaseCallback();
@@ -45,13 +47,10 @@ private:
   pthread_t sendThread;
 	pthread_mutex_t mutex;
 
-	SoarManager* soarManager;
-
 	uint nextAck;
 	CommandMap waitingCommands;
 	IdentifierMap waitingIdentifiers;
 	IdentifierSet finishedIdentifiers;
-
 };
 
 

@@ -11,6 +11,8 @@ class Motor : public SoarDevice {
 public:
 	Motor(uchar port, SoarManager* manager);
 
+  void reinit();
+
 	void readStatus(IntBuffer& buffer, uint& offset);
 
 	void updateInputLink(sml::Identifier* parentId);

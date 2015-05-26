@@ -17,6 +17,8 @@ class Motor;
 
 #include "sml_Client.h"
 
+#include <ostream>
+
 #include <string>
 #include <map>
 typedef std::map<uint, Motor*> OutputDevices;
@@ -35,14 +37,22 @@ public:
 
 	void step();
 
+  void reinit();
+
 	bool isRunning(){
 		return running;
 	}
+
+  void setOutput(ostream& out){
+    this->out = out;
+  }
 
   void shutdown();
 
 	// input phase callback
 	static void runEventHandler(sml::smlRunEventId eventID, void* data, sml::Agent* agent, sml::smlPhase phase);
+
+	static void agentEventHandler(sml::smlAgentEventId eventID, void* data, sml::Agent* agent);
 
 	// output link event callback
 	static void outputEventHandler(void* data, sml::Agent* agent, const char* attName,  sml::WMElement* wme);
@@ -77,8 +87,11 @@ private:
 
 	bool running;
 
+  int reinitCallbackId;
   int inputPhaseCallbackId;
   std::vector<int> outputCallbackIds;
+
+  ostream& out;
 };
 
 #endif /* SOARMANAGER_H_ */

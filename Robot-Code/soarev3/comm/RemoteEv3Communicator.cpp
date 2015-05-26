@@ -78,7 +78,7 @@ void RemoteEv3Communicator::sendStatusMessage(){
 	//cout << "--> Ev3 Send Status" << endl;
 	IntBuffer buffer;
 
-  printf("Sending %d acks\n", acks.size());
+  //printf("Sending %d acks\n", acks.size());
 
 	buffer.push_back(acks.size());
 	for(AckSetIt it = acks.begin(); it != acks.end(); it++){
@@ -88,7 +88,7 @@ void RemoteEv3Communicator::sendStatusMessage(){
 	StatusList statuses;
 	ev3Manager->writeStatus(statuses);
 
-  printf("Sending %d statuses\n", statuses.size());
+  //printf("Sending %d statuses\n", statuses.size());
 
 	buffer.push_back(statuses.size());
 	for(uint i = 0; i < statuses.size(); i++){

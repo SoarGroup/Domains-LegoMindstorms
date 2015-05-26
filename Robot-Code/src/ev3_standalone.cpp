@@ -29,6 +29,8 @@ int main(int argc, char** argv){
 	Ev3Manager em;
   SoarManager sm(agent_source, false);
 	DirectCommunicator comm(&sm, &em);
+  sm.setCommunicator(&comm);
+  sm.setOutput(out);
 
 	while(sm.isRunning()){
 		sm.step();

@@ -28,6 +28,8 @@ public:
 
 	~RemoteButton();
 
+  void reinit();
+
 	void setState(int stateCode);
 
 	void updateInputLink(sml::Identifier* parentId);
@@ -55,6 +57,8 @@ class IRRemote : public SoarDevice{
 public:
 	IRRemote(uint port, SoarManager* manager);
 	~IRRemote();
+
+  void reinit();
 
 	void updateInputLink(sml::Identifier* inputLink);
 	void changeSoarMode(uchar newMode);

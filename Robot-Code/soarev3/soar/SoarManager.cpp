@@ -40,6 +40,7 @@ SoarManager::SoarManager(std::string agentSource, bool debugger)
 	agent->LoadProductions(agentSource.c_str(), true);
 
 	inputPhaseCallbackId = agent->RegisterForRunEvent(smlEVENT_AFTER_OUTPUT_PHASE, &runEventHandler, (void*)this, true);
+  reinitCallbackId = kernel->RegisterForAgentEvent(smlEVENT_BEFORE_AGENT_REINITIALIZED, &agentEventHandler, (void*)this, true);
 
 	// Manager
 	outputCallbackIds.push_back(agent->AddOutputHandler("manager", SoarManager::outputEventHandler, (void*)this));
@@ -86,6 +87,21 @@ void SoarManager::step(){
 	agent->RunSelf(1);
 }
 
+void SoarManager::reinit(){
+  comm->reinit();
+  brick->reinit();
+	for(int i = 0; i < NUM_OUTPUTS; i++){
+		if(motors[i]){
+      motors[i]->reinit();
+		}
+	}
+	for(int i = 0; i < NUM_INPUTS; i++){
+		if(inputs[i]){
+      inputs[i]->reinit();
+		}
+	}
+}
+
 void SoarManager::shutdown(){
   if(!running){
     return;
@@ -93,6 +109,7 @@ void SoarManager::shutdown(){
   running = false;
   agent->StopSelf();
   agent->UnregisterForRunEvent(inputPhaseCallbackId);
+  agent->UnregisterForRunEvent(reinitCallbackId);
   for(vector<int>::iterator i = outputCallbackIds.begin(); i != outputCallbackIds.end(); i++){
     agent->RemoveOutputHandler(*i);
   }
@@ -106,29 +123,39 @@ void SoarManager::sendCommandToEv3(Ev3Command command, sml::Identifier* id){
 }
 
 // input phase callback
-void SoarManager::runEventHandler(sml::smlRunEventId eventID, void* data, Agent* agent, sml::smlPhase phase){
-  //printf("SoarManager::runEVentHandler enter\n");
+void SoarManager::agentEventHandler(sml::smlAgentEventId eventID, void* data, Agent* agent){
 	SoarManager* manager = (SoarManager*)data;
-	if (manager->isRunning()){
+  if(!manager->isRunning()){
+    return;
+  }
+  if(eventID == smlEVENT_BEFORE_AGENT_REINITIALIZED){
+    manager->reinit();
+	}
+	//Sleep(SOAR_DC_WAIT);
+}
+
+// input phase callback
+void SoarManager::runEventHandler(sml::smlRunEventId eventID, void* data, Agent* agent, sml::smlPhase phase){
+	SoarManager* manager = (SoarManager*)data;
+  if(!manager->isRunning()){
+    return;
+  }
+  if(eventID == smlEVENT_AFTER_OUTPUT_PHASE){
 		manager->updateInputLink(agent->GetInputLink());
     manager->comm->inputPhaseCallback();
 	}
-  //printf("SoarManager::runEventHandler exit\n");
 	//Sleep(SOAR_DC_WAIT);
 }
 
 // output link event callback
 void SoarManager::outputEventHandler(void* data, Agent* agent, const char* attName, WMElement* wme){
-  //printf("SoarManager::outputEventHandler enter\n");
 	SoarManager* manager = (SoarManager*)data;
   if(manager->isRunning()){
 	  manager->handleOutput(attName, wme);
   }
-  //printf("SoarManager::outputEventHandler exit\n");
 }
 
 void SoarManager::readStatus(StatusList& statuses){
-  //printf("SoarManager::readStatus enter\n");
 	for(unsigned int i = 0; i < statuses.size(); i++){
 		Ev3Status& status = statuses[i];
 		uint offset = 0;
@@ -145,7 +172,6 @@ void SoarManager::readStatus(StatusList& statuses){
 			cout << "UNKNOWN DEVICE " << status.dev << endl;
 		}
 	}
-  //printf("SoarManager::readStatus exit\n");
 }
 
 void SoarManager::readMotorsStatus(IntBuffer& status){

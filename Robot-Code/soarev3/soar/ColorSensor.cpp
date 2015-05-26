@@ -35,6 +35,11 @@ ColorSensor::~ColorSensor(){
 	}
 }
 
+void ColorSensor::reinit(){
+  rootId = 0;
+}
+
+
 void ColorSensor::updateInputLink(sml::Identifier* inputLink){
 	if(!rootId){
 		rootId = inputLink->CreateIdWME("sensor");

@@ -19,6 +19,10 @@
  *
  ****************************************************/
 
+void BrickButton::reinit(){
+  id = 0;
+}
+
 void BrickButton::updateInputLink(Identifier* parentId){
 	if(id == 0){
 		// Initialize
@@ -69,6 +73,13 @@ Brick::~Brick(){
 	if(brickId){
 		brickId->DestroyWME();
 		brickId = 0;
+	}
+}
+
+void Brick::reinit(){
+  brickId = 0;
+	for(ButtonVectorIt i = buttons.begin(); i != buttons.end(); i++){
+		(*i)->reinit();
 	}
 }
 

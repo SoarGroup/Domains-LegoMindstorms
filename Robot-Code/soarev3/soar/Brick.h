@@ -30,6 +30,8 @@ public:
 		}
 	}
 
+  void reinit();
+
 	void setState(int buttonState){
 		curState = ((buttonState & mask) > 0);
 	}
@@ -71,6 +73,7 @@ public:
 	Brick(SoarManager* manager);
 	~Brick();
 
+  void reinit();
 	void updateInputLink(Identifier* inputLink);
 	bool readSoarCommand(Identifier* command);
 	void readStatus(IntBuffer& buffer, uint& offset);

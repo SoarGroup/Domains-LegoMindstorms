@@ -15,6 +15,7 @@ class SoarDevice{
 public:
 	virtual ~SoarDevice(){}
 
+  virtual void reinit() = 0;
 	virtual void updateInputLink(sml::Identifier* inputLink) = 0;
 	virtual bool readSoarCommand(sml::Identifier* command) = 0;
 	virtual void readStatus(IntBuffer& buffer, uint& offset) = 0;

@@ -27,6 +27,10 @@ TouchSensor::~TouchSensor(){
 	}
 }
 
+void TouchSensor::reinit(){
+  rootId = 0;
+}
+
 void TouchSensor::updateInputLink(sml::Identifier* inputLink){
 	if(!rootId){
 		rootId = inputLink->CreateIdWME("sensor");

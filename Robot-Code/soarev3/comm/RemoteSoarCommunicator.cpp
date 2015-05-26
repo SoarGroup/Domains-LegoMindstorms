@@ -35,6 +35,16 @@ RemoteSoarCommunicator::~RemoteSoarCommunicator(){
   closeConnection();
 }
 
+void RemoteSoarCommunicator::reinit(){
+	pthread_mutex_lock(&mutex);
+
+  waitingCommands.clear();
+  waitingIdentifiers.clear();
+  finishedIdentifiers.clear();
+
+	pthread_mutex_unlock(&mutex);
+}
+
 void RemoteSoarCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id){
 	pthread_mutex_lock(&mutex);
 
@@ -131,7 +141,7 @@ void RemoteSoarCommunicator::inputPhaseCallback(){
 	pthread_mutex_lock(&mutex);
 
 	for(IdentifierSet::iterator i = finishedIdentifiers.begin(); i != finishedIdentifiers.end(); i++){
-		(*i)->CreateStringWME("status", "success");
+		(*i)->CreateStringWME("status", "complete");
 	}
 	finishedIdentifiers.clear();
   

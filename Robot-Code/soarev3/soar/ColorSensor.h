@@ -22,6 +22,8 @@ public:
 	ColorSensor(uint port, SoarManager* manager);
 	~ColorSensor();
 
+  void reinit();
+
 	void updateInputLink(sml::Identifier* inputLink);
 	void readStatus(IntBuffer& buffer, uint& offset);
 	bool readSoarCommand(sml::Identifier* commandId);

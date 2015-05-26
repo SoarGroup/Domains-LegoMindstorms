@@ -21,6 +21,8 @@ public:
 
 	virtual ~SoarCommunicator(){}
 
+  virtual void reinit(){}
+
 	virtual void sendCommandToEv3(Ev3Command command, sml::Identifier* id) = 0;
 
 	virtual void inputPhaseCallback() = 0;

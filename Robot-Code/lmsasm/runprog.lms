@@ -10,7 +10,7 @@ vmthread MAIN
   TIMER_READY(Timer)
 
 	DATA32 Status
-	SYSTEM('/media/card/standalone',Status)
+	SYSTEM('/media/card/ev3_standalone',Status)
 
 CheckBackButton:
 
