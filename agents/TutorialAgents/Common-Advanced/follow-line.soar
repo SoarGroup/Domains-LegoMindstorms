@@ -24,33 +24,6 @@ sp {Common-Advanced*top-state*propose*follow-line
 }
 
 ###################################################
-#	elaborations
-###################################################
-
-sp {Common-Advanced*follow-line*elaboration*copy-substate-structures
-	(state <s>	^name follow-line
-				^superstate <ss>)
-	(<ss>	^name line-follower
-			^left-motor-port <lmp>
-			^right-motor-port <rmp>
-			^left-color-sensor-port <lcs>
-			^right-color-sensor-port <rcs>
-			^color-forward <cf>
-			^color-turn <ct>
-   			^color-sensor-values <vals>
-      		^io <io>)
--->
-	(<s>	^left-motor-port <lmp>
-			^right-motor-port <rmp>
-			^left-color-sensor-port <lcs>
-			^right-color-sensor-port <rcs>
-			^color-forward <cf>
-			^color-turn <ct>
-			^color-sensor-values <vals>
-     		^io <io>)
-}
-
-###################################################
 #	move-forward operator
 ###################################################
 
@@ -59,15 +32,27 @@ sp {Common-Advanced*follow-line*elaboration*copy-substate-structures
 # and our mode is "follow"
 sp {Common-Advanced*follow-line*propose*move-forward
 	(state <s>	^name follow-line
-				^color-forward <forward>
-				^color-turn <turn>
-				^color-sensor-values <values>)
-	(<values>	^center <forward>
-				^left <turn>
-				^right <turn>)
+				^superstate <ss>)
+	(<ss>		^color-turn <turn>
+				^color-sensor-values <values>
+				-^needs-rotation)
+	(<values>	^center black)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-forward)
+}
+
+sp {Common-Advanced*follow-line*propose*rotation-right*all-white
+	(state <s>	^name follow-line
+				^superstate <ss>)
+	(<ss>		^color-turn <turn>
+				^color-sensor-values <values>
+				-^needs-rotation)
+	(<values>	^center <> black
+				^left <> black
+				^right <> black)
+-->
+	(<s> ^operator.name rotation-right)
 }
 
 # Apply the move-forward operator if we have the
@@ -76,6 +61,8 @@ sp {Common-Advanced*follow-line*propose*move-forward
 sp {Common-Advanced*follow-line*apply*move-forward
 	(state <s>	^name follow-line
             	^operator.name move-forward
+				^superstate <ss>)
+	(<ss>		^operator.name follow-line
 				^io.output-link <out>
 				^left-motor-port <left-port>
 				^right-motor-port <right-port>)
@@ -98,12 +85,11 @@ sp {Common-Advanced*follow-line*apply*move-forward
 
 sp {Common-Advanced*follow-line*propose*move-left
 	(state <s>	^name follow-line
-				^color-forward <forward>
-				^color-turn <turn>
-				^color-sensor-values <values>)
-	(<values>	^center <turn>
-				^left <forward>
-				^right <turn>)
+				^superstate <ss>)
+	(<ss>		^color-sensor-values <values>)
+	(<values>	^center <> black
+				^left black
+				^right <> black)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-left)
@@ -112,6 +98,40 @@ sp {Common-Advanced*follow-line*propose*move-left
 sp {Common-Advanced*follow-line*apply*move-left
 	(state <s>	^name follow-line
             	^operator.name move-left
+				^superstate <ss>)
+	(<ss>		^operator.name follow-line
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+-->
+	(<ss>	^needs-rotation left)
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>	^port <left-port>
+					^set-direction backward
+					^set-power 10)
+	(<right>	^port <right-port>
+					 ^set-direction backward
+					 ^set-power 10)
+}
+
+sp {Common-Advanced*follow-line*propose*rotation-left
+	(state <s>	^name follow-line
+				^superstate <ss>)
+	(<ss>		^io.output-link <out>
+				^needs-rotation left
+				^color-sensor-values <values>)
+	(<values>	^center black
+				^left <> black)
+-->
+	(<s>	^operator.name rotation-left)
+}
+
+sp {Common-Advanced*follow-line*apply*rotation-left*motor
+	(state <s>	^name follow-line
+            	^operator.name rotation-left
+				^superstate <ss>)
+	(<ss>		^operator.name follow-line
 				^io.output-link <out>
 				^left-motor-port <left-port>
 				^right-motor-port <right-port>)
@@ -120,10 +140,38 @@ sp {Common-Advanced*follow-line*apply*move-left
 			^motor <right>)
 	(<left>	^port <left-port>
 					^set-direction backward
-					^set-power 10)
+					^set-power 20)
 	(<right>	^port <right-port>
 					 ^set-direction forward
-					 ^set-power 10)
+					 ^set-power 20)
+}
+
+sp {Common-Advanced*follow-line*apply*rotation-left*save
+	(state <s>	^operator.name rotation-left
+				^superstate <ss>)
+	(<ss>		^operator.name follow-line
+				^left-motor-port <lmp>
+				^io.input-link.motor <m>
+				-^rotation-amount)
+	(<m>		^port <lmp>
+				^amount-rotated <value>)
+-->
+	(<ss>	^rotation-amount (- <value> 75))
+}
+
+sp {Common-Advanced*follow-line*apply*rotation-left*done
+	(state <s>	^operator.name rotation-left
+				^superstate <ss>)
+	(<ss>		^operator.name follow-line
+				^left-motor-port <lmp>
+				^io.input-link.motor <m>
+				^rotation-amount <amount>
+				^needs-rotation <v>)
+	(<m>		^port <lmp>
+				^amount-rotated <value> <= <amount>)
+-->
+	(<ss>	^needs-rotation <v> -
+			^rotation-amount <amount> -)
 }
 
 ###################################################
@@ -132,12 +180,11 @@ sp {Common-Advanced*follow-line*apply*move-left
 
 sp {Common-Advanced*follow-line*propose*move-right
 	(state <s>	^name follow-line
-				^color-forward <forward>
-				^color-turn <turn>
-				^color-sensor-values <values>)
-	(<values>	^center <turn>
-				^left <turn>
-				^right <forward>)
+				^superstate <ss>)
+	(<ss>		^color-sensor-values <values>)
+	(<values>	^center <> black
+				^left <> black
+				^right black)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-right)
@@ -146,6 +193,40 @@ sp {Common-Advanced*follow-line*propose*move-right
 sp {Common-Advanced*follow-line*apply*move-right
 	(state <s>	^name follow-line
             	^operator.name move-right
+				^superstate <ss>)
+	(<ss>		^operator.name follow-line
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+-->
+	(<ss>	^needs-rotation right)
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>	^port <left-port>
+					^set-direction backward
+					^set-power 10)
+	(<right>	^port <right-port>
+					 ^set-direction backward
+					 ^set-power 10)
+}
+
+sp {Common-Advanced*follow-line*propose*rotation-right
+	(state <s>	^name follow-line
+				^superstate <ss>)
+	(<ss>		^io.output-link <out>
+				^needs-rotation right
+				^color-sensor-values <values>)
+	(<values>	^center black
+				^right <> black)
+-->
+	(<s>	^operator.name rotation-right)
+}
+
+sp {Common-Advanced*follow-line*apply*rotation-right*motor
+	(state <s>	^name follow-line
+            	^operator.name rotation-right
+				^superstate <ss>)
+	(<ss>		^operator.name follow-line
 				^io.output-link <out>
 				^left-motor-port <left-port>
 				^right-motor-port <right-port>)
@@ -153,10 +234,50 @@ sp {Common-Advanced*follow-line*apply*move-right
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-			^set-direction forward
-			^set-power 10)
-	(<right> ^port <right-port>
-			 ^set-direction backward
-			 ^set-power 10)
+					^set-direction forward
+					^set-power 20)
+	(<right>	^port <right-port>
+					 ^set-direction backward
+					 ^set-power 20)
 }
 
+sp {Common-Advanced*follow-line*apply*rotation-right*save
+	(state <s>	^operator.name rotation-right
+				^superstate <ss>)
+	(<ss>		^operator.name follow-line
+				^right-motor-port <rmp>
+				^io.input-link.motor <m>
+				-^rotation-amount)
+	(<m>		^port <rmp>
+				^amount-rotated <value>)
+-->
+	(<ss>	^rotation-amount (- <value> 75))
+}
+
+sp {Common-Advanced*follow-line*apply*rotation-right*done
+	(state <s>	^operator.name rotation-right
+				^superstate <ss>)
+	(<ss>		^operator.name follow-line
+				^right-motor-port <rmp>
+				^io.input-link.motor <m>
+				^rotation-amount <amount>
+				^needs-rotation <v>)
+	(<m>		^port <rmp>
+				^amount-rotated <value> <= <amount>)
+-->
+	(<ss>	^needs-rotation <v> -)
+}
+
+sp {Common-Advanced*follow-line*apply*rotation-right*done2
+	(state <s>	^operator.name rotation-right
+				^superstate <ss>)
+	(<ss>		^operator.name follow-line
+				^right-motor-port <rmp>
+				^io.input-link.motor <m>
+				^rotation-amount <amount>
+				^needs-rotation <v>)
+	(<m>		^port <rmp>
+				^amount-rotated <value> <= <amount>)
+-->
+	(<ss>	^rotation-amount <amount> -)
+}

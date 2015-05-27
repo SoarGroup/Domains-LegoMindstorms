@@ -27,6 +27,7 @@ sp {propose*traverse-junction*real-world
 -->
 	(<s>	^operator <o> +)
 	(<o>	^name traverse-junction-real-world)
+	(write |Traverse Junction - Real World| (crlf))
 }
 
 sp {Common-Advanced*traverse-junction*copy-sensor-values

@@ -96,6 +96,28 @@ sp {apply*exit-junction*junction-color
 	(<s>	^junction-color <c> -)
 }
 
+sp {apply*exit-junction*seen-junction-color
+	(state <s>	^operator.name exit-junction
+				^seen-junction-color <c>)
+-->
+	(<s>	^seen-junction-color <c> -)
+}
+
+sp {apply*exit-junction*seen-black
+	(state <s>	^operator.name exit-junction
+				^seen-black <c>)
+-->
+	(<s>	^seen-black <c> -)
+}
+
+sp {apply*exit-junction*junction-color
+	(state <s>	^operator.name exit-junction
+				^junction-color <c>)
+-->
+	(<s>	^junction-color <c> -)
+}
+
+
 sp {apply*exit-junction*failed
 	(state <s>	^operator.name exit-junction
 				^failed <f>)

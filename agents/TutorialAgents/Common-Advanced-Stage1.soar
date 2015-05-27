@@ -8,8 +8,8 @@ sp {Common-Advanced*apply*Init-Agent*create*color-map
    (state <s> ^operator.name init-agent)
 -->
    (<s> ^color-map <map>)
-   (<map> ^red south
+   (<map> ^red west
           ^green west
-          ^blue north
+          ^blue south
 		  ^brown east)
 }

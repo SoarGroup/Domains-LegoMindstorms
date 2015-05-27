@@ -1,8 +1,11 @@
 
 source elaborations.soar
-source move-forward-common.soar
-source move-off-junction.soar
-source move-to-center-of-junction.soar
-source turn-common.soar
-source turn-forward.soar
+source preferences.soar
+
+source move-to-center.soar
 source turn.soar
+source turn-90.soar
+source align-to-all-black.soar
+source move-to-color.soar
+source align-to-color-black-color.soar
+source move-off-junction.soar
