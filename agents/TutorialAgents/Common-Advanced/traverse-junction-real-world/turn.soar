@@ -42,7 +42,7 @@ sp {traverse-junction-real-world*propose*turn-left-right
 }
 
 sp {traverse-junction-real-world*apply*turn-left-right*motor-commands
-	(state <s>	^operator.name turn-forward
+	(state <s>	^operator.name turn-left-right
 				^superstate <ss>)
 	(<ss>		^operator.name traverse-junction-real-world)
 -->

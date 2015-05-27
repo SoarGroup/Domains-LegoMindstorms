@@ -16,8 +16,7 @@ sp {traverse-junction-real-world*apply*align-to-color-black-color*finish
 				^right-motor-port <right-port>)
 	(<ss>	^junction-color <color>
 			^operator.name traverse-junction-real-world
-			^needs-color-black-color-alignment <needs>
-			^aligned)
+			^needs-color-black-color-alignment <needs>)
 	(<csv>	^left <color>
 			^center black
 			^right <color>)
@@ -35,240 +34,20 @@ sp {traverse-junction-real-world*apply*align-to-color-black-color*finish
 
 ## Alignment
 
-sp {traverse-junction-real-world*apply*align-to-color-black-color*no-alignment-needed
-	(state <s>	^operator.name align-to-color-black-color
+sp {traverse-junction-real-world*apply*align-to-color-black-color*all-black
+	(state <s> ^operator.name align-to-color-black-color
 				^color-sensor-values <csv>
 				^superstate <ss>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
 				^io.output-link <out>
-				^io.input-link <input>)
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
 	(<ss>	^junction-color <color>
-			-^rotation-amount
-			-^alignment-setup
-			^operator.name traverse-junction-real-world)
-	(<csv>	^left <color>
+			^operator.name traverse-junction-real-world
+			^needs-color-black-color-alignment <needs>)
+	(<csv>	^left black
 			^center black
-			^right <color>)
-	(<input>	^motor <right>)
-	(<right>	^port <right-port>
-				^amount-rotated <rotated>)
--->
-	(<ss>	^aligned true)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*left-needs-alignment
-	(state <s>	^operator.name align-to-color-black-color
-				^color-sensor-values <csv>
-				^superstate <ss>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
-				^io.output-link <out>
-				^io.input-link <input>)
-	(<ss>	^junction-color <color>
-			-^rotation-amount
-			-^alignment-setup
-			^operator.name traverse-junction-real-world)
-	(<csv>	^left <color>
-			^center <color>
 			^right black)
-	(<input>	^motor <right>)
-	(<right>	^port <right-port>
-				^amount-rotated <rotated>)
 -->
-	(<ss>	^rotation-amount (- <rotated> 50)
-			^backwards-motor <left-port>
-			^alignment left)
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction backward
-				^set-power 20)
-	(<right>	^port <right-port>
-				^set-direction forward
-				^set-power 20)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*left-needs-alignment*white
-	(state <s>	^operator.name align-to-color-black-color
-				^color-sensor-values <csv>
-				^superstate <ss>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
-				^io.output-link <out>
-				^io.input-link <input>)
-	(<ss>	^junction-color <color>
-			-^rotation-amount
-			-^alignment-setup
-			^operator.name traverse-junction-real-world)
-	(<csv>	^left white
-			^center <color>
-			^right black)
-	(<input>	^motor <right>)
-	(<right>	^port <right-port>
-				^amount-rotated <rotated>)
--->
-	(<ss>	^rotation-amount (- <rotated> 50)
-			^backwards-motor <left-port>
-			^alignment left)
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction backward
-				^set-power 20)
-	(<right>	^port <right-port>
-				^set-direction forward
-				^set-power 20)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*left-needs-alignment*black-color-black
-	(state <s>	^operator.name align-to-color-black-color
-				^color-sensor-values <csv>
-				^superstate <ss>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
-				^io.output-link <out>
-				^io.input-link <input>
-				^relative-direction << left backward >>)
-	(<ss>	^junction-color <color>
-			-^rotation-amount
-			-^alignment-setup
-			^operator.name traverse-junction-real-world)
-	(<csv>	^left black
-			^center <color>
-			^right black)
-	(<input>	^motor <right>)
-	(<right>	^port <right-port>
-				^amount-rotated <rotated>)
--->
-	(<ss>	^rotation-amount (- <rotated> 50)
-			^backwards-motor <left-port>
-			^alignment left)
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction backward
-				^set-power 20)
-	(<right>	^port <right-port>
-				^set-direction forward
-				^set-power 20)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*right-needs-alignment
-	(state <s>	^operator.name align-to-color-black-color
-				^color-sensor-values <csv>
-				^superstate <ss>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
-				^io.output-link <out>
-				^io.input-link <input>)
-	(<ss>	^junction-color <color>
-			-^rotation-amount
-			-^alignment-setup
-			^operator.name traverse-junction-real-world)
-	(<csv>	^left black
-			^center <color>
-			^right <color>)
-	(<input>	^motor <left>)
-	(<left>		^port <left-port>
-				^amount-rotated <rotated>)
--->
-	(<ss>	^rotation-amount (- <rotated> 50)
-			^backwards-motor <right-port>
-			^alignment right)
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction forward
-				^set-power 20)
-	(<right>	^port <right-port>
-				^set-direction backward
-				^set-power 20)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*right-needs-alignment*white
-	(state <s>	^operator.name align-to-color-black-color
-				^color-sensor-values <csv>
-				^superstate <ss>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
-				^io.output-link <out>
-				^io.input-link <input>)
-	(<ss>	^junction-color <color>
-			-^rotation-amount
-			-^alignment-setup
-			^operator.name traverse-junction-real-world)
-	(<csv>	^left black
-			^center <color>
-			^right white)
-	(<input>	^motor <left>)
-	(<left>		^port <left-port>
-				^amount-rotated <rotated>)
--->
-	(<ss>	^rotation-amount (- <rotated> 50)
-			^backwards-motor <right-port>
-			^alignment right)
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction forward
-				^set-power 20)
-	(<right>	^port <right-port>
-				^set-direction backward
-				^set-power 20)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*right-needs-alignment*black-color-black
-	(state <s>	^operator.name align-to-color-black-color
-				^color-sensor-values <csv>
-				^superstate <ss>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
-				^io.output-link <out>
-				^io.input-link <input>
-				^relative-color right)
-	(<ss>	^junction-color <color>
-			-^rotation-amount
-			-^alignment-setup
-			^operator.name traverse-junction-real-world)
-	(<csv>	^left black
-			^center <color>
-			^right black)
-	(<input>	^motor <left>)
-	(<left>		^port <left-port>
-				^amount-rotated <rotated>)
--->
-	(<ss>	^rotation-amount (- <rotated> 50)
-			^backwards-motor <right-port>
-			^alignment right)
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction forward
-				^set-power 20)
-	(<right>	^port <right-port>
-				^set-direction backward
-				^set-power 20)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*finish-alignment-setup
-	(state <s>	^operator.name align-to-color-black-color
-				^io.input-link <input>
-				^io.output-link <out>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
-				^superstate <ss>)
-	(<input>	^motor <motor>)
-	(<motor>	^port <motor-port>
-				^amount-rotated <= <amount>)
-	(<ss>		^rotation-amount <amount>
-				^backwards-motor <motor-port>
-				-^alignment-setup
-				^operator.name traverse-junction-real-world)
--->
-	(<ss>	^rotation-amount <amount> -
-			^backwards-motor <motor-port> -
-			^alignment-setup true)
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>		^port <left-port>
@@ -279,107 +58,43 @@ sp {traverse-junction-real-world*apply*align-to-color-black-color*finish-alignme
 				^set-power 10)
 }
 
-sp {traverse-junction-real-world*apply*align-to-color-black-color*did-center*left
-	(state <s>	^operator.name align-to-color-black-color
-				^io.output-link <out>
-				^io.input-link <input>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
+sp {traverse-junction-real-world*apply*align-to-color-black-color*black-black-color
+	(state <s> ^operator.name align-to-color-black-color
 				^color-sensor-values <csv>
-				^superstate <ss>)
+				^superstate <ss>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
 	(<ss>	^junction-color <color>
-			^alignment left
-			^operator.name traverse-junction-real-world)
-	(<csv>	^left <color>
+			^operator.name traverse-junction-real-world
+			^needs-color-black-color-alignment <needs>)
+	(<csv>	^left black
 			^center black
 			^right <color>)
-	(<input>	^motor <motor>)
-	(<motor>	^port <left-port>
-				^amount-rotated <amount>)
 -->
-	(<ss>	^rotation-amount (- <amount> 50)
-			^backwards-motor <left-port>
-			^did-center true)
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>		^port <left-port>
-				^set-direction backward
-				^set-power 20)
-	(<right>	^port <right-port>
 				^set-direction forward
-				^set-power 20)
+				^set-power 10)
+	(<right>	^port <right-port>
+				^set-direction backward
+				^set-power 10)
 }
 
-sp {traverse-junction-real-world*apply*align-to-color-black-color*did-center*right
-	(state <s>	^operator.name align-to-color-black-color
-				^io.output-link <out>
-				^io.input-link <input>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
+sp {traverse-junction-real-world*apply*align-to-color-black-color*color-black-black
+	(state <s> ^operator.name align-to-color-black-color
 				^color-sensor-values <csv>
-				^superstate <ss>)
+				^superstate <ss>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
 	(<ss>	^junction-color <color>
-			^alignment right
-			^operator.name traverse-junction-real-world)
+			^operator.name traverse-junction-real-world
+			^needs-color-black-color-alignment <needs>)
 	(<csv>	^left <color>
 			^center black
-			^right <color>)
-	(<input>	^motor <motor>)
-	(<motor>	^port <right-port>
-				^amount-rotated <amount>)
--->
-	(<ss>	^rotation-amount (- <amount> 50)
-			^backwards-motor <right-port>
-			^did-center true)
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction forward
-				^set-power 20)
-	(<right>	^port <right-port>
-				^set-direction backward
-				^set-power 20)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*did-center*finish
-	(state <s>	^operator.name align-to-color-black-color
-				^io.input-link <input>
-				^io.output-link <out>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
-				^superstate <ss>)
-	(<input>	^motor <motor>)
-	(<motor>	^port <motor-port>
-				^amount-rotated <= <amount>)
-	(<ss>		^did-center
-				^rotation-amount <amount>
-				^backwards-motor <motor-port>
-				^operator.name traverse-junction-real-world)
--->
-	(<ss>	^backwards-motor <motor-port> -
-			^rotation-amount <amount> -
-			^aligned true)
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction forward
-				^set-power 0)
-	(<right>	^port <right-port>
-				^set-direction forward
-				^set-power 0)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*aligned*move-back-to-junction
-	(state <s>	^operator.name align-to-color-black-color
-				^aligned
-				^color-sensor-values <csv>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>
-				^io.output-link <out>
-				^superstate.operator.name traverse-junction-real-world)
-	(<csv>	^left white
-			^center black
-			^right white)
+			^right black)
 -->
 	(<out>	^motor <left>
 			^motor <right>)
@@ -387,6 +102,54 @@ sp {traverse-junction-real-world*apply*align-to-color-black-color*aligned*move-b
 				^set-direction backward
 				^set-power 10)
 	(<right>	^port <right-port>
-				^set-direction backward
+				^set-direction forward
 				^set-power 10)
+}
+
+sp {traverse-junction-real-world*apply*align-to-color-black-color*black-color-color
+	(state <s> ^operator.name align-to-color-black-color
+				^color-sensor-values <csv>
+				^superstate <ss>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+	(<ss>	^junction-color <color>
+			^operator.name traverse-junction-real-world
+			^needs-color-black-color-alignment <needs>)
+	(<csv>	^left black
+			^center <color>
+			^right <color>)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction forward
+				^set-power 20)
+	(<right>	^port <right-port>
+				^set-direction forward
+				^set-power 10)
+}
+
+sp {traverse-junction-real-world*apply*align-to-color-black-color*color-color-black
+	(state <s> ^operator.name align-to-color-black-color
+				^color-sensor-values <csv>
+				^superstate <ss>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+	(<ss>	^junction-color <color>
+			^operator.name traverse-junction-real-world
+			^needs-color-black-color-alignment <needs>)
+	(<csv>	^left <color>
+			^center <color>
+			^right black)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction forward
+				^set-power 10)
+	(<right>	^port <right-port>
+				^set-direction forward
+				^set-power 20)
 }
