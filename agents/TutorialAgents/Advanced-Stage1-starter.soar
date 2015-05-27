@@ -1,4 +1,4 @@
-source ../Common-Include/Common-Include_source.soar
+source Common-Include/Common-Include_source.soar
 
 source Common-Advanced/Common-Advanced_source.soar
 source Common-Advanced-Stage1.soar

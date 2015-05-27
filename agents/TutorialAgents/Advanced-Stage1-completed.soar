@@ -52,5 +52,5 @@ sp {Stage1*prefer*right*color
 	(<o>	^name select-direction
 			^direction <dir>)
 -->
-   (<s> ^operator <o> + >)
+   (<s> ^operator <o> >)
 }

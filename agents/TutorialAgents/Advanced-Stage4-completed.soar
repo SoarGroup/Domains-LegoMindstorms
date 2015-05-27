@@ -7,7 +7,8 @@ sp {Stage4*propose*retrieve-previous-junction-color
 				^junction-color <color>
 				-^previous-junction-color)
 -->
-	(<s>	^operator.name retrieve-previous-junction-color)
+	(<s>	^operator <o> +)
+	(<o>	^name retrieve-previous-junction-color)
 }
 
 sp {Stage4*apply*retrieve-previous-junction-color*query

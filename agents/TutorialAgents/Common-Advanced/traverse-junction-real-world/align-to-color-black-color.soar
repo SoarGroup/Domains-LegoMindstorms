@@ -123,8 +123,8 @@ sp {traverse-junction-real-world*apply*align-to-color-black-color*black-color-co
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>		^port <left-port>
-				^set-direction forward
-				^set-power 20)
+				^set-direction backward
+				^set-power 10)
 	(<right>	^port <right-port>
 				^set-direction forward
 				^set-power 10)
@@ -150,6 +150,6 @@ sp {traverse-junction-real-world*apply*align-to-color-black-color*color-color-bl
 				^set-direction forward
 				^set-power 10)
 	(<right>	^port <right-port>
-				^set-direction forward
-				^set-power 20)
+				^set-direction backward
+				^set-power 10)
 }

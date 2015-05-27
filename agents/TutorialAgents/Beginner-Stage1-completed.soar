@@ -75,10 +75,8 @@ sp {Stage1*apply*move-forward
 # This move-left operator is the same as the
 # move-forward operator except for three changes.
 # 1) The operator has been renamed to move-left
-# 2) The color-forward test in the proposal has been
-#    changed to color-turn
-# 3) The direction for the left motor has been changed
-#    to forward instead of backward.
+# 2) The direction for the left motor has been changed
+#    to forward.
 sp {Stage1*propose*move-left
 	(state <s>	^name line-follower
 				^mode follow
@@ -116,10 +114,8 @@ sp {Stage1*apply*move-left
 # This move-right operator is the same as the
 # move-forward operator except for three changes.
 # 1) The operator has been renamed to move-right
-# 2) The color-forward test in the proposal has been
-#    changed to color-turn
-# 3) The direction for the right motor has been changed
-#    to forward instead of backward.
+# 2) The direction for the right motor has been changed
+#    to forward.
 sp {Stage1*propose*move-right
 	(state <s>	^name line-follower
 				^mode follow
