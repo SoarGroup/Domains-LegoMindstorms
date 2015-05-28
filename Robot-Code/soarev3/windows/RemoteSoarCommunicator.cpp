@@ -5,8 +5,7 @@
  *      Author: aaron
  */
 
-#include "windows/SoarCommunication.h"
-
+#include "windows/RemoteSoarCommunicator.h"
 
 #include "Constants.h"
 #include "comm/CommStructs.h"
@@ -17,20 +16,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <iostream>
+
 using namespace std;
 using namespace sml;
 
-#ifdef DEBUG_NETWORKING
-#include <sys/types.h>
-#include <ctime>
-#endif
-
-// SoarCommunicator
-
-SoarCommunicator::SoarCommunicator(SoarManager* manager)
-	:soarManager(manager){
-
-}
 
 // RemoteSoarCommunicator
 
@@ -41,21 +30,24 @@ RemoteSoarCommunicator::RemoteSoarCommunicator(SoarManager* manager, string serv
         printf("CreateMutex error: %d\n", GetLastError());
     }
     this->setReceptionCallback(&RemoteSoarCommunicator::receiveMessage, this);
+	
+	DWORD threadId;
+	sendThread = CreateThread(NULL, 0, &sendThreadFunction, (void*)this, 0, &threadId);
 }
 
 RemoteSoarCommunicator::~RemoteSoarCommunicator() {
     CloseHandle(mutex);
+	closeConnection();
 }
 
-bool RemoteSoarCommunicator::openConnection() {
-    DWORD threadId;
-    sendThread = CreateThread(NULL, 0, &sendThreadFunction, (void*)this, 0, &threadId);
-	return TcpClient::openConnection();
-}
+void RemoteSoarCommunicator::reinit(){
+	WaitForSingleObject(mutex, INFINITE);
 
-void RemoteSoarCommunicator::closeConnection(){
-	TcpClient::closeConnection();
-	WaitForSingleObject(sendThread, INFINITE);
+	waitingCommands.clear();
+	waitingIdentifiers.clear();
+	finishedIdentifiers.clear();
+
+	ReleaseMutex(mutex);
 }
 
 void RemoteSoarCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id) {
@@ -73,7 +65,7 @@ void RemoteSoarCommunicator::sendCommandToEv3(Ev3Command command, Identifier* id
 DWORD WINAPI  RemoteSoarCommunicator::sendThreadFunction(void* arg) {
     RemoteSoarCommunicator* soarComm = (RemoteSoarCommunicator*) arg;
 
-    while (soarComm->isConnected()) {
+    while (soarComm->soarManager->isRunning()) {
         soarComm->sendCommands();
         Sleep(1000 / SOAR_SEND_COMMAND_FPS);
     }
@@ -82,6 +74,10 @@ DWORD WINAPI  RemoteSoarCommunicator::sendThreadFunction(void* arg) {
 }
 
 void RemoteSoarCommunicator::sendCommands() {
+	if (!isConnected()){
+		return;
+	}
+
     WaitForSingleObject(mutex, INFINITE);
     
     // Send Message to Ev3 of all queued commands
@@ -120,8 +116,6 @@ void RemoteSoarCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offse
     //cout << "--> Soar Receive Status" << endl;
     WaitForSingleObject(mutex, INFINITE);
     
-    int send_time = buffer[offset++];
-    
     uint numAcks = buffer[offset++];
     for (uint i = 0; i < numAcks; i++) {
         uint ack = buffer[offset++];
@@ -137,7 +131,6 @@ void RemoteSoarCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offse
         }
     }
 
-    ReleaseMutex(mutex);
     
     StatusList statuses;
     uint numStatuses = buffer[offset++];
@@ -146,13 +139,15 @@ void RemoteSoarCommunicator::receiveStatusMessage(IntBuffer& buffer, uint& offse
     }
 	soarManager->readStatus(statuses);
     //cout << "<-- Soar Receive Status" << endl;
+
+	ReleaseMutex(mutex);
 }
 
-void RemoteSoarCommunicator::updateSoar() {
+void RemoteSoarCommunicator::inputPhaseCallback() {
     WaitForSingleObject(mutex, INFINITE);
     
     for (IdentifierSet::iterator i = finishedIdentifiers.begin(); i != finishedIdentifiers.end(); i++) {
-        (*i)->CreateStringWME("status", "success");
+        (*i)->CreateStringWME("status", "complete");
     }
     finishedIdentifiers.clear();
 

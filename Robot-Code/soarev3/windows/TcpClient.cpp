@@ -26,8 +26,8 @@ bool TcpClient::openConnection() {
 		printf("TcpClient Error: Trying to connect when already connected\n");
 		return false;
 	}
-    printf("TcpClient: creating socket\n");
 
+	// Initiate Winsock Processes 
     WSADATA wsadata;
     int error = WSAStartup(0x0202, &wsadata);
     if (error) {
@@ -41,19 +41,22 @@ bool TcpClient::openConnection() {
         return false;
     }
 
+	// Create the socket
+	printf("TcpClient: creating socket\n");
     socket_fd = socket(AF_INET, SOCK_STREAM, IPPROTO_TCP);
     if (socket_fd == INVALID_SOCKET) {
         printf("TcpClient Error: socket() = %d\n", WSAGetLastError());
         return false;
     }
 
+	// Setup the server address used to connect
     SOCKADDR_IN server_addr;
     memset(&server_addr, 0, sizeof (server_addr));
     server_addr.sin_family = AF_INET;
 	inet_pton(AF_INET, server_ip.c_str(), (void*)&server_addr.sin_addr);
-   // server_addr.sin_addr.s_addr = inet_addr(server_ip.c_str());
-    server_addr.sin_port = htons(7667);
+	server_addr.sin_port = htons(DEFAULT_PORT);
 
+	// Connect to the server
     printf("TcpClient: connecting\n");
     if (connect(socket_fd, (SOCKADDR*) & server_addr, sizeof (server_addr)) == SOCKET_ERROR) {
         printf("TcpClient Error: connect = %d\n", WSAGetLastError());
@@ -61,6 +64,7 @@ bool TcpClient::openConnection() {
         return false;
     }
 
+	// Set the TCP_NODELAY flag so messages are immediately sent
     int flag = 1;
     if (setsockopt(socket_fd, IPPROTO_TCP, TCP_NODELAY, (const char*) &flag, sizeof (flag)) == SOCKET_ERROR) {
         printf("TcpClient Error: setsockopt TCP_NODELAY = %d\n", WSAGetLastError());
@@ -78,8 +82,8 @@ bool TcpClient::openConnection() {
 
 void TcpClient::closeConnection(){
 	if (connected){
-		closesocket(socket_fd);
 		connected = false;
+		closesocket(socket_fd);
 	}
 	WaitForSingleObject(receiveThread, INFINITE);
 }
@@ -88,9 +92,7 @@ DWORD WINAPI TcpClient::receiveThreadFunction(LPVOID arg) {
     TcpClient* server = (TcpClient*) arg;
 
     while (server->isConnected()){
-		if (!server->receivePacket()){
-			return 0;
-		}
+		server->receivePacket();
     }
 
     return 0;

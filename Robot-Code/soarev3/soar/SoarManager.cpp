@@ -5,11 +5,7 @@
  *      Author: aaron
  */
 
-#ifdef _WIN32
-#include "windows/SoarCommunication.h"
-#else
 #include "comm/SoarCommunicator.h"
-#endif
 
 #include "soar/SoarManager.h"
 
@@ -29,7 +25,7 @@ using namespace std;
 using namespace sml;
 
 SoarManager::SoarManager(std::string agentSource, bool debugger)
-:comm(0), timeStep(1), running(true)
+	:comm(0), timeStep(1), running(true), print_stream(0)
 {
 	kernel = Kernel::CreateKernelInNewThread();
 	agent = kernel->CreateAgent("Ev3 Agent");
@@ -42,6 +38,7 @@ SoarManager::SoarManager(std::string agentSource, bool debugger)
 
 	inputPhaseCallbackId = agent->RegisterForRunEvent(smlEVENT_AFTER_OUTPUT_PHASE, &runEventHandler, (void*)this, true);
   reinitCallbackId = kernel->RegisterForAgentEvent(smlEVENT_BEFORE_AGENT_REINITIALIZED, &agentEventHandler, (void*)this, true);
+  printCallbackId = agent->RegisterForPrintEvent(sml::smlEVENT_PRINT, &printEventHandler, (void*)this);
 
 	// Manager
 	outputCallbackIds.push_back(agent->AddOutputHandler("manager", SoarManager::outputEventHandler, (void*)this));
@@ -110,7 +107,8 @@ void SoarManager::shutdown(){
   running = false;
   agent->StopSelf();
   agent->UnregisterForRunEvent(inputPhaseCallbackId);
-  agent->UnregisterForRunEvent(reinitCallbackId);
+  kernel->UnregisterForAgentEvent(reinitCallbackId);
+  agent->UnregisterForPrintEvent(printCallbackId);
   for(vector<int>::iterator i = outputCallbackIds.begin(); i != outputCallbackIds.end(); i++){
     agent->RemoveOutputHandler(*i);
   }
@@ -146,6 +144,14 @@ void SoarManager::runEventHandler(sml::smlRunEventId eventID, void* data, Agent*
     manager->comm->inputPhaseCallback();
 	}
 	//Sleep(SOAR_DC_WAIT);
+}
+
+
+void SoarManager::printEventHandler(sml::smlPrintEventId eventID, void* data, sml::Agent* agent, const char* message){
+	SoarManager* manager = (SoarManager*)data;
+	if (manager->print_stream != 0){
+		(*manager->print_stream) << message << endl;
+	}
 }
 
 // output link event callback

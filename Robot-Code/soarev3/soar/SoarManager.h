@@ -49,6 +49,12 @@ public:
 	static void runEventHandler(sml::smlRunEventId eventID, void* data, sml::Agent* agent, sml::smlPhase phase);
 	
 	static void agentEventHandler(sml::smlAgentEventId eventID, void* data, sml::Agent* agent);
+
+	static void printEventHandler(sml::smlPrintEventId eventID, void* data, sml::Agent* agent, const char* message);
+
+	void setPrintStream(ostream* stream){
+		print_stream = stream;
+	}
 	
 	// output link event callback
 	static void outputEventHandler(void* data, sml::Agent* agent, const char* attName,  sml::WMElement* wme);
@@ -85,7 +91,10 @@ private:
 	
 	int reinitCallbackId;
 	int inputPhaseCallbackId;
+	int printCallbackId;
 	std::vector<int> outputCallbackIds;
+
+	ostream* print_stream;
 };
 
 #endif /* SOARMANAGER_H_ */

@@ -5,16 +5,21 @@
 * Created on May 19, 2015, 11:09 AM
 */
 
+#ifdef _WIN32
+#include "windows/RemoteSoarCommunicator.h"
 
-#include "windows/SoarCommunication.h"
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#else
+#include "comm/RemoteSoarCommunicator.h"
+#include <unistd.h>
+#endif
+
 #include "soar/SoarManager.h"
 
 #include <iostream>
 #include <string>
 #include <stdio.h>
-
-#define WIN32_LEAN_AND_MEAN
-#include <windows.h>
 
 using namespace std;
 
@@ -24,7 +29,6 @@ int main(int argc, char** argv) {
 		cout << "Param 2: filepath for agent source file" << endl;
 		return 0;
 	}
-
 
 	string filepath(argv[2]);
 	string parentPath = filepath.substr(0, filepath.find_last_of("/\\"));

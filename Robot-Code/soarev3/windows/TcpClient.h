@@ -9,6 +9,7 @@
 //#include <Windows.h>
 
 #define MAX_BUFFER_SIZE 65535
+#define DEFAULT_PORT 7667
 
 class TcpClient {
 public:

@@ -5,43 +5,18 @@
  *      Author: aaron
  */
 
-#ifndef SOARCOMMUNICATION_H_
-#define SOARCOMMUNICATION_H_
+#ifndef _REMOTE_SOAR_COMMUNICATOR_H_
+#define _REMOTE_SOAR_COMMUNICATOR_H_
 
+#include "comm/SoarCommunicator.h"
 #include "windows/TcpClient.h"
 
 #include <string>
-
-class SoarManager;
-
-#include "sml_Client.h"
-
-#include "comm/CommStructs.h"
-
-
-#include <ctime>
+#include <set>
+#include <map>
 
 typedef std::map<uint, sml::Identifier*> IdentifierMap;
 typedef std::set<sml::Identifier*> IdentifierSet;
-
-class SoarCommunicator {
-public:
-	SoarCommunicator(SoarManager* manager);
-
-    virtual void sendCommandToEv3(Ev3Command command, sml::Identifier* id) = 0;
-
-    virtual void updateSoar() = 0;
-
-	virtual bool openConnection(){
-		return true;
-	}
-
-	virtual void closeConnection(){}
-
-	virtual bool isConnected() = 0;
-protected:
-	SoarManager* soarManager;
-};
 
 class RemoteSoarCommunicator : public SoarCommunicator, public TcpClient {
 public:
@@ -49,21 +24,11 @@ public:
 
     virtual ~RemoteSoarCommunicator();
 
-    virtual bool openConnection();
-
-	virtual void closeConnection();
-
-    virtual bool isConnected() {
-        return TcpClient::isConnected();
-    }
-
-    void assignManager(SoarManager* manager) {
-        soarManager = manager;
-    }
+	void reinit();
 
     void sendCommandToEv3(Ev3Command command, sml::Identifier* id);
 
-    void updateSoar();
+    void inputPhaseCallback();
 
 private:
     static DWORD WINAPI sendThreadFunction(void* arg);
@@ -87,4 +52,4 @@ private:
 };
 
 
-#endif /* SOARCOMMUNICATION_H_ */
+#endif /* _REMOTE_SOAR_COMMUNICATOR_H_ */
