@@ -3,6 +3,12 @@
  *
  *  Created on: Nov 21, 2013
  *      Author: aaron
+ *
+ * OutputDeviceManager : CommandHandler
+ *   Handles reading information about output devices (motors)
+ *     And sending commands to them (e.g. set speed)
+ *
+ *
  */
 
 #ifndef OUTPUTDEVICEMANAGER_H_
@@ -21,9 +27,9 @@ public:
 	Ev3Status getStatus();
 
 private:
-	int motorInputFile;
-	int motorOutputFile;
-	MOTORDATA* motorData;
+	int motorInputFile;   // file to get motor info from 
+	int motorOutputFile;  // file to send motor commands to
+	MOTORDATA* motorData; // data map used for getting info about motors
 };
 
 #endif /* OUTPUTDEVICEMANAGER_H_ */

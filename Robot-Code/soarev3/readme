@@ -1,0 +1,167 @@
+This file contains information about the soarev3 source code
+
+Constants.h
+ * Contains constants used in the soarev3 program
+
+****************************************************************************
+****************************** UTIL ****************************************
+
+Contains useful standalone functions for use throughout the code
+Including using working memory and doing network communications
+
+util/WMUtil
+ *  Contains useful functions for accessing and modifying working memory
+
+util/CommUtil
+ *  Contains useful functions for dealing with communication and networking
+ *    Mostly packing and unpacking buffers and dealing with binary
+
+
+****************************************************************************
+*********************************** COMM ***********************************
+
+Contains classes used to support communication between the SoarManager
+and the Ev3Manager, including TCP/IP networking
+
+This communication can be either 
+  Direct (both are on the robot, so messages are just forwarded)
+  Remote (communication is done over a TCP connection)
+
+comm/CommStructs
+ *  Contains structures used during communication
+ *    And ways to pack/unpack them from buffers
+ *
+ *  CommandHandler - An interface for a device that can handle Ev3Commands
+ *  Ev3Status - Contains status information about a single device
+ *  Ev3Command - Contains a single command for the robot
+
+comm/TcpClient
+ *  TcpClient is a class that implements a simple client that
+ *    connects to a server using TCP/IP protocols
+ *    It uses unix sockets and so is only for linux/mac
+ *  It supports a single connection at a time on port 7667
+ *    And a maximum packet size of 65535 bytes when receiving
+
+comm/TcpServer
+ *  TcpServer is a class that implements a simple server that uses TCP/IP protocols
+ *    It uses unix sockets and so is only for linux/mac
+ *  It supports a single connection at a time on port 7667
+ *    And a maximum packet size of 65535 bytes when receiving
+
+comm/SoarCommunicator
+ *  SoarCommunicator
+ *    Abstract base class to use for enabling communication with the SoarManager
+ *    Handles commands sent by the Manager and forwards new status updates to it
+
+comm/Ev3Communicator
+ *  Ev3Communicator
+ *    Abstract base class to use for enabling communication with the Ev3Manager
+ *    Periodically sends status updates to soar and sends commands to the Ev3Manager
+
+comm/RemoteSoarCommunicator
+ * RemoteSoarCommunicator : SoarCommunicator, TcpClient
+ *   Enables the SoarManager to communicator over a TCP connection with the robot
+ *   Connects to a server running on the robot
+
+comm/RemoteEv3Communicator
+ * RemoteEv3Communicator : Ev3Communicator, TcpServer
+ *   Enables the Ev3Manager to communicator over a TCP connection
+ *   Acts as a server on the robot that a soar client can remotely connect to
+
+comm/DirectCommunicator
+ * DirectCommunicator : Ev3Communicator, SoarCommunicator
+ *   Used when the SoarManager and Ev3Manager are both running on the robot
+ *   Directly forwards messages (statuses + commands) between the two
+ *     without using a networking connection
+
+
+****************************************************************************
+********************************** WINDOWS *********************************
+
+This folder contains windows specific code for doing TCP communication
+
+windows/TcpClient
+ *  TcpClient is a class that implements a simple client that
+ *    connects to a server using TCP/IP protocols
+ *    It uses winsock sockets and so is only for windows
+ *  It supports a single connection at a time on port 7667
+ *    And a maximum packet size of 65535 bytes when receiving
+
+windows/RemoteSoarCommunicator
+ * RemoteSoarCommunicator : SoarCommunicator, TcpClient
+ *   Enables the SoarManager to communicator over a TCP connection with the robot
+ *   Connects to a server running on the robot
+
+
+
+****************************************************************************
+******************************* SOAR ***************************************
+
+This folder contains the code for interfacing with a Soar instance
+The SoarManager sets up the agent/kernel and listens for events, 
+And the various devices support handling output-link commands 
+  and updating the input-link with new status info
+
+soar/SoarDevice
+ *  Abstract base class for all devices that interface with soar
+
+soar/SoarManager
+ *  SoarManager
+ *    This class is the interface to a running soar instance
+ *    It creates the kernel/agent and listens to events
+ *    It schedules updates to the input-link and gets commands on the output-link
+ *    It also creates and manages the SoarDevices
+
+soar/Brick
+ *  BrickButton 
+ *    Wrapper for a single button on the brick
+ *
+ *  SoarBrick : SoarDevice
+ *    Implements the soar interface to the lego brick
+ *    Includes the buttons and leds
+
+soar/Motor
+ * Motor : SoarDevice
+ *   Interface between soar and a single motor
+
+soar/ColorSensor
+ * ColorSensor : SoarDevice
+ *  Soar interface to the color sensor
+
+soar/IRRemote
+ *  IRRemote : SoarDevice
+ *  Soar interface to the ir remote
+
+soar/TouchSensor
+ *  TouchSensor : SoarDevice
+ *  Soar interface to the touch sensor
+
+
+****************************************************************************
+*********************************** EV3 ************************************
+
+This folder contains the code for interfacing with the lego robot
+The Ev3Manager sets up the various devices (e.g. input, output, brick)
+  and is the point of connection between them and the communication layer
+
+ev3/Ev3Manager
+ * Ev3Manager : CommandHandler
+ *   Responsible for creating the different devices (brick, inputs, outputs)
+ *   and connecting them to the communication layer
+
+ev3/Ev3Brick
+ * Ev3Brick : CommandHandler
+ *   Interface to the hardware for the brick itself
+ *   Reads button presses and sends led commands
+
+ev3/InputDeviceManager
+ * InputDeviceManager : CommandHandler
+ *   Reads information from the input devices (sensors)
+ *   Handles both serial and analog connections
+ *   Analog ones have to be explictly created by a command (can't autodetect)
+
+ev3/OutputDeviceManager
+ * OutputDeviceManager : CommandHandler
+ *   Handles reading information about output devices (motors)
+ *     And sending commands to them (e.g. set speed)
+

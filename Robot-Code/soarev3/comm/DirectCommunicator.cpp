@@ -15,7 +15,7 @@ using namespace std;
 
 using namespace sml;
 
-DirectCommunicator::DirectCommunicator(SoarManager* sm, Ev3Manager* em, ostream& out)
+DirectCommunicator::DirectCommunicator(SoarManager* sm, Ev3Manager* em)
 : SoarCommunicator(sm), Ev3Communicator(em){
 }
 

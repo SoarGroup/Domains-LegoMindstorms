@@ -1,3 +1,12 @@
+/*
+ * Motor.h
+ *
+ *  Created on: Nov 27, 2013
+ *      Author: aaron
+ *
+ * Motor : SoarDevice
+ *   Interface between soar and a single motor
+ */
 #ifndef __SOAR_MOTOR_H__
 #define __SOAR_MOTOR_H__
 

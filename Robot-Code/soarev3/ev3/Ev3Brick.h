@@ -3,6 +3,10 @@
  *
  *  Created on: Nov 27, 2013
  *      Author: aaron
+ *
+ * Ev3Brick : CommandHandler
+ *   Interface to the hardware for the brick itself
+ *   Reads button presses and sends led commands
  */
 
 #ifndef EV3BRICK_H_
@@ -21,8 +25,8 @@ public:
 	Ev3Status getStatus();
 
 private:
-	int uiFile;
-	UI* uiData;
+	int uiFile; // File for writing led commands
+	UI* uiData; // Data map to read button info
 };
 
 

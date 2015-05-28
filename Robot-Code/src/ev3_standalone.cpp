@@ -9,28 +9,36 @@
 using namespace std;
 
 int main(int argc, char** argv){
-  ofstream fout;
-  fout.open("/media/card/log");
-
   ifstream fin;
   fin.open("/media/card/config");
 
   int channel = 1;
   string agent_source = "";
+  bool log = false;
 
   string arg_name;
+  string arg_val;
   while(fin >> arg_name){
     if (arg_name == "source"){
       fin >> agent_source;
-      fout << "Agent Source = " << agent_source << endl;
+    } else if (arg_name == "logging" || arg_name == "log"){
+      fin >> arg_val;
+      log = (arg_val == "true");
     }
   }
+
+  fin.close();
 
 	Ev3Manager em;
   SoarManager sm(agent_source, false);
 	DirectCommunicator comm(&sm, &em);
   sm.setCommunicator(&comm);
-  sm.setOutput(out);
+
+  ofstream fout;
+  if(log){
+    fout.open("/media/card/log");
+    sm.setPrintStream(&fout);
+  }
 
 	while(sm.isRunning()){
 		sm.step();
@@ -38,8 +46,9 @@ int main(int argc, char** argv){
 
   comm.shutdown();
 
-  fin.close();
-  fout.close();
+  if(log){
+    fout.close();
+  }
 
 	return 0;
 }

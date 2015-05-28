@@ -3,6 +3,9 @@
  *
  *  Created on: Nov 27, 2013
  *      Author: aaron
+ *
+ * SoarColorSensor : SoarDevice
+ *  Soar interface to the color sensor
  */
 
 #ifndef SOARCOLORSENSOR_H_
@@ -25,14 +28,17 @@ public:
   void reinit();
 
 	void updateInputLink(sml::Identifier* inputLink);
+  
 	void readStatus(IntBuffer& buffer, uint& offset);
+
 	bool readSoarCommand(sml::Identifier* commandId);
-	bool readSetCommand(sml::Identifier* commandId, IntBuffer& params);
+
 	uint getDeviceType(){
 		return EV3_COLOR_SENSOR_TYPE;
 	}
 
 private:
+  // mode is either 'reflect', 'ambient', or 'color'
 	void changeSoarMode(std::string newMode);
 
 	SoarManager* manager;

@@ -34,7 +34,7 @@ bool TcpServer::start(){
 	memset(&server_addr, 0, sizeof(server_addr));
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_addr.s_addr = INADDR_ANY;
-	server_addr.sin_port = htons(7667);
+	server_addr.sin_port = htons(DEFAULT_PORT);
 
   if (bind(socket_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0){
     perror("TcpServer Error: bind");

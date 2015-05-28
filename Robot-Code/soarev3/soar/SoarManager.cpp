@@ -104,6 +104,10 @@ void SoarManager::shutdown(){
   if(!running){
     return;
   }
+  if(print_stream != 0){
+    *print_stream << agent->ExecuteCommandLine("stats");
+  }
+
   running = false;
   agent->StopSelf();
   agent->UnregisterForRunEvent(inputPhaseCallbackId);
@@ -150,7 +154,7 @@ void SoarManager::runEventHandler(sml::smlRunEventId eventID, void* data, Agent*
 void SoarManager::printEventHandler(sml::smlPrintEventId eventID, void* data, sml::Agent* agent, const char* message){
 	SoarManager* manager = (SoarManager*)data;
 	if (manager->print_stream != 0){
-		(*manager->print_stream) << message << endl;
+		(*manager->print_stream) << message;
 	}
 }
 

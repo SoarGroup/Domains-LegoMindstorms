@@ -7,10 +7,6 @@
 
 #include "util/WMUtil.h"
 
-// These are the three types that a WME can be, conform to Soar
-static const string INTEGER_VAL = "int";
-static const string FLOAT_VAL = "double";
-static const string STRING_VAL = "string";
 
 bool WMUtil::isint(const string& s){
 	for(string::const_iterator i = s.begin(); i != s.end(); i++){
@@ -75,7 +71,7 @@ void WMUtil::updateFloatWME(Identifier* id, const string& att, double val){
  * Updates the given Identifier so that it becomes a IntWME:
  * (id ^att val)
  */
-void WMUtil::updateIntWME(Identifier* id, const string& att, int val){
+void WMUtil::updateIntWME(Identifier* id, const string& att, long val){
 	WMElement* valueWME = id->FindByAttribute(att.c_str(), 0);
 	if(valueWME == 0){
 		id->CreateIntWME(att.c_str(), val);

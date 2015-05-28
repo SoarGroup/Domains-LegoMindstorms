@@ -3,6 +3,11 @@
  *
  *  Created on: Nov 27, 2013
  *      Author: aaron
+ *
+ * DirectCommunicator : Ev3Communicator, SoarCommunicator
+ *   Used when the SoarManager and Ev3Manager are both running on the robot
+ *   Directly forwards messages (statuses + commands) between the two
+ *     without using a networking connection
  */
 
 #ifndef DIRECTCOMMUNICATION_H_
@@ -24,8 +29,6 @@ public:
 	void sendCommandToEv3(Ev3Command command, sml::Identifier* id);
 
 	void sendStatusMessage();
-
-	void inputPhaseCallback(){}
 };
 
 

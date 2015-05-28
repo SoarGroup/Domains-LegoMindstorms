@@ -1,8 +1,14 @@
 /*
- * SoarColorSensor.h
+ * IRRemote.h
  *
  *  Created on: Nov 27, 2013
  *      Author: aaron
+ *
+ * RemoteButton
+ *  Represents a single button on the ir remote
+ *
+ * IRRemote : SoarDevice
+ *  Soar interface to the ir remote
  */
 
 #ifndef IRREMOTE_SENSOR_H_

@@ -3,6 +3,13 @@
  *
  *  Created on: Nov 27, 2013
  *      Author: aaron
+ *
+ *  BrickButton 
+ *    Wrapper for a single button on the brick
+ *
+ *  SoarBrick : SoarDevice
+ *    Implements the soar interface to the lego brick
+ *    Includes the buttons and leds
  */
 
 #ifndef SOARBRICK_H_
@@ -18,6 +25,8 @@ using namespace sml;
 
 class BrickButton{
 public:
+  // The mask for the specific byte in the buttonstate
+  //   correponding to this button
 	BrickButton(std::string name, int mask)
 	:name(name), mask(mask), id(0), curState(false), prevState(false){
 
@@ -37,10 +46,6 @@ public:
 	}
 
 	void updateInputLink(Identifier* parentId);
-
-	uint getDeviceType(){
-		return 0;
-	}
 
 private:
 	std::string name;

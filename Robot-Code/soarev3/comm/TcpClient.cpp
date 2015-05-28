@@ -41,7 +41,7 @@ bool TcpClient::openConnection(){
 	memset(&server_addr, 0, sizeof(server_addr));
 	server_addr.sin_family = AF_INET;
 	server_addr.sin_addr.s_addr = inet_addr(server_ip.c_str());
-	server_addr.sin_port = htons(7667);
+	server_addr.sin_port = htons(DEFAULT_PORT);
 
   printf("TcpClient: connecting\n");
   if (connect(socket_fd, (struct sockaddr *)&server_addr, sizeof(server_addr)) < 0){
