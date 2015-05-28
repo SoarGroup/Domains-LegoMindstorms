@@ -1,0 +1,102 @@
+source Advanced-Stage1-completed.soar
+
+source Common-Advanced-Stage3.soar
+
+#######################################################
+#
+# operator mark-direction-blocked
+#
+########################################################
+
+# When we reach a junction from a previous one, then 
+#  we know that our current direction is the right one 
+#  to take from that previous junction color, 
+# so mark all other directions as blocked for that color
+sp {Stage3*propose*mark-direction-blocked*new-junction
+	(state <s>	^name line-follower
+				^junction-color << red blue green brown >>
+				^previous-junction-color { <color> << red blue green brown >> }
+				^current-direction <cur-dir>
+				^direction-map.direction.name {<dir> <> <cur-dir>}
+				-^color-map.<color>.blocked-direction <dir>
+				-^changed-previous-color)
+-->
+	(<s> ^operator <o> + =)
+	(<o> ^name mark-direction-blocked
+			 ^color <color>
+			 ^direction <dir>)
+}
+
+sp {Stage3*propose*mark-direction-blocked*entering-direction
+	(state <s>	^name line-follower
+				^junction-color { <cur-color> << red green blue brown >> }
+				^previous-junction-color << red green blue brown >>
+				^current-direction <cur-dir>
+				^direction-map.direction <dir>
+				-^color-map.<cur-color>.blocked-direction <back-dir>
+				-^changed-previous-color)
+	(<dir> ^name <cur-dir>
+				 ^backward.name <back-dir>)
+-->
+	(<s> ^operator <o> + =)
+	(<o> ^name mark-direction-blocked
+			 ^color <cur-color>
+			 ^direction <back-dir>)
+}
+
+# If we reach a yellow junction (blocked)
+#   Then mark the previous junction color as blocked in the current direction
+sp {Stage3*propose*mark-direction-blocked*reached-blocked-junction
+	(state <s>	^name line-follower
+				^junction-color yellow
+				^previous-junction-color { <prev-color> <> yellow }
+				^current-direction <cur-dir>
+				-^color-map.<prev-color>.blocked-direction <cur-dir>
+				-^changed-previous-color)
+-->
+	(<s> ^operator <o> + =)
+	(<o> ^name mark-direction-blocked
+			 ^color <prev-color>
+			 ^direction <cur-dir>)
+}
+
+# Mark the indicated direction as blocked for the given color
+sp {Stage3*apply*mark-direction-blocked
+	(state <s>	^operator <o>
+				^color-map.<color> <c>)
+	(<o>	^name mark-direction-blocked
+			^color <color>
+			^direction <dir>)
+-->
+	(<c> ^blocked-direction <dir>)
+}
+
+# Do any learning first before other things change the state
+sp {Stage3*prefer*mark-direction-blocked*over*select-direction
+	(state <s>	^operator <o1> +
+				^operator <o2> +)
+	(<o1> ^name mark-direction-blocked)
+	(<o2> ^name select-direction)
+-->
+	(<s> ^operator <o1> > <o2>)
+}
+
+######################################################
+#
+# operator select-direction
+#   Used to select which direction to turn at the junction
+#   Preferences are used to prefer good direction
+#     and reject bad directions
+#
+######################################################
+
+sp {Stage3*reject*blocked-directions
+	(state <s>	^operator <o> +
+				^color-map.<color> <c>
+				^junction-color <color>)
+	(<o>	^name select-direction
+			^direction <dir>)
+	(<c>	^blocked-direction <dir>)
+-->
+   (<s> ^operator <o> -)
+}

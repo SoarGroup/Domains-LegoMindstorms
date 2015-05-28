@@ -1,0 +1,30 @@
+source elaborations.soar
+# Contains:
+#   elaborations for the topstate
+#   ^color-type << path junction >>
+#      Whether the seen color is categorized as a path (black, brown, white)
+#        or junction (red, green, yellow, blue)
+
+source Init-Agent.soar
+# Contains:
+#   Additional initialization code for the topstate
+#   direction-map - contains information useful for 
+#     getting information about directions
+#     (e.g. how do you turn to go from facing north to facing east)
+
+source follow-line.soar
+# Contains:
+#   The basic rules used to follow the line
+
+source Button-Press.soar
+# Will handle a button press of the 4 direction buttons (up, down, left, right)
+#   and change the current-direction of the robot
+
+source preferences.soar
+
+source enter-junction.soar
+source align-to-junction.soar
+source traverse-junction.soar
+source exit-junction.soar
+# code used to turn the robot to a given cardinal direction (NSEW) at a junction
+

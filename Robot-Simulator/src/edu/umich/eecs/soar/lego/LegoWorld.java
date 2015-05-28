@@ -6,8 +6,8 @@ import edu.umich.eecs.soar.lego.core.LegoCore;
 
 public class LegoWorld
 {
-	private static final String DiscreteLegoWorldPath = System.getenv("PROJECT_LOC") + "/src/edu/umich/eecs/soar/lego/";
-	private static final String Agents = System.getenv("PROJECT_LOC") + "/../agents/TutorialAgents/";
+	private static final String AgentsFolder = "./TutorialAgents/";
+	private static final String MapsFolder = "./maps/";
 	private static final String SoarDebuggerJarPath = System.getenv("SOAR_HOME") + "/SoarJavaDebugger.jar";
 	private static final String AgentFile = "Advanced-Stage4-completed";
 	private static final String Map = "AdvancedTutorialTestMap";
@@ -15,8 +15,8 @@ public class LegoWorld
 	private static final int TimeDelayMiliseconds = 0;
 	
 	public static void main(String[] args) throws IOException
-	{
+	{		
 		LegoCore lego = new LegoCore();
-		lego.run(DiscreteLegoWorldPath, TimeDelayMiliseconds, SoarDebuggerJarPath, AgentFile, Map, seed, Agents);
+		lego.run(TimeDelayMiliseconds, SoarDebuggerJarPath, AgentFile, Map, seed, AgentsFolder, MapsFolder);
 	}
 }

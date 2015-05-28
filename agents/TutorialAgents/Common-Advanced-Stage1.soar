@@ -9,7 +9,7 @@ sp {Common-Advanced*apply*Init-Agent*create*color-map
 -->
    (<s> ^color-map <map>)
    (<map> ^red south
-          ^green west
-          ^blue south
-		  ^brown east)
+          ^green east
+          ^blue east
+		  ^brown west)
 }

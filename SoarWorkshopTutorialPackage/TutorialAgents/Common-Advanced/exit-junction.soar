@@ -1,0 +1,126 @@
+
+sp {propose*exit-junction
+	(state <s>	^name line-follower
+				^junction-color <color>
+				^moved-off-junction-almost
+				^color-sensor-values <values>)
+	(<values>	^left <> <color> <> black
+				^center black
+				^right <> <color> <> black)
+-->
+	(<s>	^operator <o> + >)
+	(<o>	^name exit-junction
+			^action stop)
+}
+
+sp {apply*exit-junction*selected-direction
+	(state <s>	^operator.name exit-junction
+				^selected-direction <v>)
+-->
+	(<s>	^selected-direction <v> -)
+}
+
+sp {apply*exit-junction*update-current-direction
+	(state <s>	^operator.name exit-junction
+				^current-direction <current-direction> <> <selected-direction>
+				^selected-direction <selected-direction>)
+-->
+	(<s>	^current-direction <current-direction> -
+			^current-direction <selected-direction>)
+}
+
+sp {apply*exit-junction*aligned-to-junction
+	(state <s>	^operator.name exit-junction
+				^aligned-to-junction <v>)
+-->
+	(<s>	^aligned-to-junction <v> -)
+}
+
+sp {apply*exit-junction*has-centered
+	(state <s>	^operator.name exit-junction
+				^has-centered <v>)
+-->
+	(<s>	^has-centered <v> -)
+}
+
+sp {apply*exit-junction*mark
+	(state <s>	^operator.name exit-junction
+				^mark <v>)
+-->
+	(<s>	^mark <v> -)
+}
+
+sp {apply*exit-junction*turned
+	(state <s>	^operator.name exit-junction
+				^turned <v>)
+-->
+	(<s>	^turned <v> -)
+}
+
+sp {apply*exit-junction*moved-off-junction-almost
+	(state <s>	^operator.name exit-junction
+				^moved-off-junction-almost <v>)
+-->
+	(<s>	^moved-off-junction-almost <v> -)
+}
+
+sp {apply*exit-junction*moved-off-junction
+	(state <s>	^operator.name exit-junction
+				^moved-off-junction <v>)
+-->
+	(<s>	^moved-off-junction <v> -)
+}
+
+sp {apply*exit-junction*update-previous-junction-color
+	(state <s>	^operator.name exit-junction
+				-^using-epmem
+				^previous-junction-color <prev-color>
+				^junction-color <new-color>)
+-->
+	(<s>	^previous-junction-color <prev-color> -
+			^previous-junction-color <new-color>)
+}
+
+sp {apply*exit-junction*update-previous-junction-color*epmem
+	(state <s>	^operator.name exit-junction
+				^using-epmem
+				^previous-junction-color <prev-color>)
+-->
+	(<s>	^previous-junction-color <prev-color> -)
+}
+
+sp {apply*exit-junction*junction-color
+	(state <s>	^operator.name exit-junction
+				^junction-color <c>)
+-->
+	(<s>	^junction-color <c> -)
+}
+
+sp {apply*exit-junction*seen-junction-color
+	(state <s>	^operator.name exit-junction
+				^seen-junction-color <c>)
+-->
+	(<s>	^seen-junction-color <c> -)
+}
+
+sp {apply*exit-junction*seen-black
+	(state <s>	^operator.name exit-junction
+				^seen-black <c>)
+-->
+	(<s>	^seen-black <c> -)
+}
+
+sp {apply*exit-junction*junction-color
+	(state <s>	^operator.name exit-junction
+				^junction-color <c>)
+-->
+	(<s>	^junction-color <c> -)
+}
+
+
+sp {apply*exit-junction*failed
+	(state <s>	^operator.name exit-junction
+				^failed <f>)
+-->
+	(<s>	^failed <f> -)
+}

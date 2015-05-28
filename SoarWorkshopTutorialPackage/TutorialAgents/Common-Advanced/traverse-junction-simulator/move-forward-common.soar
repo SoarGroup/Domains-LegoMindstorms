@@ -1,0 +1,19 @@
+
+sp {traverse-junction-simulator*apply*move-forward*send-commands
+	(state <s>	^name traverse-junction-simulator
+				^operator.name move-forward
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+-->
+	# Create a command for each motor on the output
+	# link
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction forward
+				^set-power 10)
+	(<right>	^port <right-port>
+				^set-direction forward
+				^set-power 10)
+}

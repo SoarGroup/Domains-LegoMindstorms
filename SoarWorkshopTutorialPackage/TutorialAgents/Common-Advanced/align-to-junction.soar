@@ -1,0 +1,55 @@
+
+#sp {Common-Advanced*propose*align-to-junction
+#(state <s>	^junction-color <color>
+#				-^aligned-to-junction)
+#-->
+#	(<s>	^operator.name align-to-junction)
+#}
+
+sp {Common-Advanced*apply*align-to-junction*align-left
+	(state <s>	^operator.name align-to-junction
+				^junction-color <color>
+				^color-sensor-values <csv>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+	(<csv>	^left <left> <> <color>)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>	^port <left-port>
+			^set-direction forward
+			^set-power 40)
+	(<right> ^port <right-port>
+			 ^set-direction backward
+			 ^set-power 40)
+}
+
+sp {Common-Advanced*apply*align-to-junction*align-right
+	(state <s>	^operator.name align-to-junction
+				^junction-color <color>
+				^color-sensor-values <csv>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+	(<csv>	^right <right> <> <color>)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>	^port <left-port>
+			^set-direction backward
+			^set-power 40)
+	(<right>	^port <right-port>
+				^set-direction forward
+				^set-power 40)
+}
+
+sp {Common-Advanced*apply*align-to-junction*aligned
+	(state <s>	^operator.name align-to-junction
+				^junction-color <color>
+				^color-sensor-values <csv>)
+	(<csv>	^right <color>
+			^left <color>)
+-->
+	(<s>	^aligned-to-junction true)
+}

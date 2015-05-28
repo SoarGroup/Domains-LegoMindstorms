@@ -1,0 +1,39 @@
+
+pushd traverse-junction-simulator
+source traverse-junction_source.soar
+popd
+
+pushd traverse-junction-real-world
+source traverse-junction_source.soar
+popd
+
+sp {propose*traverse-junction*simulator
+	(state <s>	^name line-follower
+				^selected-direction <direction>
+				^direction-map <map>
+				^junction-color <color>
+				^io.input-link.simulator)
+-->
+	(<s>	^operator <o> +)
+	(<o>	^name traverse-junction-simulator)
+}
+
+sp {propose*traverse-junction*real-world
+	(state <s>	^name line-follower
+				^selected-direction <direction>
+				^direction-map <map>
+				^junction-color <color>
+				-^io.input-link.simulator)
+-->
+	(<s>	^operator <o> +)
+	(<o>	^name traverse-junction-real-world)
+	(write |Traverse Junction - Real World| (crlf))
+}
+
+sp {Common-Advanced*traverse-junction*copy-sensor-values
+	(state <s>	^superstate.name line-follower
+				^superstate.color-sensor-values <csv>)
+-->
+	(<s> ^color-sensor-values <csv>)
+}
+

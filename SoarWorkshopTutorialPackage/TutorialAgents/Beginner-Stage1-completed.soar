@@ -1,0 +1,147 @@
+###################################################
+# Common Includes (init, wait, etc.)
+# These are provided for you.
+###################################################
+
+source Common-Include/Common-Include_source.soar
+
+###################################################
+# This file contains the following operators:
+#	move-foward
+#	move-left
+#	move-right
+#
+# This is a total of six rules.  The agent will
+# successfully follow a colored line and stop when
+# a button on the brick is pressed. You do not have
+# to handle the stop portion, so long as you test
+# for ^mode follow on the top state in your proposal
+###################################################
+
+###################################################
+#	move-forward operator
+###################################################
+
+# Propose the move-forward operator if the current
+# detected color sensor value is the forward value
+# and our mode is "follow"
+sp {Stage1*propose*move-forward
+	(state <s>	^name line-follower
+				^mode follow
+				^color-forward <forward>
+				^color-turn <turn>
+				^color-sensor-values <values>)
+	(<values>	^center <forward>
+				^left <turn>
+				^right <turn>)
+-->
+	(<s> ^operator <o> +)
+	(<o> ^name move-forward)
+}
+
+# Apply the move-forward operator if we have the
+# move-forward operator selected, an output link,
+# a left motor port, and a right motor port.
+sp {Stage1*apply*move-forward
+	(state <s>	^operator.name move-forward
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+-->
+	# Create a command for each motor on the output
+	# link
+	(<out>	^motor <left>
+			^motor <right>)
+	# For the "left" motor identifier, set the port
+	# to be the left motor's port.  Also, set
+			# the direction and power
+			# Remember that to move the robot forward
+	 		# the motors turn backward
+	(<left>	^port <left-port>
+					^set-direction forward
+					^set-power 30)
+	# Do the same thing for the right motor but with
+	# the right motor's port
+	(<right>	^port <right-port>
+					 ^set-direction forward
+					 ^set-power 30)
+}
+
+
+###################################################
+#	move-left operator
+###################################################
+
+# This move-left operator is the same as the
+# move-forward operator except for three changes.
+# 1) The operator has been renamed to move-left
+# 2) The direction for the left motor has been changed
+#    to forward.
+sp {Stage1*propose*move-left
+	(state <s>	^name line-follower
+				^mode follow
+				^color-forward <forward>
+				^color-turn <turn>
+				^color-sensor-values <values>)
+	(<values>	^center <turn>
+				^left <forward>
+				^right <turn>)
+-->
+	(<s> ^operator <o> +)
+	(<o> ^name move-left)
+}
+
+sp {Stage1*apply*move-left
+	(state <s>	^operator.name move-left
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>	^port <left-port>
+					^set-direction backward
+					^set-power 40)
+	(<right>	^port <right-port>
+					 ^set-direction forward
+					 ^set-power 40)
+}
+
+###################################################
+#	move-right operator
+###################################################
+
+# This move-right operator is the same as the
+# move-forward operator except for three changes.
+# 1) The operator has been renamed to move-right
+# 2) The direction for the right motor has been changed
+#    to forward.
+sp {Stage1*propose*move-right
+	(state <s>	^name line-follower
+				^mode follow
+				^color-forward <forward>
+				^color-turn <turn>
+				^color-sensor-values <values>)
+	(<values>	^center <turn>
+				^left <turn>
+				^right <forward>)
+-->
+	(<s> ^operator <o> +)
+	(<o> ^name move-right)
+}
+
+sp {Stage1*apply*move-right
+	(state <s>	^operator.name move-right
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>	^port <left-port>
+					^set-direction forward
+					^set-power 40)
+	(<right>	^port <right-port>
+					 ^set-direction backward
+					 ^set-power 40)
+}

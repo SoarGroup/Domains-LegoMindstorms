@@ -1,0 +1,45 @@
+source Advanced-Stage3-completed.soar
+
+source Common-Advanced-Stage4.soar
+
+sp {Stage4*propose*retrieve-previous-junction-color
+	(state <s>	^name line-follower
+				^junction-color <color>
+				-^previous-junction-color)
+-->
+	(<s>	^operator <o> +)
+	(<o>	^name retrieve-previous-junction-color)
+}
+
+sp {Stage4*apply*retrieve-previous-junction-color*query
+	(state <s>	^operator.name retrieve-previous-junction-color
+				^epmem.command <command>)
+-->
+	(<command>	^query.operator.name exit-junction)
+}
+
+sp {Stage4*apply*retrieve-previous-junction-color*add-previous-junction-color
+	(state <s>	^operator.name retrieve-previous-junction-color
+				^epmem.result.retrieved.junction-color <color>)
+-->
+	(<s>	^previous-junction-color <color>)
+}
+
+sp {Stage4*apply*retrieve-previous-junction-color*remove-query
+	(state <s>	^operator.name retrieve-previous-junction-color
+				^epmem <epmem>)
+	(<epmem>	^command <command>
+				^result.retrieved.junction-color <color>)
+	(<command>	^query <q>)
+-->
+	(<command>	^query <q> -)
+}
+
+sp {Stage4*prefer*retrieve-color-over-select-direction
+	(state <s>	^operator <o> +
+				^operator <o2> +)
+	(<o>	^name retrieve-previous-junction-color)
+	(<o2>	^name select-direction)
+-->
+	(<s>	^operator <o> > <o2>)
+}

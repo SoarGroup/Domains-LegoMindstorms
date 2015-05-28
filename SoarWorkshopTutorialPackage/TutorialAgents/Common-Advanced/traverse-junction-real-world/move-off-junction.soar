@@ -1,0 +1,28 @@
+
+sp {traverse-junction-real-world*propose*move-off-junction
+	(state <s>	^name traverse-junction-real-world
+				^superstate <ss>)
+	(<ss>		^moved-to-color
+				-^needs-color-black-color-alignment)
+-->
+	(<s>	^operator.name move-off-junction)
+}
+
+sp {traverse-junction-real-world*apply*move-off-junction
+	(state <s>	^operator.name move-off-junction
+				^superstate <ss>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+	(<ss>	^operator.name traverse-junction-real-world)
+-->
+	(<ss>	^moved-off-junction-almost true)
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction forward
+				^set-power 10)
+	(<right>	^port <right-port>
+				^set-direction forward
+				^set-power 10)
+}

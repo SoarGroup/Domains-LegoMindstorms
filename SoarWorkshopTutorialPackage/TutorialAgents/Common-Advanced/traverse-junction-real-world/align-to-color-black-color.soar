@@ -1,0 +1,155 @@
+
+sp {traverse-junction-real-world*propose*align-to-color-black-color
+	(state <s>	^name traverse-junction-real-world
+				^superstate <ss>)
+	(<ss>	^needs-color-black-color-alignment)
+-->
+	(<s>	^operator.name align-to-color-black-color)
+}
+
+sp {traverse-junction-real-world*apply*align-to-color-black-color*finish
+	(state <s> ^operator.name align-to-color-black-color
+				^color-sensor-values <csv>
+				^superstate <ss>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+	(<ss>	^junction-color <color>
+			^operator.name traverse-junction-real-world
+			^needs-color-black-color-alignment <needs>)
+	(<csv>	^left <color>
+			^center black
+			^right <color>)
+-->
+	(<ss>	^needs-color-black-color-alignment <needs> -)
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction forward
+				^set-power 0)
+	(<right>	^port <right-port>
+				^set-direction forward
+				^set-power 0)
+}
+
+## Alignment
+
+sp {traverse-junction-real-world*apply*align-to-color-black-color*all-black
+	(state <s> ^operator.name align-to-color-black-color
+				^color-sensor-values <csv>
+				^superstate <ss>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+	(<ss>	^junction-color <color>
+			^operator.name traverse-junction-real-world
+			^needs-color-black-color-alignment <needs>)
+	(<csv>	^left black
+			^center black
+			^right black)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction forward
+				^set-power 10)
+	(<right>	^port <right-port>
+				^set-direction forward
+				^set-power 10)
+}
+
+sp {traverse-junction-real-world*apply*align-to-color-black-color*black-black-color
+	(state <s> ^operator.name align-to-color-black-color
+				^color-sensor-values <csv>
+				^superstate <ss>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+	(<ss>	^junction-color <color>
+			^operator.name traverse-junction-real-world
+			^needs-color-black-color-alignment <needs>)
+	(<csv>	^left black
+			^center black
+			^right <color>)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction forward
+				^set-power 10)
+	(<right>	^port <right-port>
+				^set-direction backward
+				^set-power 10)
+}
+
+sp {traverse-junction-real-world*apply*align-to-color-black-color*color-black-black
+	(state <s> ^operator.name align-to-color-black-color
+				^color-sensor-values <csv>
+				^superstate <ss>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+	(<ss>	^junction-color <color>
+			^operator.name traverse-junction-real-world
+			^needs-color-black-color-alignment <needs>)
+	(<csv>	^left <color>
+			^center black
+			^right black)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction backward
+				^set-power 10)
+	(<right>	^port <right-port>
+				^set-direction forward
+				^set-power 10)
+}
+
+sp {traverse-junction-real-world*apply*align-to-color-black-color*black-color-color
+	(state <s> ^operator.name align-to-color-black-color
+				^color-sensor-values <csv>
+				^superstate <ss>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+	(<ss>	^junction-color <color>
+			^operator.name traverse-junction-real-world
+			^needs-color-black-color-alignment <needs>)
+	(<csv>	^left black
+			^center <color>
+			^right <color>)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction backward
+				^set-power 10)
+	(<right>	^port <right-port>
+				^set-direction forward
+				^set-power 10)
+}
+
+sp {traverse-junction-real-world*apply*align-to-color-black-color*color-color-black
+	(state <s> ^operator.name align-to-color-black-color
+				^color-sensor-values <csv>
+				^superstate <ss>
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+	(<ss>	^junction-color <color>
+			^operator.name traverse-junction-real-world
+			^needs-color-black-color-alignment <needs>)
+	(<csv>	^left <color>
+			^center <color>
+			^right black)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction forward
+				^set-power 10)
+	(<right>	^port <right-port>
+				^set-direction backward
+				^set-power 10)
+}

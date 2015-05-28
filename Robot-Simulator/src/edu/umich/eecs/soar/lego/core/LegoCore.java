@@ -23,21 +23,15 @@ public class LegoCore implements ActionListener, RunEventInterface
 	
 	JFrame		resetWindow;
 	
-	JLabel		discreteLegoWorldPathLabel		= new JLabel("Discrete Lego World Path: ");
-	JLabel		soarDebuggerJarPathLabel		= new JLabel("Soar Debugger Jar Path: ");
-	JLabel		agentsFolderLabel				= new JLabel("Agents Folder: ");
 	JLabel		agentFileLabel					= new JLabel("Agent File: ");
 	JLabel		mapNameLabel					= new JLabel("Map Name: ");
 	JLabel		seedLabel						= new JLabel("Seed: ");
 	JLabel		timeDelayLabel					= new JLabel("Time Delay (ms): ");
 	
-	JTextField	discreteLegoWorldPathTextField	= new JTextField("", 30);
-	JTextField	soarDebuggerJarPathTextField	= new JTextField("", 30);
-	JTextField	agentsFolderTextField			= new JTextField("", 30);
-	JTextField	agentFileTextField				= new JTextField("", 15);
-	JTextField	mapNameTextField				= new JTextField("", 15);
-	JTextField	seedTextField					= new JTextField("", 10);
-	JTextField	timeDelayTextField				= new JTextField("", 10);
+	JTextField	agentFileTextField				= new JTextField("", 20);
+	JTextField	mapNameTextField				= new JTextField("", 20);
+	JTextField	seedTextField					= new JTextField("", 20);
+	JTextField	timeDelayTextField				= new JTextField("", 20);
 	JButton		resetButton						= new JButton("Reset");
 	JButton		runSoarButton					= new JButton("Run Soar");
 	JButton		stopSoarButton					= new JButton("Stop Soar");
@@ -45,6 +39,10 @@ public class LegoCore implements ActionListener, RunEventInterface
 	boolean		stopSoar						= false;
 	boolean		resetSoar						= false;
 	boolean		soarRunning						= false;
+	
+	String agentFolder;
+	String mapFolder;
+	String soarJavaDebuggerPath;
 	
 	class ResetSoar implements Runnable
 	{
@@ -77,17 +75,11 @@ public class LegoCore implements ActionListener, RunEventInterface
 		resetWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		resetWindow.setResizable(false);
 		
-		resetWindow.getContentPane().add(discreteLegoWorldPathLabel);
-		resetWindow.getContentPane().add(soarDebuggerJarPathLabel);
-		resetWindow.getContentPane().add(agentsFolderLabel);
 		resetWindow.getContentPane().add(agentFileLabel);
 		resetWindow.getContentPane().add(mapNameLabel);
 		resetWindow.getContentPane().add(seedLabel);
 		resetWindow.getContentPane().add(timeDelayLabel);
 		
-		resetWindow.getContentPane().add(discreteLegoWorldPathTextField);
-		resetWindow.getContentPane().add(soarDebuggerJarPathTextField);
-		resetWindow.getContentPane().add(agentsFolderTextField);
 		resetWindow.getContentPane().add(agentFileTextField);
 		resetWindow.getContentPane().add(mapNameTextField);
 		resetWindow.getContentPane().add(seedTextField);
@@ -96,46 +88,34 @@ public class LegoCore implements ActionListener, RunEventInterface
 		resetWindow.getContentPane().add(runSoarButton);
 		resetWindow.getContentPane().add(stopSoarButton);
 		
-		layout.putConstraint(SpringLayout.WEST, discreteLegoWorldPathLabel, 5, SpringLayout.WEST, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.WEST, soarDebuggerJarPathLabel, 20, SpringLayout.WEST, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.WEST, agentsFolderLabel, 76, SpringLayout.WEST, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.WEST, agentFileLabel, 100, SpringLayout.WEST, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.WEST, mapNameLabel, 97, SpringLayout.WEST, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.WEST, seedLabel, 134, SpringLayout.WEST, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.WEST, timeDelayLabel, 62, SpringLayout.WEST, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.WEST, runSoarButton, 180, SpringLayout.WEST, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.WEST, stopSoarButton, 270, SpringLayout.WEST, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.WEST, resetButton, 230, SpringLayout.WEST, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.WEST, agentFileLabel, 48, SpringLayout.WEST, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.WEST, mapNameLabel, 45, SpringLayout.WEST, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.WEST, seedLabel, 82, SpringLayout.WEST, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.WEST, timeDelayLabel, 10, SpringLayout.WEST, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.WEST, runSoarButton, 95, SpringLayout.WEST, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.WEST, stopSoarButton, 190, SpringLayout.WEST, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.WEST, resetButton, 150, SpringLayout.WEST, resetWindow.getContentPane());
 		
-		layout.putConstraint(SpringLayout.NORTH, discreteLegoWorldPathLabel, 10, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, soarDebuggerJarPathLabel, 40, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, agentsFolderLabel, 70, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, agentFileLabel, 100, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, mapNameLabel, 130, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, seedLabel, 160, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, timeDelayLabel, 190, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, runSoarButton, 220, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, stopSoarButton, 220, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, resetButton, 250, SpringLayout.NORTH, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, agentFileLabel, 10, SpringLayout.NORTH, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, mapNameLabel, 40, SpringLayout.NORTH, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, seedLabel, 70, SpringLayout.NORTH, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, timeDelayLabel, 100, SpringLayout.NORTH, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, runSoarButton, 130, SpringLayout.NORTH, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, stopSoarButton, 130, SpringLayout.NORTH, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, resetButton, 160, SpringLayout.NORTH, resetWindow.getContentPane());
 		layout.putConstraint(SpringLayout.SOUTH, resetWindow.getContentPane(), 5, SpringLayout.SOUTH, resetButton);
 		
-		layout.putConstraint(SpringLayout.WEST, discreteLegoWorldPathTextField, 5, SpringLayout.EAST, discreteLegoWorldPathLabel);
-		layout.putConstraint(SpringLayout.WEST, soarDebuggerJarPathTextField, 5, SpringLayout.EAST, soarDebuggerJarPathLabel);
-		layout.putConstraint(SpringLayout.WEST, agentsFolderTextField, 5, SpringLayout.EAST, agentsFolderLabel);
 		layout.putConstraint(SpringLayout.WEST, agentFileTextField, 5, SpringLayout.EAST, agentFileLabel);
 		layout.putConstraint(SpringLayout.WEST, mapNameTextField, 5, SpringLayout.EAST, mapNameLabel);
 		layout.putConstraint(SpringLayout.WEST, seedTextField, 5, SpringLayout.EAST, seedLabel);
 		layout.putConstraint(SpringLayout.WEST, timeDelayTextField, 5, SpringLayout.EAST, timeDelayLabel);
 		
-		layout.putConstraint(SpringLayout.NORTH, discreteLegoWorldPathTextField, 5, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, soarDebuggerJarPathTextField, 35, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, agentsFolderTextField, 65, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, agentFileTextField, 95, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, mapNameTextField, 125, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, seedTextField, 155, SpringLayout.NORTH, resetWindow.getContentPane());
-		layout.putConstraint(SpringLayout.NORTH, timeDelayTextField, 185, SpringLayout.NORTH, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, agentFileTextField, 5, SpringLayout.NORTH, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, mapNameTextField, 35, SpringLayout.NORTH, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, seedTextField, 65, SpringLayout.NORTH, resetWindow.getContentPane());
+		layout.putConstraint(SpringLayout.NORTH, timeDelayTextField, 95, SpringLayout.NORTH, resetWindow.getContentPane());
 		
-		layout.putConstraint(SpringLayout.EAST, resetWindow.getContentPane(), 5, SpringLayout.EAST, discreteLegoWorldPathTextField);
+		layout.putConstraint(SpringLayout.EAST, resetWindow.getContentPane(), 5, SpringLayout.EAST, agentFileTextField);
 		
 		resetButton.addActionListener(this);
 		runSoarButton.addActionListener(this);
@@ -145,22 +125,22 @@ public class LegoCore implements ActionListener, RunEventInterface
 		resetWindow.setVisible(true);
 	}
 	
-	public void run(String DiscreteLegoWorldPath, Integer TimeDelayMiliseconds, String SoarDebuggerJarPath, String AgentFile, String Map, Integer seed, String agents)
+	public void run(Integer TimeDelayMiliseconds, String SoarDebuggerJarPath, String AgentFile, String Map, Integer seed, String agentsFolder, String mapsFolder)
 	{
-		discreteLegoWorldPathTextField.setText(DiscreteLegoWorldPath);
 		timeDelayTextField.setText(TimeDelayMiliseconds.toString());
-		soarDebuggerJarPathTextField.setText(SoarDebuggerJarPath);
 		agentFileTextField.setText(AgentFile);
 		mapNameTextField.setText(Map);
 		seedTextField.setText(seed.toString());
-		agentsFolderTextField.setText(agents);
+		
+		agentFolder = agentsFolder;
+		mapFolder = mapsFolder;
 		
 		startWorld();
 	}
 	
 	private void startWorld()
 	{
-		map = new LegoMap(agentsFolderTextField.getText() + "/../../maps/" + mapNameTextField.getText());
+		map = new LegoMap(mapFolder + mapNameTextField.getText());
 		
 		world = new World(map, new Integer(timeDelayTextField.getText()));
 		
@@ -178,8 +158,8 @@ public class LegoCore implements ActionListener, RunEventInterface
 		world.runEventIdentifier = runEventIdentifier;
 		world.outputEventIdentifier = outHandlerIdentifier;
 		
-		agent.SpawnDebugger(14242, soarDebuggerJarPathTextField.getText());
-		System.out.println(agent.ExecuteCommandLine("source " + agentsFolderTextField.getText() + "/" + agentFileTextField.getText() + ".soar"));
+		agent.SpawnDebugger(14242, soarJavaDebuggerPath);
+		System.out.println(agent.ExecuteCommandLine("source " + agentFolder + agentFileTextField.getText() + ".soar"));
 		System.out.println(agent.ExecuteCommandLine("e"));
 	}
 	
