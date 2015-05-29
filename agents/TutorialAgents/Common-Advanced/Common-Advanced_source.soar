@@ -13,7 +13,6 @@ source Init-Agent.soar
 #     (e.g. how do you turn to go from facing north to facing east)
 
 source follow-line.soar
-source ../Beginner-Stage2-completed.soar
 # Contains:
 #   The basic rules used to follow the line
 
