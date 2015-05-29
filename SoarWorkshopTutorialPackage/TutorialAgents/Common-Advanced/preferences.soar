@@ -14,9 +14,20 @@ sp {Common-Advanced*prefer*backwards-for-select-direction-if-yellow
 
 sp {Common-Advanced*prefer*enter-junction*over*follow-line
 	(state <s>	^operator <o1> +
-				^operator <o2> +)
+				^operator <o2> +
+				-^needs-rotation)
 	(<o1>	^name enter-junction)
 	(<o2>	^name follow-line)
 -->
 	(<s>	^operator <o1> > <o2>)
+}
+
+sp {Common-Advanced*prefer*enter-junction*over*follow-line*unless-adjusting
+	(state <s>	^operator <o1> +
+				^operator <o2> +
+				^needs-rotation)
+	(<o1>	^name enter-junction)
+	(<o2>	^name follow-line)
+-->
+	(<s>	^operator <o1> < <o2>)
 }

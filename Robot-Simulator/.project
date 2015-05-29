@@ -221,11 +221,6 @@
 			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/Init-Agent.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/TutorialAgents/Common-Advanced/align-to-junction.soar</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/align-to-junction.soar</locationURI>
-		</link>
-		<link>
 			<name>bin/TutorialAgents/Common-Advanced/elaborations.soar</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/elaborations.soar</locationURI>
@@ -329,11 +324,6 @@
 			<name>src/TutorialAgents/Common-Advanced/Init-Agent.soar</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/Init-Agent.soar</locationURI>
-		</link>
-		<link>
-			<name>src/TutorialAgents/Common-Advanced/align-to-junction.soar</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/align-to-junction.soar</locationURI>
 		</link>
 		<link>
 			<name>src/TutorialAgents/Common-Advanced/elaborations.soar</name>

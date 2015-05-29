@@ -149,14 +149,13 @@ public class LegoCore implements ActionListener, RunEventInterface
 		
 		System.out.println("Using Seed: " + seedTextField.getText());
 		agent.ExecuteCommandLine("srand " + seedTextField.getText());
-		agent.RegisterForRunEvent(smlRunEventId.smlEVENT_AFTER_OUTPUT_PHASE, this, null);
+		agent.RegisterForRunEvent(smlRunEventId.smlEVENT_BEFORE_INPUT_PHASE, this, null);
 		
 		long runEventIdentifier = agent.RegisterForRunEvent(smlRunEventId.smlEVENT_BEFORE_INPUT_PHASE, world, null);
-		
-		long outHandlerIdentifier = agent.AddOutputHandler("motor", world, null);
+//		long outHandlerIdentifier = agent.AddOutputHandler("motor", world, null);
 		
 		world.runEventIdentifier = runEventIdentifier;
-		world.outputEventIdentifier = outHandlerIdentifier;
+//		world.outputEventIdentifier = outHandlerIdentifier;
 		
 		agent.SpawnDebugger(14242, soarJavaDebuggerPath);
 		System.out.println(agent.ExecuteCommandLine("source " + agentFolder + agentFileTextField.getText() + ".soar"));
@@ -166,12 +165,15 @@ public class LegoCore implements ActionListener, RunEventInterface
 	@Override
 	public void runEventHandler(int arg0, Object na, Agent agent, int arg3)
 	{
+		System.out.println("Run Event Handler Core");
+		
 		soarRunning = true;
 		
 		if (stopSoar)
 		{
 			agent.StopSelf();
 			soarRunning = false;
+			stopSoar = false;
 		}
 		
 		if (resetSoar)

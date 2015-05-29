@@ -2,9 +2,102 @@
 sp {traverse-junction-real-world*propose*align-to-color-black-color
 	(state <s>	^name traverse-junction-real-world
 				^superstate <ss>)
-	(<ss>	^needs-color-black-color-alignment)
+	(<ss>	^needs-color-black-color-alignment
+			^junction-color <color>)
 -->
-	(<s>	^operator.name align-to-color-black-color)
+	(<s>	^operator <o> +)
+	(<o>	^name align-to-color-black-color
+			^correction <correction-1>
+			^correction <correction-2>
+			^correction <correction-3>
+			^correction <correction-4>
+			^correction <correction-5>
+			^correction <correction-6>
+			^correction <correction-7>
+			^correction <correction-8>
+			^correction <correction-9>)
+
+# All Black
+	(<correction-1>	^conditions <conditions-1>
+					^motor-directions <directions-1>)
+	(<conditions-1> ^left black
+					^center black
+					^right black)
+	(<directions-1>	^left forward
+					^right forward)
+
+# White-Black-Color
+	(<correction-2>	^conditions <conditions-2>
+					^motor-directions <directions-2>)
+	(<conditions-2> ^left white
+					^center black
+					^right <color>)
+	(<directions-2>	^left forward
+					^right forward)
+
+# Color-Black-White
+	(<correction-3>	^conditions <conditions-3>
+					^motor-directions <directions-3>)
+	(<conditions-3> ^left <color>
+					^center black
+					^right white)
+	(<directions-3>	^left forward
+					^right forward)
+
+# Black-Black-Color
+	(<correction-4>	^conditions <conditions-4>
+					^motor-directions <directions-4>)
+	(<conditions-4> ^left white
+					^center black
+					^right <color>)
+	(<directions-4>	^left forward
+					^right backward)
+
+# Color-Black-Black
+	(<correction-5>	^conditions <conditions-5>
+					^motor-directions <directions-5>)
+	(<conditions-5> ^left white
+					^center black
+					^right <color>)
+	(<directions-5>	^left backward
+					^right forward)
+
+# Black-Color-Color
+	(<correction-6>	^conditions <conditions-6>
+					^motor-directions <directions-6>)
+	(<conditions-6> ^left white
+					^center black
+					^right <color>)
+	(<directions-6>	^left backward
+					^right forward)
+
+# Color-Color-Black
+	(<correction-7>	^conditions <conditions-7>
+					^motor-directions <directions-7>)
+	(<conditions-7> ^left white
+					^center black
+					^right <color>)
+	(<directions-7>	^left forward
+					^right backward)
+
+# White-White-Black
+	(<correction-8>	^conditions <conditions-8>
+					^motor-directions <directions-8>)
+	(<conditions-8> ^left white
+					^center black
+					^right <color>)
+	(<directions-8>	^left forward
+					^right backward)
+
+# Black-White-White
+	(<correction-9>	^conditions <conditions-9>
+					^motor-directions <directions-9>)
+	(<conditions-9> ^left white
+					^center black
+					^right <color>)
+	(<directions-9>	^left backward
+					^right forward)
+
 }
 
 sp {traverse-junction-real-world*apply*align-to-color-black-color*finish
@@ -34,122 +127,34 @@ sp {traverse-junction-real-world*apply*align-to-color-black-color*finish
 
 ## Alignment
 
-sp {traverse-junction-real-world*apply*align-to-color-black-color*all-black
-	(state <s> ^operator.name align-to-color-black-color
+sp {traverse-junction-real-world*apply*align-to-color-black-color*align
+	(state <s> ^operator <o>
 				^color-sensor-values <csv>
 				^superstate <ss>
 				^io.output-link <out>
 				^left-motor-port <left-port>
 				^right-motor-port <right-port>)
-	(<ss>	^junction-color <color>
-			^operator.name traverse-junction-real-world
+	(<o>	^name align-to-color-black-color
+			^correction <correction>)
+	(<correction>	^conditions <conditions>
+					^motor-directions <directions>)
+	(<conditions>	^left <c1>
+					^center <c2>
+					^right <c3>)
+	(<directions>	^left <d1>
+					^right <d2>)
+	(<ss>	^operator.name traverse-junction-real-world
 			^needs-color-black-color-alignment <needs>)
-	(<csv>	^left black
-			^center black
-			^right black)
+	(<csv>	^left <c1>
+			^center <c2>
+			^right <c3>)
 -->
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>		^port <left-port>
-				^set-direction forward
+				^set-direction <d1>
 				^set-power 10)
 	(<right>	^port <right-port>
-				^set-direction forward
-				^set-power 10)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*black-black-color
-	(state <s> ^operator.name align-to-color-black-color
-				^color-sensor-values <csv>
-				^superstate <ss>
-				^io.output-link <out>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>)
-	(<ss>	^junction-color <color>
-			^operator.name traverse-junction-real-world
-			^needs-color-black-color-alignment <needs>)
-	(<csv>	^left black
-			^center black
-			^right <color>)
--->
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction forward
-				^set-power 10)
-	(<right>	^port <right-port>
-				^set-direction backward
-				^set-power 10)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*color-black-black
-	(state <s> ^operator.name align-to-color-black-color
-				^color-sensor-values <csv>
-				^superstate <ss>
-				^io.output-link <out>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>)
-	(<ss>	^junction-color <color>
-			^operator.name traverse-junction-real-world
-			^needs-color-black-color-alignment <needs>)
-	(<csv>	^left <color>
-			^center black
-			^right black)
--->
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction backward
-				^set-power 10)
-	(<right>	^port <right-port>
-				^set-direction forward
-				^set-power 10)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*black-color-color
-	(state <s> ^operator.name align-to-color-black-color
-				^color-sensor-values <csv>
-				^superstate <ss>
-				^io.output-link <out>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>)
-	(<ss>	^junction-color <color>
-			^operator.name traverse-junction-real-world
-			^needs-color-black-color-alignment <needs>)
-	(<csv>	^left black
-			^center <color>
-			^right <color>)
--->
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction backward
-				^set-power 10)
-	(<right>	^port <right-port>
-				^set-direction forward
-				^set-power 10)
-}
-
-sp {traverse-junction-real-world*apply*align-to-color-black-color*color-color-black
-	(state <s> ^operator.name align-to-color-black-color
-				^color-sensor-values <csv>
-				^superstate <ss>
-				^io.output-link <out>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>)
-	(<ss>	^junction-color <color>
-			^operator.name traverse-junction-real-world
-			^needs-color-black-color-alignment <needs>)
-	(<csv>	^left <color>
-			^center <color>
-			^right black)
--->
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction forward
-				^set-power 10)
-	(<right>	^port <right-port>
-				^set-direction backward
+				^set-direction <d2>
 				^set-power 10)
 }

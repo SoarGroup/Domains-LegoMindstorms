@@ -186,7 +186,7 @@ public class World implements RunEventInterface, OutputEventInterface
 			
 			doc.open();
 			
-	        try
+			try
 			{
 				com.itextpdf.text.Image image = com.itextpdf.text.Image.getInstance(d.onscreenImage.getScaledInstance(width, height, 0), null);
 				image.setAbsolutePosition(0, 0);
@@ -207,7 +207,7 @@ public class World implements RunEventInterface, OutputEventInterface
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	        
+			
 			doc.close();
 		}
 		
@@ -220,6 +220,21 @@ public class World implements RunEventInterface, OutputEventInterface
 	@Override
 	public void runEventHandler(int arg0, Object na, Agent agent, int arg3)
 	{
+		System.out.println("Run Event Handler World");
+		
+		Identifier id = agent.GetOutputLink();
+		
+		if (id != null)
+		{
+			for (int i = 0;i < id.GetNumberChildren();++i)
+			{
+				WMElement wme = id.GetChild(i);
+				
+				if (wme.IsJustAdded())
+					outputEventHandler(null, agent.GetAgentName(), wme.GetAttribute().toString(), wme);
+			}
+		}
+		
 		int t = timeStep++;
 		
 		robot.update(t);
@@ -229,9 +244,9 @@ public class World implements RunEventInterface, OutputEventInterface
 		_updateGUI();
 		
 		if (robot.getLocation().equals(map.robotFinishLocation))
-		{
+		{			
 			agent.UnregisterForRunEvent(runEventIdentifier);
-			agent.UnregisterForOutputNotification(outputEventIdentifier);
+			//			agent.UnregisterForOutputNotification(outputEventIdentifier);
 			
 			JOptionPane.showMessageDialog(d.frame, "Finished!");
 		}
@@ -240,6 +255,8 @@ public class World implements RunEventInterface, OutputEventInterface
 	@Override
 	public void outputEventHandler(Object na, String agentName, String cmd, WMElement wme)
 	{
+		System.out.println("Output handler called");
+		
 		if (!wme.IsIdentifier())
 			return;
 		

@@ -23,7 +23,6 @@ source Button-Press.soar
 source preferences.soar
 
 source enter-junction.soar
-source align-to-junction.soar
 source traverse-junction.soar
 source exit-junction.soar
 # code used to turn the robot to a given cardinal direction (NSEW) at a junction
