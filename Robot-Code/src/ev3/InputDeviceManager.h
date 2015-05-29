@@ -15,7 +15,6 @@
 #define INPUTDEVICEMANAGER_H_
 
 #include "lms2012.h"
-
 #include "comm/CommStructs.h"
 
 class InputDeviceManager : public CommandHandler {

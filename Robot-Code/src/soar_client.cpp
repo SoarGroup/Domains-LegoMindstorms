@@ -51,10 +51,9 @@ int main(int argc, char** argv){
 	chdir(parentPath.c_str());
 #endif
 	
-  SoarManager manager(filename.c_str(), true);
+  SoarManager manager(filename.c_str(), true, &cout);
   RemoteSoarCommunicator comm(&manager, argv[1]);
   manager.setCommunicator(&comm);
-  manager.setPrintStream(&cout);
 
   comm.openConnection();
 

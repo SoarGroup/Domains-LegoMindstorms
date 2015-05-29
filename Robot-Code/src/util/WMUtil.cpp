@@ -7,6 +7,9 @@
 
 #include "util/WMUtil.h"
 
+const string INTEGER_VAL = "int"; // Can be of long precision
+const string FLOAT_VAL = "double"; // Can be of double precision
+const string STRING_VAL = "string";
 
 bool WMUtil::isint(const string& s){
 	for(string::const_iterator i = s.begin(); i != s.end(); i++){

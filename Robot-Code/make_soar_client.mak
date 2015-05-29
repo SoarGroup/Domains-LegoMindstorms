@@ -1,5 +1,5 @@
-PROGRAM=../bin/soar_client
-SOURCES=sources_soar_client.cxx
+PROGRAM=bin/soar_client
+SOURCES=src/sources_soar_client.cxx
 OBJECTS=$(SOURCES:.cxx=.o)
 
 OS := $(shell uname)
@@ -14,13 +14,13 @@ CC=$(TOOLPREFIX)++
 
 FLAGS=
 
-INCLUDEPATH=-I$(EV3)/soarev3 -I$(EV3)/include -I$(SOAR_HOME)/include 
+INCLUDEPATH=-I$(EV3)/src -I$(EV3)/include -I$(SOAR_HOME)/include 
 LIBRARYPATH=-L$(SOAR_HOME)
 
 all:: clean $(OBJECTS) $(PROGRAM)
 
 clean::
-	rm -f $(PROGRAM) *.o comm/*.o ev3/*.o soar/*.o 
+	rm -f $(PROGRAM) src/*.o src/comm/*.o src/ev3/*.o src/soar/*.o 
 
 # how to link executable
 $(PROGRAM): $(OBJECTS)

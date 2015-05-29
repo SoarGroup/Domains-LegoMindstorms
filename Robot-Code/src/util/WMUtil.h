@@ -20,9 +20,9 @@ using namespace sml;
 
 // These are the three types that a WME can be, conform to Soar
 // (Match the strings returned by WMElement::GetValueType())
-#define INTEGER_VAL "int"  // Can be of long precision
-#define FLOAT_VAL "double" // Can be of double precision
-#define STRING_VAL "string"
+extern const string INTEGER_VAL; // Can be of long precision
+extern const string FLOAT_VAL;   // Can be of double precision
+extern const string STRING_VAL;
 
 class WMUtil{
 public:

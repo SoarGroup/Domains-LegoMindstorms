@@ -19,15 +19,17 @@
 
 #include <fcntl.h>
 #include <stdio.h>
-//#include "lms2012.h"
+#include <fstream>
+//
+#include <sys/time.h>
 
 using namespace std;
 using namespace sml;
 
-SoarManager::SoarManager(std::string agentSource, bool debugger)
-	:comm(0), timeStep(1), running(true), print_stream(0)
+SoarManager::SoarManager(std::string agentSource, bool debugger, ostream* logger)
+	:comm(0), timeStep(1), running(true), print_stream(logger), got_update(true)
 {
-	kernel = Kernel::CreateKernelInNewThread();
+	kernel = Kernel::CreateKernelInCurrentThread();
 	agent = kernel->CreateAgent("Ev3 Agent");
 
 	if(debugger){
@@ -38,7 +40,10 @@ SoarManager::SoarManager(std::string agentSource, bool debugger)
 
 	inputPhaseCallbackId = agent->RegisterForRunEvent(smlEVENT_AFTER_OUTPUT_PHASE, &runEventHandler, (void*)this, true);
   reinitCallbackId = kernel->RegisterForAgentEvent(smlEVENT_BEFORE_AGENT_REINITIALIZED, &agentEventHandler, (void*)this, true);
-  printCallbackId = agent->RegisterForPrintEvent(sml::smlEVENT_PRINT, &printEventHandler, (void*)this);
+  if(print_stream != 0){
+    cout << "Registering for print event" << endl;
+    printCallbackId = agent->RegisterForPrintEvent(sml::smlEVENT_PRINT, &printEventHandler, (void*)this);
+  }
 
 	// Manager
 	outputCallbackIds.push_back(agent->AddOutputHandler("manager", SoarManager::outputEventHandler, (void*)this));
@@ -104,15 +109,22 @@ void SoarManager::shutdown(){
   if(!running){
     return;
   }
-  if(print_stream != 0){
-    *print_stream << agent->ExecuteCommandLine("stats");
-  }
 
   running = false;
   agent->StopSelf();
+
+  // This will write out stats at the end if uncommented
+  ofstream fout;
+  fout.open("/media/card/stats");
+  fout << agent->ExecuteCommandLine("stats");
+  fout.close();
+
+  if(print_stream != 0){
+    agent->UnregisterForPrintEvent(printCallbackId);
+  }
+
   agent->UnregisterForRunEvent(inputPhaseCallbackId);
   kernel->UnregisterForAgentEvent(reinitCallbackId);
-  agent->UnregisterForPrintEvent(printCallbackId);
   for(vector<int>::iterator i = outputCallbackIds.begin(); i != outputCallbackIds.end(); i++){
     agent->RemoveOutputHandler(*i);
   }
@@ -167,6 +179,7 @@ void SoarManager::outputEventHandler(void* data, Agent* agent, const char* attNa
 }
 
 void SoarManager::readStatus(StatusList& statuses){
+  got_update = true;
 	for(unsigned int i = 0; i < statuses.size(); i++){
 		Ev3Status& status = statuses[i];
 		uint offset = 0;
@@ -257,6 +270,12 @@ void SoarManager::createSensor(uint port, uint type){
 void SoarManager::updateInputLink(Identifier* inputLink){
 	timeStep++;
 	WMUtil::updateIntWME(inputLink, "time-step", timeStep);
+
+  // Only update if we actually got new info
+  if(!got_update){
+    return;
+  }
+  got_update = false;
 
 	brick->updateInputLink(inputLink);
 	for(int i = 0; i < 4; i++){

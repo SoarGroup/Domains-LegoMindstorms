@@ -9,10 +9,6 @@
 
 #include "SoarManager.h"
 
-
-//#include "bytecodes.h"
-//#include "lms2012.h"
-
 /****************************************************
  *
  * SoarButton Method Definitions
@@ -87,6 +83,7 @@ void Brick::updateInputLink(Identifier* inputLink){
 	if(brickId == 0){
 		brickId = inputLink->CreateIdWME("brick");
 	}
+
 	for(ButtonVectorIt i = buttons.begin(); i != buttons.end(); i++){
 		(*i)->updateInputLink(brickId);
 	}

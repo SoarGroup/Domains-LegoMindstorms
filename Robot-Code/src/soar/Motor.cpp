@@ -28,18 +28,21 @@ void Motor::updateInputLink(Identifier* parentId){
 	if(!motorId){
 		motorId = parentId->CreateIdWME("motor");
 		motorId->CreateStringWME("port", portStr.c_str());
+    motorId->CreateStringWME("direction", "stopped");
+    motorId->CreateIntWME("speed", 0);
+    motorId->CreateIntWME("amount-rotated", 0);
 	}
-	WMUtil::updateIntWME(motorId, "speed", speed);
+  WMUtil::updateIntWME(motorId, "speed", speed);
 
-	if(tachoCount == -1){
-		WMUtil::updateStringWME(motorId, "direction", "backward");
-	} else if(tachoCount == 1){
-		WMUtil::updateStringWME(motorId, "direction", "forward");
-	} else {
-		WMUtil::updateStringWME(motorId, "direction", "stopped");
-	}
+  if(tachoCount == -1){
+    WMUtil::updateStringWME(motorId, "direction", "backward");
+  } else if(tachoCount == 1){
+    WMUtil::updateStringWME(motorId, "direction", "forward");
+  } else {
+    WMUtil::updateStringWME(motorId, "direction", "stopped");
+  }
 
-	WMUtil::updateIntWME(motorId, "amount-rotated", tachoSensor);
+  WMUtil::updateIntWME(motorId, "amount-rotated", tachoSensor);
 }
 
 bool Motor::readSoarCommand(Identifier* commandId){

@@ -14,7 +14,6 @@
 
 #include "comm/CommStructs.h"
 
-#include "Constants.h"
 #include "lms2012.h"
 
 class Ev3Brick : public CommandHandler {

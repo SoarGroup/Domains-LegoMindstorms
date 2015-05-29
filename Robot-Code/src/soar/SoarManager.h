@@ -32,7 +32,7 @@ typedef std::map<uint, SoarDevice*> InputDevices;
 
 class SoarManager {
 public:
-	SoarManager(std::string agentSource, bool debugger);
+	SoarManager(std::string agentSource, bool debugger, std::ostream* logger);
 	virtual ~SoarManager();
 	
   // Assigns the communicator used by the Manager to communicate with the Ev3Manager
@@ -71,11 +71,6 @@ public:
 	// output link event callback
 	static void outputEventHandler(void* data, sml::Agent* agent, const char* attName,  sml::WMElement* wme);
 
-  // sets the output stream used to log print events
-	void setPrintStream(ostream* stream){
-		print_stream = stream;
-	}
-	
   // Called when a new structure is created on the output link
 	void handleOutput(std::string attName, sml::WMElement* wme);
 	
@@ -116,6 +111,8 @@ private:
 	int timeStep;
 	
 	bool running;
+
+  bool got_update;
 	
   // Callback ids for soar events
   //  (used to deregister)

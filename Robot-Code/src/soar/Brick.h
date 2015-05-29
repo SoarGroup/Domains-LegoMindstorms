@@ -93,7 +93,6 @@ private:
 
 	ButtonVector buttons;
 	LedMap leds;
-
 };
 
 

@@ -7,9 +7,6 @@
 
 #include "Ev3Brick.h"
 
-#include "lms2012.h"
-#include "bytecodes.h"
-
 #include <fcntl.h>
 //#include <stdio.h>
 #include <sys/mman.h>

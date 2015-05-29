@@ -9,36 +9,47 @@
 using namespace std;
 
 int main(int argc, char** argv){
+  string agent_source = "";
+  string logging = "none";
+
   ifstream fin;
   fin.open("/media/card/config");
-
-  int channel = 1;
-  string agent_source = "";
-  bool log = false;
-
-  string arg_name;
-  string arg_val;
-  while(fin >> arg_name){
-    if (arg_name == "source"){
-      fin >> agent_source;
-    } else if (arg_name == "logging" || arg_name == "log"){
-      fin >> arg_val;
-      log = (arg_val == "true");
+  if(!fin.fail()){
+    string arg_name;
+    while(fin >> arg_name){
+      if (arg_name == "source"){
+        fin >> agent_source;
+      } else if (arg_name == "logging"){
+        fin >> logging;
+      }
     }
+    fin.close();
   }
 
-  fin.close();
-
-	Ev3Manager em;
-  SoarManager sm(agent_source, false);
-	DirectCommunicator comm(&sm, &em);
-  sm.setCommunicator(&comm);
+  if(argc > 1){
+    agent_source = argv[1];
+  }
+  if(argc > 2){
+    logging = argv[2];
+  }
 
   ofstream fout;
-  if(log){
+  ostream* logger = 0;
+  if(logging == "file"){
     fout.open("/media/card/log");
-    sm.setPrintStream(&fout);
+    if(fout.fail()){
+      logging = "none";
+    } else {
+      logger = &fout;
+    }
+  } else if (logging == "cout"){
+    logger = &cout;
   }
+
+	Ev3Manager em;
+  SoarManager sm(agent_source, false, logger);
+	DirectCommunicator comm(&sm, &em);
+  sm.setCommunicator(&comm);
 
 	while(sm.isRunning()){
 		sm.step();
@@ -46,7 +57,7 @@ int main(int argc, char** argv){
 
   comm.shutdown();
 
-  if(log){
+  if(logging == "file"){
     fout.close();
   }
 

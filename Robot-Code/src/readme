@@ -3,6 +3,24 @@ This file contains information about the soarev3 source code
 Constants.h
  * Contains constants used in the soarev3 program
 
+lms2012.h, lmstypes.h, bytecodes.h
+ * These are files that define structures and constants used 
+ *  when interfacing with the robot (obtained from Lego)
+
+soar_client.cpp
+ * The main file for the client program running soar remotely on a laptop
+ *   and connecting to the robot via TCP
+ * Creates the SoarManager and RemoteSoarCommunicator and runs them
+
+ev3_server.cpp
+ * The main file for the server program running on the lego robot
+ *   and connecting to the soar_client via TCP
+ * Creates the Ev3Manager and RemoteEv3Communicator and runs them
+
+ev3_standalone.cpp
+ * The main file for a program that can run on the lego robot by itself
+ *   and contains both the Ev3Manager and SoarManager
+
 ****************************************************************************
 ****************************** UTIL ****************************************
 
