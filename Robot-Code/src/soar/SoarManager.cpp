@@ -29,7 +29,7 @@ using namespace sml;
 SoarManager::SoarManager(std::string agentSource, bool debugger, ostream* logger)
 	:comm(0), timeStep(1), running(true), print_stream(logger), got_update(true)
 {
-	kernel = Kernel::CreateKernelInCurrentThread();
+	kernel = Kernel::CreateKernelInNewThread();
 	agent = kernel->CreateAgent("Ev3 Agent");
 
 	if(debugger){

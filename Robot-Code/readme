@@ -84,7 +84,8 @@ Run the ev3_server
 4. Running the ev3_standalone program from a terminal
 
 Transfer the binaries to the robot (can use the one in native)
- scp native/libstdc\+\+.so.6 root@IP_ADDRESS:/media/card/lib/libstdc\+\+.so.6
+ (Need to create the lib directory first)
+ scp native/libstdc\+\+.so.6 root@IP_ADDRESS:/media/card/lib
  scp native/ev3_standalone root@IP_ADDRESS:/media/card
 
 Copy any necessary soar agent files to the robot using scp
@@ -105,14 +106,15 @@ Example:
 5. Running ev3_standalone from the brick menu
 
 Transfer the binaries to the robot (can use the one in native)
- scp native/libstdc\+\+.so.6 root@IP_ADDRESS:/media/card/lib/libstdc\+\+.so.6
+ (Need to create the lib directory first)
+ scp native/libstdc\+\+.so.6 root@IP_ADDRESS:/media/card/lib
  scp native/ev3_standalone root@IP_ADDRESS:/media/card
 
 Copy any necessary soar agent files to the robot using scp
 
 Copy Robot-Code/lmsasm/runprog.rbf to the robot using scp 
-  (put in /media/card/myapps)
-  scp lmsasm/runprog.rbf root@IP_ADDRESS:/media/card/myapps/runprog.rbf
+  (Need to create directory /media/card/myapps)
+  scp lmsasm/runprog.rbf root@IP_ADDRESS:/media/card/myapps
 
 Create a config file and copy it to the robot using scp
   The config file should consist of two lines:
