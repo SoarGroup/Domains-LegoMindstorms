@@ -219,9 +219,7 @@ public class World implements RunEventInterface, OutputEventInterface
 	
 	@Override
 	public void runEventHandler(int arg0, Object na, Agent agent, int arg3)
-	{
-		System.out.println("Run Event Handler World");
-		
+	{		
 		Identifier id = agent.GetOutputLink();
 		
 		if (id != null)
@@ -254,9 +252,7 @@ public class World implements RunEventInterface, OutputEventInterface
 	
 	@Override
 	public void outputEventHandler(Object na, String agentName, String cmd, WMElement wme)
-	{
-		System.out.println("Output handler called");
-		
+	{		
 		if (!wme.IsIdentifier())
 			return;
 		
