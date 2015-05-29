@@ -1,0 +1,8 @@
+epmem --set learning on
+epmem --set phase selection
+
+sp {Common-Advanced*apply*Init-Agent*set*using-epmem
+   (state <s> ^operator.name init-agent)
+-->
+   (<s> ^using-epmem true)
+}

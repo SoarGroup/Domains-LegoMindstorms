@@ -1,0 +1,49 @@
+source Advanced-Stage1-completed.soar
+
+source Common-Advanced-Stage2.soar
+
+sp {Stage2*propose*query-for-direction
+   (state <s> ^name line-follower
+              ^color-type junction
+			 -^color-map.<color>
+              ^junction-color <color>)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name query-for-direction)
+}
+
+sp {Stage2*apply*query-for-direction*create-query
+   (state <s>	^operator.name query-for-direction
+				^smem.command <command>
+				^junction-color <color>)
+-->
+   (<command>	^query <q>)
+   (<q>	^<color> <direction>)
+}
+
+sp {Stage2*apply*query-for-direction*create-mapping
+	(state <s>	^operator.name query-for-direction
+				^color-map <map>
+				^smem.result.retrieved.<color> <direction>
+				^junction-color <color>)
+-->
+	(<map>	^<color> <direction>)
+}
+
+sp {Stage2*apply*query-for-direction*clean-up-smem
+	(state <s>	^operator <o>
+				^smem.command <command>
+				^smem.result.retrieved.<color> <direction>)
+	(<command>	^query <q>)
+-->
+	(<command>	^query <q> -)
+}
+
+sp {Stage2*prefer*query-for-direction*over*select-direction
+	(state <s>	^operator <o> +
+				^operator <o2> +)
+	(<o>	^name query-for-direction)
+	(<o2>	^name select-direction)
+-->
+	(<s>	^operator <o> > <o2>)
+}

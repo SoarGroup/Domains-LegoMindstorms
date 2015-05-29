@@ -1,0 +1,8 @@
+
+source elaborations.soar
+source move-forward-common.soar
+source move-off-junction.soar
+source move-to-center-of-junction.soar
+source turn-common.soar
+source turn-forward.soar
+source turn.soar

@@ -221,11 +221,6 @@
 			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/Init-Agent.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/TutorialAgents/Common-Advanced/align-to-junction.soar</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/align-to-junction.soar</locationURI>
-		</link>
-		<link>
 			<name>bin/TutorialAgents/Common-Advanced/elaborations.soar</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/elaborations.soar</locationURI>
@@ -331,11 +326,6 @@
 			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/Init-Agent.soar</locationURI>
 		</link>
 		<link>
-			<name>src/TutorialAgents/Common-Advanced/align-to-junction.soar</name>
-			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/align-to-junction.soar</locationURI>
-		</link>
-		<link>
 			<name>src/TutorialAgents/Common-Advanced/elaborations.soar</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/elaborations.soar</locationURI>
@@ -366,7 +356,12 @@
 			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/preferences.soar</locationURI>
 		</link>
 		<link>
-			<name>src/TutorialAgents/Common-Advanced/traverse-junction</name>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world</name>
+			<type>2</type>
+			<locationURI>virtual:/virtual</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-simulator</name>
 			<type>2</type>
 			<locationURI>virtual:/virtual</locationURI>
 		</link>
@@ -421,94 +416,194 @@
 			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Include/notes</locationURI>
 		</link>
 		<link>
-			<name>bin/TutorialAgents/Common-Advanced/traverse-junction/.DS_Store</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-real-world/.DS_Store</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/.DS_Store</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/.DS_Store</locationURI>
 		</link>
 		<link>
-			<name>bin/TutorialAgents/Common-Advanced/traverse-junction/elaborations.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-real-world/align-to-all-black.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/elaborations.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/align-to-all-black.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/TutorialAgents/Common-Advanced/traverse-junction/move-forward-common.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-real-world/align-to-color-black-color.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/move-forward-common.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/align-to-color-black-color.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/TutorialAgents/Common-Advanced/traverse-junction/move-off-junction.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-real-world/elaborations.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/move-off-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/elaborations.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/TutorialAgents/Common-Advanced/traverse-junction/move-to-center-of-junction.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-off-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/move-to-center-of-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-off-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/TutorialAgents/Common-Advanced/traverse-junction/traverse-junction_source.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-to-center.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/traverse-junction_source.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-to-center.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/TutorialAgents/Common-Advanced/traverse-junction/turn-common.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-to-color.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/turn-common.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-to-color.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/TutorialAgents/Common-Advanced/traverse-junction/turn-forward.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-real-world/preferences.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/turn-forward.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/preferences.soar</locationURI>
 		</link>
 		<link>
-			<name>bin/TutorialAgents/Common-Advanced/traverse-junction/turn.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-real-world/traverse-junction_source.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/turn.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/traverse-junction_source.soar</locationURI>
 		</link>
 		<link>
-			<name>src/TutorialAgents/Common-Advanced/traverse-junction/.DS_Store</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-real-world/turn-90.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/.DS_Store</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/turn-90.soar</locationURI>
 		</link>
 		<link>
-			<name>src/TutorialAgents/Common-Advanced/traverse-junction/elaborations.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-real-world/turn.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/elaborations.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/turn.soar</locationURI>
 		</link>
 		<link>
-			<name>src/TutorialAgents/Common-Advanced/traverse-junction/move-forward-common.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-simulator/elaborations.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/move-forward-common.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/elaborations.soar</locationURI>
 		</link>
 		<link>
-			<name>src/TutorialAgents/Common-Advanced/traverse-junction/move-off-junction.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-forward-common.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/move-off-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-forward-common.soar</locationURI>
 		</link>
 		<link>
-			<name>src/TutorialAgents/Common-Advanced/traverse-junction/move-to-center-of-junction.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-off-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/move-to-center-of-junction.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-off-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>src/TutorialAgents/Common-Advanced/traverse-junction/traverse-junction_source.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-to-center-of-junction.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/traverse-junction_source.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-to-center-of-junction.soar</locationURI>
 		</link>
 		<link>
-			<name>src/TutorialAgents/Common-Advanced/traverse-junction/turn-common.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-simulator/traverse-junction_source.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/turn-common.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/traverse-junction_source.soar</locationURI>
 		</link>
 		<link>
-			<name>src/TutorialAgents/Common-Advanced/traverse-junction/turn-forward.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn-common.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/turn-forward.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn-common.soar</locationURI>
 		</link>
 		<link>
-			<name>src/TutorialAgents/Common-Advanced/traverse-junction/turn.soar</name>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn-forward.soar</name>
 			<type>1</type>
-			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction/turn.soar</locationURI>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn-forward.soar</locationURI>
+		</link>
+		<link>
+			<name>bin/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world/.DS_Store</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/.DS_Store</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world/align-to-all-black.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/align-to-all-black.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world/align-to-color-black-color.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/align-to-color-black-color.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world/elaborations.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/elaborations.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-off-junction.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-off-junction.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-to-center.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-to-center.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-to-color.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/move-to-color.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world/preferences.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/preferences.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world/traverse-junction_source.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/traverse-junction_source.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world/turn-90.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/turn-90.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-real-world/turn.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-real-world/turn.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-simulator/elaborations.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/elaborations.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-forward-common.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-forward-common.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-off-junction.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-off-junction.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-to-center-of-junction.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/move-to-center-of-junction.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-simulator/traverse-junction_source.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/traverse-junction_source.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn-common.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn-common.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn-forward.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn-forward.soar</locationURI>
+		</link>
+		<link>
+			<name>src/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn.soar</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/agents/TutorialAgents/Common-Advanced/traverse-junction-simulator/turn.soar</locationURI>
 		</link>
 	</linkedResources>
 </projectDescription>

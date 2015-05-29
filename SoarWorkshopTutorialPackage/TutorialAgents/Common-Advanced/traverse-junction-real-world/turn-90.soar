@@ -1,0 +1,85 @@
+
+sp {traverse-junction-real-world*elaboration*turn-90*motor-directions*left-backward
+	(state <s>	^relative-direction << left backward >>)
+-->
+	(<s>	^left-motor-direction forward
+			^right-motor-direction backward)
+}
+
+sp {traverse-junction-real-world*elaboration*turn-90*motor-directions*right
+	(state <s>	^relative-direction right)
+-->
+	(<s>	^left-motor-direction backward
+			^right-motor-direction forward)
+}
+
+## Requires All Black
+sp {traverse-junction-real-world*apply*turn-90*start
+	(state <s>	^io.output-link <out>
+				^color-sensor-values <csv>
+				^left-motor-direction <left-direction>
+				^right-motor-direction <right-direction>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>
+				^operator <o>
+				^superstate <ss>)
+	(<ss>		^needs-90-degree-turn
+				^operator.name traverse-junction-real-world)
+	(<csv>	^left black
+			^center black
+			^right black)
+-->
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction <left-direction>
+				^set-power 20)
+	(<right>	^port <right-port>
+				^set-direction <right-direction>
+				^set-power 20)
+}
+
+sp {traverse-junction-real-world*apply*turn-90*middle
+	(state <s>	^operator <o>
+				^color-sensor-values <csv>
+				^superstate <ss>)
+	(<csv>	^{ <sensor> << left right >> } <> black)
+	(<ss>	^needs-90-degree-turn
+			^operator.name traverse-junction-real-world)
+-->
+	(<ss>	^sensor-seen-color <sensor>)
+}
+
+sp {traverse-junction-real-world*apply*turn-90*finish
+	(state <s>	^operator <o>
+				^color-sensor-values <csv>
+				^superstate <ss>)
+	(<csv> ^<sensor> black)
+	(<ss>	^needs-90-degree-turn
+			^sensor-seen-color <sensor>
+			^operator.name traverse-junction-real-world)
+	(<o>	^name << turn-forward turn-left-right turn-backward-first-90 turn-backward-second-90 >>)
+-->
+	(<ss>	^turned true
+			^needs-all-black-alignment true)
+}
+
+sp {traverse-junction-real-world*apply*turn-90*clean-up*needs-90-degree-turn
+	(state <s>	^operator <o>
+				^superstate <ss>)
+	(<ss>		^turned true
+				^needs-90-degree-turn <needs>
+				^operator.name traverse-junction-real-world)
+-->
+	(<ss>	^needs-90-degree-turn <needs> -)
+}
+
+sp {traverse-junction-real-world*apply*turn-90*clean-up*sensor-seen-color
+	(state <s>	^operator <o>
+				^superstate <ss>)
+	(<ss>		^turned true
+				^sensor-seen-color <sensor>
+				^operator.name traverse-junction-real-world)
+-->
+	(<ss>	^sensor-seen-color <sensor> -)
+}
