@@ -9,7 +9,7 @@ FLAGS=
 
 LIBRARIES=-lpthread
 
-INCLUDEPATH=-I$(EV3)/src -I$(SOAR_HOME)/include
+INCLUDEPATH=-Isrc -I$(SOAR_HOME)/include
 
 LIBRARYPATH=
 
