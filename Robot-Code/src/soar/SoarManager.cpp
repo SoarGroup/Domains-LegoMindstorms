@@ -20,8 +20,6 @@
 #include <fcntl.h>
 #include <stdio.h>
 #include <fstream>
-//
-#include <sys/time.h>
 
 using namespace std;
 using namespace sml;
