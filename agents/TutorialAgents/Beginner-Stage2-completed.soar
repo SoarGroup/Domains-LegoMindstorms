@@ -95,10 +95,10 @@ sp {Stage2*apply*move-forward
 			^motor <right>)
 	(<left>	^port <left-port>
 					^set-direction forward
-					^set-power 40)
+					^set-power 10)
 	(<right>	^port <right-port>
 					 ^set-direction forward
-					 ^set-power 40)
+					 ^set-power 10)
 }
 
 ###################################################
@@ -135,10 +135,10 @@ sp {Stage2*apply*move-left
 			^motor <right>)
 	(<left>	^port <left-port>
 					^set-direction backward
-					^set-power 40)
+					^set-power 5)
 	(<right>	^port <right-port>
 					 ^set-direction forward
-					 ^set-power 40)
+					 ^set-power 25)
 }
 
 ###################################################
@@ -175,9 +175,41 @@ sp {Stage2*apply*move-right
 			^motor <right>)
 	(<left>	^port <left-port>
 					^set-direction forward
-					^set-power 40)
+					^set-power 25)
 	(<right>	^port <right-port>
 					 ^set-direction backward
-					 ^set-power 40)
+					 ^set-power 5)
+}
+
+
+sp {Stage2*propose*in-place-rotate
+	(state <s>	^name follow-line
+				^color-forward <forward>
+				^color-turn <turn>
+				^color-sensor-values <values>)
+	(<values>	^center <forward>
+				^left <forward>
+				^right <forward>)
+-->
+	(<s> ^operator <o> +)
+	(<o> ^name in-place-rotate)
+}
+
+sp {Stage2*apply*in-place-rotate
+	(state <s>	^operator.name in-place-rotate
+				^io.output-link <out>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>)
+-->
+	# Create a command for each motor on the output
+	# link
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>	^port <left-port>
+					^set-direction backward
+					^set-power 20)
+	(<right>	^port <right-port>
+					 ^set-direction forward
+					 ^set-power 20)
 }
 

@@ -82,6 +82,15 @@ sp {Common-Include*Sensors*propose*change-color-mode
 		^port <port>)
 }
 
+sp {Common-Include*Sensors*preference*color-mode-better-than-all
+	(state <s>	^operator <o> +
+				^operator <o2> +)
+	(<o>	^name change-color-mode)
+	(<o2>	^name <> change-color-mode)
+-->
+	(<s>	^operator <o> > <o2>)
+}
+
 # Apply rule
 # Create the command on the output link
 sp {Common-Include*Sensors*apply*change-color-mode
