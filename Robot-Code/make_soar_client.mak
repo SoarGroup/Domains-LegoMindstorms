@@ -14,7 +14,7 @@ CC=$(TOOLPREFIX)++
 
 FLAGS=
 
-INCLUDEPATH=-I$(EV3)/src -I$(EV3)/include -I$(SOAR_HOME)/include 
+INCLUDEPATH=-Isrc -I$(SOAR_HOME)/include 
 LIBRARYPATH=-L$(SOAR_HOME)
 
 all:: clean $(OBJECTS) $(PROGRAM)

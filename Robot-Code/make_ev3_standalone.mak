@@ -7,9 +7,9 @@ CC=$(TOOLPREFIX)g++
 
 FLAGS=-Wl,-rpath,/media/card/lib
 
-INCLUDEPATH=-I$(EV3)/src -I$(SOAR_HOME)/include 
+INCLUDEPATH=-Isrc -I$(SOAR_HOME)/include 
 
-LIBRARYPATH=-L$(EV3)/native #-L$(ARM_GCC)/arm-none-linux-gnueabi/libc/lib 
+LIBRARYPATH=-Lnative #-L$(ARM_GCC)/arm-none-linux-gnueabi/libc/lib 
 LIBRARIES=-lSoar -lrt -ldl -lpthread
 
 all:: clean $(OBJECTS) $(PROGRAM)
