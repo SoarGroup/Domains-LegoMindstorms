@@ -181,8 +181,8 @@ sp {Stage3*apply*clear-flags
 						 ^180-right-motor-sensor-value <rmsv>
 						 ^turn-complete <tc>)
 -->
-	(<s> ^detected-red <dr> -
-			 ^180-right-motor-sensor-value <rmsv> -
-			 ^turn-complete <tc> -)
+	(<s>	^detected-red <dr> -
+			^180-right-motor-sensor-value <rmsv> -
+			^turn-complete <tc> -)
 }
 

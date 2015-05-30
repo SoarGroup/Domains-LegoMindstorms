@@ -22,10 +22,12 @@ sp {Common-Advanced*prefer*enter-junction*over*follow-line
 	(<s>	^operator <o1> > <o2>)
 }
 
-sp {Common-Advanced*prefer*enter-junction*reject*follow-line
+sp {Common-Advanced*prefer*follow-line-if-needs-rotation
 	(state <s>	^operator <o1> +
-				^junction-color)
+				^operator <o2> +
+				^needs-rotation)
 	(<o1>	^name follow-line)
+	(<o2>	^name <> follow-line)
 -->
-	(<s>	^operator <o1> -)
+	(<s>	^operator <o1> > <o2>)
 }
