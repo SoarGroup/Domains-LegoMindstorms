@@ -14,9 +14,17 @@ sp {Common-Advanced*apply*enter-junction*aligned
 				^color-sensor-values <csv>
 				^operator.name enter-junction
 				-^junction-color)
-	(<csv>	^<< left right >> { <color> << red yellow green blue brown black >>})
+	(<csv>	^<< left center right >> { <color> << red yellow green blue brown >>})
 -->
 	(<s>	^junction-color <color>
 			^aligned-to-junction true)
 	(write |Enter Junction - Aligned: | <color> (crlf))
+}
+
+sp {Common-Advanced*apply*enter-junction*remove-duplicate-junction-color
+	(state <s>	^operator.name enter-junction
+				^junction-color { <color1> << red yellow green blue >> }
+				^junction-color { <color2> brown })
+-->
+	(<s>	^junction-color <color2> -)
 }

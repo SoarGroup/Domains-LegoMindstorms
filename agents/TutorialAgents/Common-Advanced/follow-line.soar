@@ -137,10 +137,10 @@ sp {Common-Advanced*follow-line*apply*rotation-left*save
 	(state <s>	^operator.name rotation-left
 				^superstate <ss>)
 	(<ss>		^operator.name follow-line
-				^left-motor-port <lmp>
+				^left-motor-port <left-port>
 				^io.input-link.motor <m>
 				-^rotation-amount)
-	(<m>		^port <lmp>
+	(<m>		^port left-port
 				^amount-rotated <value>)
 -->
 	(<ss>	^rotation-amount (- <value> 75))
@@ -157,7 +157,7 @@ sp {Common-Advanced*follow-line*apply*rotation-left*remove-rotation-amount
 				^rotation-amount <amount>
 				^needs-rotation <v>)
 	(<m>		^port <left-port>
-				^amount-rotated <value> <= <amount>)
+				^amount-rotated <= <amount>)
 -->
 	(<ss>	^rotation-amount <amount> -)
 	(<out>	^motor <left>
@@ -242,14 +242,28 @@ sp {Common-Advanced*follow-line*apply*rotation-right*save
 				^superstate <ss>)
 	(<ss>		^operator.name follow-line
 				^right-motor-port <right-port>
-				^left-motor-port <left-port>
 				^io.input-link.motor <m>
-				^io.output-link <out>
 				-^rotation-amount)
 	(<m>		^port <right-port>
 				^amount-rotated <value>)
 -->
 	(<ss>	^rotation-amount (- <value> 75))
+}
+
+sp {Common-Advanced*follow-line*apply*rotation-right*remove-rotation-amount
+	(state <s>	^operator.name rotation-right
+				^superstate <ss>)
+	(<ss>		^operator.name follow-line
+				^right-motor-port <right-port>
+				^left-motor-port <left-port>
+				^io.input-link.motor <m>
+				^io.output-link <out>
+				^rotation-amount <amount>
+				^needs-rotation <v>)
+	(<m>		^port <right-port>
+				^amount-rotated <= <amount>)
+-->
+	(<ss>	^rotation-amount <amount> -)
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
@@ -258,20 +272,6 @@ sp {Common-Advanced*follow-line*apply*rotation-right*save
 	(<right>	^port <right-port>
 					 ^set-direction backward
 					 ^set-power 0)
-}
-
-sp {Common-Advanced*follow-line*apply*rotation-right*remove-rotation-amount
-	(state <s>	^operator.name rotation-right
-				^superstate <ss>)
-	(<ss>		^operator.name follow-line
-				^right-motor-port <rmp>
-				^io.input-link.motor <m>
-				^rotation-amount <amount>
-				^needs-rotation <v>)
-	(<m>		^port <rmp>
-				^amount-rotated <value> <= <amount>)
--->
-	(<ss>	^rotation-amount <amount> -)
 }
 
 sp {Common-Advanced*follow-line*apply*rotation*remove-needs-rotation
