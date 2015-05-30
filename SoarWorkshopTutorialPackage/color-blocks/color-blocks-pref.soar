@@ -1,0 +1,19 @@
+sp {prefer*color-red   
+    (state <s> ^operator <o> +)
+    (<o> ^color red)
+    -->
+    (<s> ^operator <o> >)}
+
+#sp {prefer*avoid*color-green  
+#    (state <s> ^operator <o> +)
+#    (<o> ^color green)
+#    -->
+#    (<s> ^operator <o> <)}
+
+#sp {prefer*color-red-to-blue  
+#    (state <s> ^operator <o1> +
+#               ^operator <o2> +)
+#    (<o1> ^color red)
+#    (<o2> ^color blue)
+#    -->
+#    (<s> ^operator <o1> > <o2>)}
