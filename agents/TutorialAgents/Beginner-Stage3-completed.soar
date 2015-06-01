@@ -53,7 +53,8 @@ sp {Stage3*prefer*180*operators*over*follow-line
 ##################################################
 #
 # operator record-red
-#   when we see red, add a ^detected-red flag to topstate
+#   when we see red (by either the left or right sensor), 
+#	add a ^detected-red flag to topstate
 #
 #################################################
 
@@ -61,7 +62,7 @@ sp {Stage3*propose*record-red
 	(state <s> ^name line-follower
 			   ^color-sensor-values <values>
 			  -^detected-red)
-	(<values>	^center red)
+	(<values> ^<< left right >> red)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name record-red
@@ -104,10 +105,10 @@ sp {Stage3*apply*turn-180*motor-commands
 			^motor <right>)
 	(<left>	^port <left-port>
 					^set-direction forward
-					^set-power 40)
+					^set-power 20)
 	(<right> ^port <right-port>
 					 ^set-direction backward
-					 ^set-power 40)
+					 ^set-power 20)
 }
 
 # Record the desired sensor value for having turned 180 degrees
@@ -117,7 +118,7 @@ sp {Stage3*apply*turn-180*record*180-right-motor-sensor-value
 						 -^180-right-motor-sensor-value
 						 ^right-motor-sensor-value <right-val>)
 -->
-	(<s> ^180-right-motor-sensor-value (- <right-val> 1000))
+	(<s> ^180-right-motor-sensor-value (- <right-val> 700))
 }
 
 # If the turn-180 operator is selected and we have turned 180 degrees
@@ -143,7 +144,7 @@ sp {Stage3*propose*move-forward
 	(state <s> ^name line-follower
 						 ^turn-complete true
 						 ^color-sensor-values <values>)
-	(<values>	^center red)
+	(<values> ^<< left right >> red)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-forward)
@@ -161,12 +162,13 @@ sp {Stage3*propose*move-forward
 # If we have turned and are no longer on red,
 #   Then propose clear-flags
 sp {Stage3*propose*clear-flags
-	(state <s> ^name line-follower
-						 ^color-sensor-values <values>
-						 ^turn-completed true)
-	(<values>	^center <> red)
+	(state <s>	^name line-follower
+				^color-sensor-values <values>
+				^turn-complete)
+	(<values>	^left <> red
+				^right <> red)
 -->
-	(<s> ^operator <o> +)
+	(<s> ^operator <o> + >)
 	(<o> ^name clear-flags)
 }
 
