@@ -25,7 +25,9 @@ sp {propose*exit-junction
 			^item motor-commands
 			^item failed
 			^item aligned
-			^item moved-to-color)
+			^item moved-to-color
+			^item turned-first-time
+			^item turned-180)
 }
 
 sp {apply*exit-junction*remove-items

@@ -6,6 +6,4 @@ source move-to-center.soar
 source turn.soar
 source turn-90.soar
 source align-to-all-black.soar
-source move-to-color.soar
-source align-to-color-black-color.soar
 source move-off-junction.soar

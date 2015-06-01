@@ -1,0 +1,20 @@
+sp {Common-Advanced*apply*traverse-junction
+	(state <s>	^operator.name traverse-junction-real-world
+				^superstate <ss>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>
+				^enter-junction {yes <v>})
+	(<ss>	^io.output-link <out>
+			-^stop-white)
+-->
+	(<s> ^enter-junction <v> -)
+	(<ss>	^stop-white true)
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction forward
+				^set-power 10)
+	(<right>	^port <right-port>
+				^set-direction forward
+				^set-power 10)
+}
