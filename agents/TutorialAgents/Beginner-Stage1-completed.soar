@@ -31,9 +31,7 @@ sp {Stage1*propose*move-forward
 				^color-forward <forward>
 				^color-turn <turn>
 				^color-sensor-values <values>)
-	(<values>	^center <forward>
-				^left <turn>
-				^right <turn>)
+	(<values>	^center <forward>)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-forward)
