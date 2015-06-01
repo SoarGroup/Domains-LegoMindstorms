@@ -135,7 +135,7 @@ sp {Stage2*apply*move-left
 			^motor <right>)
 	(<left>	^port <left-port>
 					^set-direction backward
-					^set-power 5)
+					^set-power 0)
 	(<right>	^port <right-port>
 					 ^set-direction forward
 					 ^set-power 25)
@@ -178,7 +178,7 @@ sp {Stage2*apply*move-right
 					^set-power 25)
 	(<right>	^port <right-port>
 					 ^set-direction backward
-					 ^set-power 5)
+					 ^set-power 0)
 }
 
 
