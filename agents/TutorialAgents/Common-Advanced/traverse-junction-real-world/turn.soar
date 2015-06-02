@@ -4,9 +4,9 @@
 sp {traverse-junction-real-world*propose*turn
   (state <s> ^name traverse-junction-real-world
               ^relative-direction <dir>
-              ^superstate <ss>)
-  (<ss> ^centered-on-junction true
-         -^turned)
+              ^top-state <top>)
+  (<top> ^centered-on-junction true
+          -^turned)
 -->
   (<s> ^operator <o> +)
   (<o> ^name turn
@@ -55,17 +55,17 @@ sp {traverse-junction-real-world*elaborate*turn*left
 sp {traverse-junction-real-world*apply*turn*forward*mark*turned
   (state <s> ^name traverse-junction-real-world
               ^operator <o>
-              ^superstate <ss>)
+              ^top-state <top>)
   (<o> ^name turn
         ^relative-direction forward)
 -->
-  (<ss> ^turned true)
+  (<top> ^turned true)
 }
 
 sp {traverse-junction-real-world*apply*turn*send*motor*commands
   (state <s> ^name traverse-junction-real-world
               ^operator <o>
-              ^superstate.io.output-link <out>
+              ^io.output-link <out>
               ^left-motor-port <left-port>
               ^right-motor-port <right-port>)
   (<o> ^name turn
@@ -85,32 +85,32 @@ sp {traverse-junction-real-world*apply*turn*send*motor*commands
 sp {traverse-junction-real-world*apply*turn*mark*desired*rotation
   (state <s> ^name traverse-junction-real-world
               ^operator <o>
-              ^superstate <ss>)
+              ^io.input-link.motor <motor>
+              ^top-state <top>)
   (<o> ^name turn
         ^turn-amount <turn-amt>
         ^track-port <port>)
-  (<ss> -^desired-rotation
-          ^io.input-link.motor <motor>)
+  (<top> -^desired-rotation)
   (<motor> ^port <port>
             ^amount-rotated <amt>)
 -->
-  (<ss> ^desired-rotation (+ <amt> <turn-amt>))
+  (<top> ^desired-rotation (+ <amt> <turn-amt>))
 }
 
 sp {traverse-junction-real-world*apply*turn*mark*turned
   (state <s> ^name traverse-junction-real-world
               ^operator <o>
-              ^superstate <ss>
+              ^top-state <top>
+              ^io.input-link.motor <motor>
+              ^io.output-link <out>
               ^left-motor-port <left-port>
               ^right-motor-port <right-port>)
   (<o> ^name turn
         ^track-port <port>)
-  (<ss> ^io.input-link.motor <motor>
-         ^desired-rotation <rot>
-         ^io.output-link <out>)
+  (<top> ^desired-rotation <rot>)
   (<motor> ^port <port>
             ^amount-rotated > <rot>)
 -->
-  (<ss> ^turned true)
+  (<top> ^turned true)
 }
 

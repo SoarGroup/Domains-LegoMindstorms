@@ -1,28 +1,21 @@
-
 sp {traverse-junction-real-world*elaboration*motor-ports
-	(state <s>	^superstate <ss>)
-	(<ss>	^left-motor-port <left-port>
-			^right-motor-port <right-port>
-			^io <io>
-      ^color-turn <turn>
-      ^color-forward <forward>)
+  (state <s>  ^top-state <top>)
+  (<top> ^left-motor-port <left-port>
+        ^right-motor-port <right-port>)
 -->
-	(<s>	^left-motor-port <left-port>
-			^right-motor-port <right-port>
-			^io <io>
-      ^color-turn <turn>
-      ^color-forward <forward>)
+  (<s>  ^left-motor-port <left-port>
+        ^right-motor-port <right-port>)
 }
 
 sp {traverse-junction-real-world*elaboration*elaborate-relative-direction
-	(state <s>	^name traverse-junction-real-world
-				^superstate <ss>)
-	(<ss>	^direction-map.direction <d>
-			^selected-direction <selected-direction>
-			^current-direction <current-direction>)
-	(<d>	^name <current-direction>
-			^<relative> <selected>)
-	(<selected>	^name <selected-direction>)
+  (state <s>  ^name traverse-junction-real-world
+              ^superstate <ss>)
+  (<ss> ^direction-map.direction <d>
+        ^selected-direction <selected-direction>
+        ^current-direction <current-direction>)
+  (<d>  ^name <current-direction>
+        ^<relative> <selected>)
+  (<selected> ^name <selected-direction>)
 -->
-	(<s>	^relative-direction <relative>)
+  (<s> ^relative-direction <relative>)
 }

@@ -1,3 +1,22 @@
+sp {top-state*elaborate*top-state
+  (state <s> ^superstate nil)
+-->
+  (<s> ^top-state <s>)
+}
+
+sp {substate*elaborate*top-state
+  (state <s> ^superstate.top-state <top>)
+-->
+  (<s> ^top-state <top>)
+}
+
+sp {anystate*elaborate*io*from*top-state
+  (state <s> ^top-state <top>)
+  (<top> ^io <io>)
+-->
+  (<s> ^io <io>)
+}
+
 sp {navigation*elaborate*color-type*path
 	(state <s> ^name line-follower
 				 ^color-sensor-values <vals>)
