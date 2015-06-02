@@ -23,7 +23,7 @@ source Common-Include/Common-Include_source.soar
 ###################################################
 
 # Propose the move-forward operator if the current
-# detected color sensor value is the forward value
+# detected color sensor values are the forward value
 # and our mode is "follow"
 sp {Stage1*propose*move-forward
 	# Conditions to test for:
@@ -94,11 +94,11 @@ sp {Stage1*apply*move-left
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-					^set-direction backward
+					^set-direction forward
 					^set-power 40)
 	(<right>	^port <right-port>
-					 ^set-direction forward
-					 ^set-power 40)
+					 ^set-direction backward
+					 ^set-power 20)
 }
 
 ###################################################
@@ -132,9 +132,9 @@ sp {Stage1*apply*move-right
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-					^set-direction forward
-					^set-power 40)
+					^set-direction backward
+					^set-power 20)
 	(<right>	^port <right-port>
-					 ^set-direction backward
+					 ^set-direction forward
 					 ^set-power 40)
 }

@@ -1,46 +1,24 @@
 
 sp {Common-Advanced*propose*enter-junction
-	(state <s>	^color-type junction
-				-^junction-color)
+  (state <s> ^name line-follower
+              ^color-type junction
+              ^color-sensor-values.right <color>
+              -^junction-color)
 -->
 	(<s>	^operator <o> + >)
 	(<o>	^name enter-junction
+       ^junction-color <color>
 			^action stop)
-	(write |Enter Junction| (crlf))
 }
 
-sp {Common-Advanced*apply*enter-junction*left
-	(state <s>	^color-type junction
-				^color-sensor-values <csv>
-				-^junction-color
-				^operator.name enter-junction)
-	(<csv>	^left { <color> << red yellow green blue brown >>}
-			^right <> <color>)
+sp {Common-Advanced*apply*enter-junction*create*junction-color
+	(state <s> ^name line-follower
+             ^operator <o>)
+  (<o> ^name enter-junction
+        ^junction-color <color>)
 -->
 	(<s>	^junction-color <color>)
-	(write |Enter Junction - Left: | <color> (crlf))
+  (write |Entering | <color> | Junction| (crlf))
 }
 
-sp {Common-Advanced*apply*enter-junction*right
-	(state <s>	^color-type junction
-				^color-sensor-values <csv>
-				-^junction-color
-				^operator.name enter-junction)
-	(<csv>	^right { <color> << red yellow green blue brown >>}
-			^left <> <color>)
--->
-	(<s>	^junction-color <color>)
-	(write |Enter Junction - Right: | <color> (crlf))
-}
 
-sp {Common-Advanced*apply*enter-junction*aligned
-	(state <s>	^color-type junction
-				^color-sensor-values <csv>
-				^operator.name enter-junction)
-	(<csv>	^left { <color> << red yellow green blue brown black >>}
-			^right <color>)
--->
-	(<s>	^junction-color <color>
-			^aligned-to-junction true)
-	(write |Enter Junction - Aligned: | <color> (crlf))
-}

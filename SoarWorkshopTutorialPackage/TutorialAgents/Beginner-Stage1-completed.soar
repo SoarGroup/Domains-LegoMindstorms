@@ -12,7 +12,7 @@ source Common-Include/Common-Include_source.soar
 #	move-right
 #
 # This is a total of six rules.  The agent will
-# successfully follow a colored line and stop when
+# successfully follow a black-colored line and stop when
 # a button on the brick is pressed. You do not have
 # to handle the stop portion, so long as you test
 # for ^mode follow on the top state in your proposal
@@ -23,7 +23,7 @@ source Common-Include/Common-Include_source.soar
 ###################################################
 
 # Propose the move-forward operator if the current
-# detected color sensor value is the forward value
+# detected color sensor values are of the forward value
 # and our mode is "follow"
 sp {Stage1*propose*move-forward
 	(state <s>	^name line-follower
@@ -31,9 +31,8 @@ sp {Stage1*propose*move-forward
 				^color-forward <forward>
 				^color-turn <turn>
 				^color-sensor-values <values>)
-	(<values>	^center <forward>
-				^left <turn>
-				^right <turn>)
+	(<values>	^left <forward>
+				^right <forward>)
 -->
 	(<s> ^operator <o> +)
 	(<o> ^name move-forward)
@@ -83,8 +82,7 @@ sp {Stage1*propose*move-left
 				^color-forward <forward>
 				^color-turn <turn>
 				^color-sensor-values <values>)
-	(<values>	^center <turn>
-				^left <forward>
+	(<values>	^left <forward>
 				^right <turn>)
 -->
 	(<s> ^operator <o> +)
@@ -100,11 +98,11 @@ sp {Stage1*apply*move-left
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-					^set-direction backward
+					^set-direction forward
 					^set-power 40)
 	(<right>	^port <right-port>
-					 ^set-direction forward
-					 ^set-power 40)
+					 ^set-direction backward
+					 ^set-power 20)
 }
 
 ###################################################
@@ -122,8 +120,7 @@ sp {Stage1*propose*move-right
 				^color-forward <forward>
 				^color-turn <turn>
 				^color-sensor-values <values>)
-	(<values>	^center <turn>
-				^left <turn>
+	(<values>	^left <turn>
 				^right <forward>)
 -->
 	(<s> ^operator <o> +)
@@ -139,9 +136,9 @@ sp {Stage1*apply*move-right
 	(<out>	^motor <left>
 			^motor <right>)
 	(<left>	^port <left-port>
-					^set-direction forward
-					^set-power 40)
+					^set-direction backward
+					^set-power 20)
 	(<right>	^port <right-port>
-					 ^set-direction backward
+					 ^set-direction forward
 					 ^set-power 40)
 }

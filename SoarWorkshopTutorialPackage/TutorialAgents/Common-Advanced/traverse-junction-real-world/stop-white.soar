@@ -1,0 +1,32 @@
+sp {Common-Advanced*propose*stop-white
+	(state <s> ^color-type junction
+			   ^junction-color <color>
+			   ^color-sensor-values <csv>
+			   ^stop-white true)
+	(<csv> ^left white
+		   ^right white)
+-->
+	(<s> ^operator <o> + >)
+	(<o> ^name stop-white)
+}
+
+sp {Common-Advanced*apply*stop-white
+	(state <s>	^operator.name traverse-junction
+				^superstate <ss>
+				^left-motor-port <left-port>
+				^right-motor-port <right-port>
+				^stop-white <v>)
+	(<ss>	^io.output-link <out>
+			-^need-to-turn)
+-->
+	(<s> ^stop-white <v> -)
+	(<ss>	^need-to-turn true)
+	(<out>	^motor <left>
+			^motor <right>)
+	(<left>		^port <left-port>
+				^set-direction forward
+				^set-power 0)
+	(<right>	^port <right-port>
+				^set-direction forward
+				^set-power 0)
+}
