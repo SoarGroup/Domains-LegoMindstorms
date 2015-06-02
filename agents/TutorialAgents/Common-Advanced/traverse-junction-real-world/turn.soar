@@ -1,3 +1,6 @@
+# Once the robot has centered on the junction, 
+# it must turn to face the new direction
+
 sp {traverse-junction-real-world*propose*turn
   (state <s> ^name traverse-junction-real-world
               ^relative-direction <dir>
@@ -8,7 +11,6 @@ sp {traverse-junction-real-world*propose*turn
   (<s> ^operator <o> +)
   (<o> ^name turn
         ^relative-direction <dir>)
-  (write |TRAVERSE-TURN | <dir> (crlf))
 }
 
 sp {traverse-junction-real-world*elaborate*turn*right
@@ -110,120 +112,5 @@ sp {traverse-junction-real-world*apply*turn*mark*turned
             ^amount-rotated > <rot>)
 -->
   (<ss> ^turned true)
-  #  (<out> ^motor <left>
-  #         ^motor <right>)
-  #  (<left> ^port <left-port>
-  #          ^set-power 0)
-  #  (<right> ^port <right-port>
-  #           ^set-power 0)
 }
 
-
-#sp {traverse-junction-real-world*propose*turn-forward
-#	(state <s>	^name traverse-junction-real-world
-#				^relative-direction forward
-#				^superstate <ss>)
-#	(<ss>		-^turned
-#				^has-moved-to-center)
-#-->
-#	(<s> ^operator.name turn-forward)
-#}
-#
-#sp {traverse-junction-real-world*apply*turn-forward
-#	(state <s>	^operator.name turn-forward
-#				^io.output-link <out>
-#				^left-motor-port <left-port>
-#				^right-motor-port <right-port>
-#				^superstate <ss>)
-#	(<ss>		^operator.name traverse-junction-real-world)
-#-->
-#	(<ss>	^turned true)
-#	(<out>	^motor <left>
-#			^motor <right>)
-#	(<left>		^port <left-port>
-#				^set-direction forward
-#				^set-power 0)
-#	(<right>	^port <right-port>
-#				^set-direction forward
-#				^set-power 0)
-#}
-#
-#sp {traverse-junction-real-world*propose*turn-left-right
-#	(state <s>	^name traverse-junction-real-world
-#				^relative-direction { <direction> << left right >> }
-#				^superstate <ss>)
-#	(<ss>		-^turned
-#				^has-moved-to-center
-#				^operator.name traverse-junction-real-world)
-#-->
-#	(<s>	^operator <o> +)
-#	(<o>	^name turn-left-right
-#			^relative-direction <direction>)
-#}
-#
-#sp {traverse-junction-real-world*apply*turn-left-right*motor-commands
-#	(state <s>	^operator.name turn-left-right
-#				^superstate <ss>)
-#	(<ss>		^operator.name traverse-junction-real-world)
-#-->
-#	(<ss>	^needs-90-degree-turn true)
-#}
-#
-#sp {traverse-junction-real-world*propose*turn-backward*first-90
-#	(state <s>	^name traverse-junction-real-world
-#				^relative-direction backward
-#				^superstate <ss>)
-#	(<ss>		-^turned-180
-#				-^turned-first-time
-#				^has-moved-to-center
-#				^operator.name traverse-junction-real-world)
-#-->
-#	(<s> ^operator.name turn-backward-first-90)
-#}
-#
-#sp {traverse-junction-real-world*apply*turn-backward*first-90
-#	(state <s>	^name traverse-junction-real-world
-#				^relative-direction backward
-#				^superstate <ss>
-#				^operator.name turn-backward-first-90)
-#	(<ss>		^turned <v>
-#				-^turned-first-time
-#				^has-moved-to-center
-#				^operator.name traverse-junction-real-world)
-#-->
-#	(<ss>		^turned <v> -
-#				^turned-first-time true)
-#}
-#
-#sp {traverse-junction-real-world*propose*turn-backward*second-90
-#	(state <s>	^name traverse-junction-real-world
-#				^relative-direction backward
-#				^superstate <ss>)
-#	(<ss>		-^turned-180
-#				-^turned
-#				-^needs-all-black-alignment
-#				^turned-first-time
-#				^has-moved-to-center
-#				^operator.name traverse-junction-real-world)
-#-->
-#	(<s> ^operator.name turn-backward-second-90)
-#}
-#
-#sp {traverse-junction-real-world*apply*turn-backward*motor-commands
-#	(state <s>	^operator.name << turn-backward-first-90 turn-backward-second-90 >>
-#				^superstate <ss>)
-#	(<ss>		-^turned-180
-#				^operator.name traverse-junction-real-world)
-#-->
-#	(<ss>	^needs-90-degree-turn true)
-#}
-#
-#sp {traverse-junction-real-world*apply*turn-backward*finish
-#	(state <s>	^operator.name turn-backward-second-90
-#				^superstate <ss>)
-#	(<ss>		^turned <v>
-#				^turned-second-time
-#				^operator.name traverse-junction-real-world)
-#-->
-#	(<ss>	^turned-180 true)
-#}

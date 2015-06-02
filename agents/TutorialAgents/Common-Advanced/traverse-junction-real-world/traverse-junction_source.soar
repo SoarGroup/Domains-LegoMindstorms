@@ -1,5 +1,4 @@
 source elaborations.soar
-source preferences.soar
 
 source follow-line.soar
 source turn.soar

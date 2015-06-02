@@ -1,9 +1,0 @@
-
-sp {traverse-junction-real-world*align-to-all-black*better-than*turn-180
-	(state <s>	^operator <o> +
-				^operator <o2> +)
-	(<o>	^name align-to-all-black)
-	(<o2>	^name << turn-backward-first-90 turn-backward-second-90 >>)
--->
-	(<s>	^operator <o2> > <o>)
-}
