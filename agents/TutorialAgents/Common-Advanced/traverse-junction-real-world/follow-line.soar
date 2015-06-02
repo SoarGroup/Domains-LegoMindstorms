@@ -1,0 +1,51 @@
+# Proposals for follow-line within the traverse-junction-real-world substate
+
+
+# First the robot follows the line until the front sensors are off the junction (both white)
+# This will center the motors over the junction
+sp {traverse-junction-real-world*propose*follow-line
+  (state <s> ^name traverse-junction-real-world
+              ^superstate <ss>)
+  (<ss> -^centered-on-junction)
+-->
+  (<s> ^operator <o> +)
+  (<o> ^name follow-line)
+}
+
+sp {traverse-junction-real-world*apply*follow-line*mark*centered-on-junction
+  (state <s> ^name traverse-junction-real-world
+              ^operator.name follow-line
+              ^color-sensor-values <vals>
+              ^superstate <ss>)
+  (<vals> ^left white
+           ^right white)
+  (<ss> -^centered-on-junction 
+        ^io.output-link <out>)
+-->
+  (<ss> ^centered-on-junction true)
+}
+
+# If after the turn the robot is still on the junction, 
+#   It will follow the line forward until it is off (both white)
+sp {traverse-junction-real-world*propose*follow-line*move-off-junction
+  (state <s> ^name traverse-junction-real-world
+              ^superstate <ss>)
+  (<ss> ^turned true
+         -^moved-off-junction)
+-->
+  (<s> ^operator <o> +)
+  (<o> ^name follow-line)
+}
+
+sp {traverse-junction-real-world*apply*follow-line*move-off-junction*mark*moved-off
+  (state <s> ^name traverse-junction-real-world
+              ^operator.name follow-line
+              ^color-sensor-values <colors>
+              ^superstate <ss>)
+  (<colors> ^left white
+             ^right white)
+  (<ss> ^turned true)
+-->
+  (<ss> ^moved-off-junction true)
+}
+

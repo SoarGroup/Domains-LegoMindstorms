@@ -271,7 +271,7 @@ void SoarManager::updateInputLink(Identifier* inputLink){
 
   // Only update if we actually got new info
   if(!got_update){
-    return;
+    //return;
   }
   got_update = false;
 

@@ -11,5 +11,5 @@ sp {Common-Advanced*apply*Init-Agent*create*color-map
    (<map> ^red south
           ^green east
           ^blue north
-		  ^brown north)
+		  ^brown west)
 }

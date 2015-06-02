@@ -1,9 +1,5 @@
-
 source elaborations.soar
 source preferences.soar
 
-source move-to-center.soar
+source follow-line.soar
 source turn.soar
-source turn-90.soar
-source align-to-all-black.soar
-source move-off-junction.soar

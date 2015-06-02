@@ -36,11 +36,11 @@ sp {Common-Include*Init-Agent*apply*init-agent
 		^mode follow
 		^touch-sensor-port 4
 		^left-color-sensor-port 1
+    #^center-color-sensor-port 2
 		^right-color-sensor-port 2
-		^center-color-sensor-port 3
-		^left-motor-port A
-		^right-motor-port B
-		^color-forward black
-		^color-turn white
+		^left-motor-port B
+		^right-motor-port A
+		^color-forward white
+		^color-turn black
 		^color-sensor-values <csv>)
 }

@@ -20,6 +20,7 @@ sp {propose*traverse-junction*simulator
 
 sp {propose*traverse-junction*real-world
 	(state <s>	^name line-follower
+             ^mode follow
 				^selected-direction <direction>
 				^direction-map <map>
 				^junction-color <color>
@@ -28,12 +29,29 @@ sp {propose*traverse-junction*real-world
 	(<s>	^operator <o> +)
 	(<o>	^name traverse-junction-real-world)
 	(write |Traverse Junction - Real World| (crlf))
+  (write |TRAVERSE | <direction> (crlf))
 }
 
 sp {Common-Advanced*traverse-junction*copy-sensor-values
-	(state <s>	^superstate.name line-follower
-				^superstate.color-sensor-values <csv>)
+  (state <s> ^name << traverse-junction-real-world traverse-junction-simulator >>
+              ^superstate.color-sensor-values <csv>)
 -->
 	(<s> ^color-sensor-values <csv>)
+}
+
+# Fix where the robot thinks its at a brown junction when it is at red
+#   Will clear all topstate flags and have the user select a new direction
+sp {Common-Advanced*line-follower*traverse-junction-real-world*reset*junction-color
+  (state <s> ^name line-follower
+              ^operator <o>
+              ^junction-color brown
+              ^color-sensor-values <vals>
+              ^<item-name> <val>)
+  (<vals> ^right red
+           ^left red)
+  (<o> ^name traverse-junction-real-world
+        ^item <item-name>)
+-->
+  (<s> ^<item-name> <val> -)
 }
 

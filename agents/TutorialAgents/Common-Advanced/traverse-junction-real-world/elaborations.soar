@@ -3,11 +3,15 @@ sp {traverse-junction-real-world*elaboration*motor-ports
 	(state <s>	^superstate <ss>)
 	(<ss>	^left-motor-port <left-port>
 			^right-motor-port <right-port>
-			^io <io>)
+			^io <io>
+      ^color-turn <turn>
+      ^color-forward <forward>)
 -->
 	(<s>	^left-motor-port <left-port>
 			^right-motor-port <right-port>
-			^io <io>)
+			^io <io>
+      ^color-turn <turn>
+      ^color-forward <forward>)
 }
 
 sp {traverse-junction-real-world*elaboration*elaborate-relative-direction
