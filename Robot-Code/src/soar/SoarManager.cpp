@@ -270,6 +270,7 @@ void SoarManager::updateInputLink(Identifier* inputLink){
 	WMUtil::updateIntWME(inputLink, "time-step", timeStep);
 
   // Only update if we actually got new info
+  // (Disabled for now)
   if(!got_update){
     //return;
   }
