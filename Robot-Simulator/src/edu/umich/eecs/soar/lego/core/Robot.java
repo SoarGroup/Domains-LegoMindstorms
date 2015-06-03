@@ -35,15 +35,15 @@ public class Robot
 	
 	public void update(double time)
 	{
-		// Positive = rotation to the left
-		if (motors[0].getPower() > motors[1].getPower())
+		// Negative = rotation to the left
+		if (motors[0].getPower() < motors[1].getPower())
 		{
 			rotation += 45;
 			
 			if (rotation >= 360)
 				rotation -= 360;
 		}
-		else if (motors[0].getPower() < motors[1].getPower())
+		else if (motors[0].getPower() > motors[1].getPower())
 		{
 			rotation -= 45;
 			
