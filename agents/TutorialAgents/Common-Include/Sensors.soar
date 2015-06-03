@@ -19,20 +19,7 @@ sp {Common-Include*Sensors*elaborate*color-sensor*left
 			^port <lcsp>)
 -->
 	(<csv>	^left <color-value>)
-	(write |Left Color Sensor = | <color-value> (crlf))
-}
-
-sp {Common-Include*Sensors*elaborate*color-sensor*center
-   (state <s>	^name line-follower
-				^color-sensor-values <csv>
-				^center-color-sensor-port <ccsp>
-				^io.input-link.sensor <color>)
-   (<color>	^type color
-			^value <color-value> <> none
-			^port <ccsp>)
--->
-	(<csv>	^center <color-value>)
-	(write |Center Color Sensor = | <color-value> (crlf))
+	(write |  Left Color Sensor = | <color-value> (crlf))
 }
 
 sp {Common-Include*Sensors*elaborate*color-sensor*right
@@ -45,7 +32,7 @@ sp {Common-Include*Sensors*elaborate*color-sensor*right
 				^port <rcsp>)
 -->
 	(<csv>	^right <color-value>)
-	(write |Right Color Sensor = | <color-value> (crlf))
+	(write |  Right Color Sensor = | <color-value> (crlf))
 }
 
 sp {Common-Include*Sensors*elaborate*color-sensor*left*none
@@ -58,20 +45,7 @@ sp {Common-Include*Sensors*elaborate*color-sensor*left*none
 			^port <lcsp>)
 -->
 	(<csv>	^left black)
-	(write |Left Color Sensor = | black (crlf))
-}
-
-sp {Common-Include*Sensors*elaborate*color-sensor*center*none
-   (state <s>	^name line-follower
-				^color-sensor-values <csv>
-				^center-color-sensor-port <ccsp>
-				^io.input-link.sensor <color>)
-   (<color>	^type color
-			^value none
-			^port <ccsp>)
--->
-	(<csv>	^center black)
-	(write |Center Color Sensor = | black (crlf))
+	(write |  Left Color Sensor = | black (crlf))
 }
 
 sp {Common-Include*Sensors*elaborate*color-sensor*right*none
@@ -84,7 +58,7 @@ sp {Common-Include*Sensors*elaborate*color-sensor*right*none
 				^port <rcsp>)
 -->
 	(<csv>	^right black)
-	(write |Right Color Sensor = | black (crlf))
+	(write |  Right Color Sensor = | black (crlf))
 }
 
 # If this is the follow-line substate, elaborate the

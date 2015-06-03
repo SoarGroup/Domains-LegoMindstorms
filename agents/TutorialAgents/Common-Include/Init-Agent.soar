@@ -36,6 +36,7 @@ sp {Common-Include*Init-Agent*apply*init-agent
 		^mode follow
 		^touch-sensor-port 4
 		^left-color-sensor-port 1
+    #^center-color-sensor-port 2
 		^right-color-sensor-port 2
 		^left-motor-port B
 		^right-motor-port A

@@ -1,152 +1,156 @@
 ###################################################
 # This file contains the following operators:
-#	follow-line
-#	move-left
-#	move-right
-#	move-forward
+#  follow-line
+#  move-left
+#  move-right
+#  move-forward
 #
 # This should be a total of nine rules
 ###################################################
 
 ###################################################
-#	follow-line operator
+#  follow-line operator
 ###################################################
 
 sp {Common-Advanced*top-state*propose*follow-line
-	(state <s>	^name line-follower
-				^color-sensor-values <vals>
-				^mode follow)
-        #				-^junction-color)
+  (state <s>  ^name line-follower
+              ^color-sensor-values <vals>
+              ^mode follow
+              -^junction-color)
 -->
-	(<s> ^operator <o> +)
-	(<o> ^name follow-line)
+  (<s> ^operator <o> +)
+  (<o> ^name follow-line)
+}
+
+sp {Common-Advanced*follow-line*elaborate*from*top-state
+  (state <s> ^name follow-line
+              ^top-state <top>)
+  (<top> ^color-turn <turn-color>
+          ^color-forward <forward-color>
+          ^color-sensor-values <vals>
+          ^right-motor-port <right-port>
+          ^left-motor-port <left-port>)
+-->
+  (<s> ^color-turn <turn-color>
+        ^color-forward <forward-color>
+        ^color-sensor-values <vals>
+        ^right-motor-port <right-port>
+        ^left-motor-port <left-port>)
 }
 
 ###################################################
-#	move-forward operator
+#  move-forward operator
 ###################################################
 
 # Propose the move-forward operator if the current
 # detected color sensor value is the forward value
 # and our mode is "follow"
 sp {Common-Advanced*follow-line*propose*move-forward
-	(state <s>	^name follow-line
-				^superstate <ss>)
-	(<ss>		^color-forward <forward>
-         		-^color-sensor-values.<side> <turn-color>
-				-^needs-rotation
-				-^rotation-amount)
+  (state <s>  ^name follow-line
+             ^color-turn <turn-color>
+            -^color-sensor-values.<side> <turn-color>)
 -->
-	(<s> ^operator <o> +)
-	(<o> ^name move-forward)
+  (<s> ^operator <o> +)
+  (<o> ^name move-forward)
 }
 
+# If both sensors are the turn color (both black)
+# just keep moving forward and hope that the situation changes
 sp {Common-Advanced*follow-line*propose*move-forward*both*turn
-	(state <s>	^name follow-line
-				^superstate <ss>)
-	(<ss>		^color-forward <forward>
-         		^color-sensor-values <values>
-				-^needs-rotation
-				-^rotation-amount)
-  (<values> ^right <forward>
-             ^left <forward>)
+  (state <s>  ^name follow-line
+              ^color-turn <turn-color>
+              ^color-sensor-values <values>)
+  (<values> ^right <turn-color>
+             ^left <turn-color>)
 -->
-	(<s> ^operator <o> +)
-	(<o> ^name move-forward)
+  (<s> ^operator <o> +)
+  (<o> ^name move-forward)
 }
 
 # Apply the move-forward operator if we have the
 # move-forward operator selected, an output link,
 # a left motor port, and a right motor port.
 sp {Common-Advanced*follow-line*apply*move-forward
-	(state <s>	^name follow-line
-            	^operator.name move-forward
-				^superstate <ss>)
-	(<ss>		^operator.name follow-line
-				^io.output-link <out>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>)
+  (state <s>  ^name follow-line
+              ^operator.name move-forward
+              ^io.output-link <out>
+              ^left-motor-port <left-port>
+              ^right-motor-port <right-port>)
 -->
-	# Create a command for each motor on the output
-	# link
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>		^port <left-port>
-				^set-direction forward
-				^set-power 30)
-	(<right>	^port <right-port>
-				^set-direction forward
-				^set-power 30)
+  # Create a command for each motor on the output
+  # link
+  (<out>  ^motor <left>
+          ^motor <right>)
+  (<left> ^port <left-port>
+          ^set-direction forward
+          ^set-power 40)
+  (<right> ^port <right-port>
+           ^set-direction forward
+           ^set-power 40)
 }
 
 ###################################################
-#	move-left operator
+#  move-left operator
 ###################################################
 
 sp {Common-Advanced*follow-line*propose*move-left
-	(state <s>	^name follow-line
-				^superstate <ss>)
-	(<ss>		^color-sensor-values <values>
-         		^color-forward <forward>)
-  (<values> 	^left <forward>
-             	^right <> <forward>)
+  (state <s>  ^name follow-line
+              ^color-sensor-values <values>
+              ^color-turn <turn-color>)
+  (<values> ^left <turn-color>
+            ^right <> <turn-color>)
 -->
-	(<s> ^operator <o> +)
-	(<o> ^name move-left)
+  (<s> ^operator <o> +)
+  (<o> ^name move-left)
 }
 
 sp {Common-Advanced*follow-line*apply*move-left
-	(state <s>	^name follow-line
-            	^operator.name move-left
-				^superstate <ss>)
-	(<ss>		^operator.name follow-line
-				^io.output-link <out>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>)
+  (state <s>  ^name follow-line
+              ^operator.name move-left
+              ^io.output-link <out>
+              ^left-motor-port <left-port>
+              ^right-motor-port <right-port>)
 -->
-#	(<ss>	^needs-rotation left)
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>	^port <left-port>
-					^set-direction backward
-					^set-power 40)
-	(<right>	^port <right-port>
-					 ^set-direction forward
-					 ^set-power 20)
+  (<out> ^motor <left>
+         ^motor <right>)
+  (<left> ^port <left-port>
+          ^set-direction backward
+          ^set-power 20)
+  (<right> ^port <right-port>
+           ^set-direction forward
+           ^set-power 40)
 }
 
+
 ###################################################
-#	move-right operator
+#  move-right operator
 ###################################################
 
 sp {Common-Advanced*follow-line*propose*move-right
-	(state <s>	^name follow-line
-				^superstate <ss>)
-	(<ss>		^color-sensor-values <values>
-         ^color-forward <forward>)
-  (<values>	^right <forward>
-             ^left <> <forward>)
+  (state <s>  ^name follow-line
+               ^color-sensor-values <values>
+               ^color-turn <turn-color>)
+  (<values>  ^right <turn-color>
+             ^left <> <turn-color>)
 -->
-	(<s> ^operator <o> +)
-	(<o> ^name move-right)
+  (<s> ^operator <o> +)
+  (<o> ^name move-right)
 }
 
 sp {Common-Advanced*follow-line*apply*move-right
-	(state <s>	^name follow-line
-            	^operator.name move-right
-				^superstate <ss>)
-	(<ss>		^operator.name follow-line
-				^io.output-link <out>
-				^left-motor-port <left-port>
-				^right-motor-port <right-port>)
+  (state <s>  ^name follow-line
+              ^operator.name move-right
+              ^io.output-link <out>
+              ^left-motor-port <left-port>
+              ^right-motor-port <right-port>)
 -->
-#(<ss>	^needs-rotation right)
-	(<out>	^motor <left>
-			^motor <right>)
-	(<left>	^port <left-port>
-					^set-direction forward
-					^set-power 20)
-	(<right>	^port <right-port>
-					 ^set-direction backward
-					 ^set-power 40)
+  (<out>  ^motor <left>
+      ^motor <right>)
+  (<left>  ^port <left-port>
+          ^set-direction forward
+          ^set-power 40)
+  (<right>  ^port <right-port>
+           ^set-direction backward
+           ^set-power 20)
 }
+

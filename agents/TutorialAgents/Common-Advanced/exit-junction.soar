@@ -2,19 +2,27 @@
 sp {propose*exit-junction
 	(state <s>	^name line-follower
 				^junction-color <color>
-				^moved-off-junction-almost
-				^color-sensor-values <values>)
-	(<values>	^left <> <color>
-				^center <> <color>
-				^right <> <color>)
+        ^moved-off-junction true)
 -->
 	(<s>	^operator <o> + >)
 	(<o>	^name exit-junction
-			^action stop
+			^action stop)
+}
+
+# Add to traverse-junction-real-world for fix to seeing red as brown
+sp {line-follower*elaborate*exit-junction*items*to*remove
+  (state <s> ^name line-follower
+              ^operator <o> +)
+  (<o> ^name << exit-junction traverse-junction-real-world >>)
+-->
+  (<o>
 			^item selected-direction
+      ^item centered-on-junction
+      ^item moved-off-junction
 			^item aligned-to-junction
 			^item has-centered
 			^item mark
+      ^item desired-rotation
 			^item turned
 			^item moved-off-junction-almost
 			^item moved-off-junction
@@ -29,6 +37,7 @@ sp {propose*exit-junction
 			^item turned-first-time
 			^item turned-180)
 }
+
 
 sp {apply*exit-junction*remove-items
 	(state <s>	^operator <o>

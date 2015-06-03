@@ -1,48 +1,55 @@
+sp {top-state*elaborate*top-state
+  (state <s> ^superstate nil)
+-->
+  (<s> ^top-state <s>)
+}
+
+sp {substate*elaborate*top-state
+  (state <s> ^superstate.top-state <top>)
+-->
+  (<s> ^top-state <top>)
+}
+
+sp {anystate*elaborate*io*from*top-state
+  (state <s> ^superstate.io <io>)
+-->
+  (<s> ^io <io>)
+}
+
 sp {navigation*elaborate*color-type*path
 	(state <s> ^name line-follower
 				 ^color-sensor-values <vals>)
 	(<vals> ^left << black white >>
-			^right << black white >>
-			^center << black white >>)
+			^right << black white >>)
 -->
 	(<s> ^color-type path)
 }
 
-sp {navigation*elaborate*color-type*junction*left
+# Both sensors have to see the color
+sp {navigation*elaborate*color-type*junction
 	(state <s> ^name line-follower
 			   ^color-sensor-values <vals>)
-	(<vals> ^left { <color> << red yellow green blue brown >>}
-			^<< center right >> <> white)
+  (<vals> ^left { <color> << red yellow green blue brown >> }
+           ^right <color>)
 -->
 	(<s> ^color-type junction)
 }
 
-sp {navigation*elaborate*color-type*junction*right
-	(state <s> ^name line-follower
-			   ^color-sensor-values <vals>)
-	(<vals> ^right { <color> << red yellow green blue brown >>}
-			^center <> white
-			^left <> white)
--->
-	(<s> ^color-type junction)
-}
+#sp {navigation*monitor*color*junction
+#	(state <s> ^name line-follower
+#			   ^color-sensor-values <vals>)
+#	(<vals> ^left <color> << red blue green brown yellow >>
+#          ^right <color>)
+#-->
+#	(write |Junction Color: | <color> (crlf))
+#}
 
-sp {navigation*monitor*color*junction
-	(state <s> ^name line-follower
-			   ^color-sensor-values <vals>)
-	(<vals> ^left <color1> << red blue green brown yellow >>
-			^right <color2> << red blue green brown yellow >>
-			^center <color> black)
--->
-	(write |Junction Colors: | <color1> | | <color> | | <color2> (crlf))
-}
-
-sp {navigation*monitor*color*follow
-	(state <s>	^name line-follower
-				^color-sensor-values <vals>)
-	(<vals> ^left { <color1> << black white >> }
-			^right { <color2> << black white >> }
-			^center { <color3> << black white >> })
--->
-	(write |Follow Colors: Left (| <color1> |), Right (| <color2> |), Center (| <color3> |)| (crlf))
-}
+#sp {navigation*monitor*color*follow
+#	(state <s>	^name line-follower
+#				^color-sensor-values <vals>)
+#	(<vals> ^left { <color1> << black white >> }
+#			^right { <color2> << black white >> }
+#			^center { <color3> << black white >> })
+#-->
+#	(write |Follow Colors: Left (| <color1> |), Right (| <color2> |), Center (| <color3> |)| (crlf))
+#}
