@@ -1,0 +1,82 @@
+source Common-Include/Common-Include_source.soar
+
+source Common-Advanced/Common-Advanced_source.soar
+source Common-Advanced-Stage1.soar
+
+# Turn RL on
+rl -s learning on
+indiff -g # greedy
+indiff -e 0.001 # low epsilon
+
+####################################################
+#	select-direction operator
+#
+#	Proposed when we reach a junction and have not
+#	yet selected a direction to go in
+####################################################
+
+sp {Stage1*propose*select-direction
+   (state <s> ^name line-follower
+              ^junction-color <color>
+             -^selected-direction
+              ^direction <dir>)
+-->
+   (<s> ^operator <o> +)
+   (<o> ^name select-direction
+        ^direction <dir>)
+}
+
+####################################################
+#	apply*select-direction
+#
+#	Creates the ^selected-direction flag on the top
+#	state with the direction to go in.
+####################################################
+
+sp {Stage1*apply*select-direction
+   (state <s> ^name line-follower
+              ^operator <o>)
+   (<o> ^name select-direction
+        ^direction <dir>)
+-->
+   (<s> ^selected-direction <dir>)
+}
+
+####################################################
+#	Reinforcement Learning Rules
+#
+#	Creates numeric preferences and other things
+#	required for reinforcement learning
+####################################################
+
+gp {Stage1*propose*select-direction*RL
+	(state <s>	^name line-follower
+				^operator <o> +
+				^junction-color [ green red blue brown ]
+				-^selected-direction)
+	(<o>	^name select-direction
+			^direction [ north south east west ])
+-->
+	(<s>	^operator <o> = 0)
+}
+
+sp {Stage1*evaluate*direction*yellow*bad
+	(state <s>	^reward-link <r>
+				^junction-color yellow)
+-->
+	(<r>	^reward.value -10)
+}
+
+sp {Stage1*reject-backwards
+	(state <s>	^operator <o> +
+				^current-direction <current-direction>
+				^direction-map.direction <mapping>
+				^junction-color <> yellow)
+	(<mapping>	^name <current-direction>
+				^backward.name <direction>)
+	(<o>	^name select-direction
+			^direction <direction>)
+-->
+	(<s>	^operator <o> -)
+}
+
