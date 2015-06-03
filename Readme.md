@@ -1,19 +1,19 @@
 ## Soar LEGO® Mindstorms
 
-Welcome to the Soar LEGO® Mindstorms repository! This repository contains code to run Soar on Lego Mindstorms EV3 robots.  It also includes a simulator for the normal robot we use (treads, two color sensors, and a touch sensor).  A copy of the tutorial using this repository can be found [here](https://docs.google.com/document/d/1o9cWNXP0AgLJzQmlCPAdEuyOAd7NEor-ECX9C724lwE/).
+Welcome to the Soar LEGO® Mindstorms repository! This repository contains code to run Soar on LEGO® Mindstorms EV3 robots.  It also includes a simulator for the normal robot we use (treads, two color sensors, and a touch sensor).  A copy of the tutorial using this repository can be found [here](https://docs.google.com/document/d/1o9cWNXP0AgLJzQmlCPAdEuyOAd7NEor-ECX9C724lwE/).
 
 # Directory Structure
 
 * agents/
   * This folder contains example agents including the agents for the Soar Workshop tutorials.
 * Robot-Code/
-  * This folder contains the code for running Soar on a Lego Mindstorms EV3 Robot.
+  * This folder contains the code for running Soar on a LEGO® Mindstorms EV3 Robot.
 * Robot-Simulator/
-  * This folder contains a simulator for the default configuration of our Lego Mindstorms EV3 robots (two color sensors in the center facing down, a touch sensor facing forward, and two treads for moving).
+  * This folder contains a simulator for the default configuration of our LEGO® Mindstorms EV3 robots (two color sensors in the center facing down, a touch sensor facing forward, and two treads for moving).
 
 ## Motivation
 
-We created this project as a means to teach people Soar in an interative manner.  We decided to use Lego Mindstorms EV3 because who doesn't like playing with legos? ;)
+We created this project as a means to teach people Soar in an interative manner.  We decided to use LEGO® Mindstorms EV3 because who doesn't like playing with legos? ;)
 
 ## Installation
 
