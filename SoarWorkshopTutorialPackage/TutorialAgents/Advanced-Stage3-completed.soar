@@ -29,7 +29,7 @@ sp {Stage3*propose*mark-direction-blocked*new-junction
 
 sp {Stage3*propose*mark-direction-blocked*entering-direction
 	(state <s>	^name line-follower
-				^junction-color { <cur-color> << red 56 blue brown >> }
+				^junction-color { <cur-color> << red green blue brown >> }
 				^previous-junction-color << red green blue brown >>
 				^current-direction <cur-dir>
 				^direction-map.direction <dir>
