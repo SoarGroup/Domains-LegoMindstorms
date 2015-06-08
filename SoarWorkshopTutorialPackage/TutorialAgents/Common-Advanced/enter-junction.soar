@@ -8,7 +8,7 @@ sp {Common-Advanced*propose*enter-junction
 	(<s>	^operator <o> + >)
 	(<o>	^name enter-junction
        ^junction-color <color>
-			^action stop)
+       ^action stop)
 }
 
 sp {Common-Advanced*apply*enter-junction*create*junction-color
@@ -18,7 +18,6 @@ sp {Common-Advanced*apply*enter-junction*create*junction-color
         ^junction-color <color>)
 -->
 	(<s>	^junction-color <color>)
-  (write |Entering | <color> | Junction| (crlf))
 }
 
 

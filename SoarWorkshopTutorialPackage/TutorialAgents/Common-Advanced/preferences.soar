@@ -31,3 +31,4 @@ sp {Common-Advanced*prefer*follow-line-if-needs-rotation
 -->
 	(<s>	^operator <o1> > <o2>)
 }
+

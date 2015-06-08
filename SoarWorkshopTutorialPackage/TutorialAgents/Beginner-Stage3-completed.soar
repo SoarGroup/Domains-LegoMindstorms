@@ -65,8 +65,7 @@ sp {Stage3*propose*record-red
 	(<values> ^<< left right >> red)
 -->
 	(<s> ^operator <o> +)
-	(<o> ^name record-red
-		 ^action stop)
+	(<o> ^name record-red)
 }
 
 sp {Stage3*apply*record-red

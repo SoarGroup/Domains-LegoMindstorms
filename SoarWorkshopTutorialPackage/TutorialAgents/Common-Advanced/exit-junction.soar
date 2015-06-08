@@ -6,14 +6,14 @@ sp {propose*exit-junction
 -->
 	(<s>	^operator <o> + >)
 	(<o>	^name exit-junction
-			^action stop)
+       ^action stop)
 }
 
 # Add to traverse-junction-real-world for fix to seeing red as brown
 sp {line-follower*elaborate*exit-junction*items*to*remove
   (state <s> ^name line-follower
               ^operator <o> +)
-  (<o> ^name << exit-junction traverse-junction-real-world >>)
+  (<o> ^name << exit-junction reset-junction-color >>)
 -->
   (<o>
 			^item selected-direction

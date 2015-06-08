@@ -1,8 +1,8 @@
 # Proposals for follow-line within the traverse-junction-real-world substate
 
 
-# First the robot follows the line until the front sensors are off the junction (both white)
-# This will center the motors over the junction
+## First the robot follows the line until the front sensors are off the junction (both white)
+## This will center the motors over the junction
 sp {traverse-junction-real-world*propose*follow-line
   (state <s> ^name traverse-junction-real-world
               ^top-state <top>)
